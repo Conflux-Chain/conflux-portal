@@ -3,9 +3,7 @@
 ## Current Develop Branch
 
 ## 0.0.6 Tue Feb 11 2020
-
-## 0.0.5 Mon Feb 10 2020
-- [#7912](https://github.com/MetaMask/metamask-extension/pull/7912): Disable import button for empty string/file
+- Fix: use fc's balanceOf instead of stateOf, treat fc as a normal erc20 token (#37)
 
 ## 0.0.5 Mon Feb 10 2020
 - [#7912](https://github.com/MetaMask/metamask-extension/pull/7912): Disable import button for empty string/file
