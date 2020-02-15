@@ -3,7 +3,10 @@ import PropTypes from 'prop-types'
 import Identicon from '../../../../components/ui/identicon'
 import TextField from '../../../../components/ui/text-field'
 import { CONTACT_LIST_ROUTE } from '../../../../helpers/constants/routes'
-import { isValidAddress, isValidDomainName } from '../../../../helpers/utils/util'
+import {
+  isValidAddress,
+  isValidDomainName,
+} from '../../../../helpers/utils/util'
 import EnsInput from '../../../send/send-content/add-recipient/ens-input'
 import PageContainerFooter from '../../../../components/ui/page-container/page-container-footer'
 import { debounce } from 'lodash'

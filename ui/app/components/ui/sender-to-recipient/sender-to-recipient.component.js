@@ -84,8 +84,8 @@ export default class SenderToRecipient extends PureComponent {
       >
         <div className="sender-to-recipient__name">
           {addressOnly ? (
-            <span>{`${t('from')}: ${senderName ||
-              checksummedSenderAddress}`}
+            <span>
+              {`${t('from')}: ${senderName || checksummedSenderAddress}`}
             </span>
           ) : (
             senderName

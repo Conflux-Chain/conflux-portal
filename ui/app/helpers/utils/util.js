@@ -82,7 +82,8 @@ export function isValidAddress (address) {
 }
 
 export function isValidDomainName (address) {
-  const match = punycode.toASCII(address)
+  const match = punycode
+    .toASCII(address)
     .toLowerCase()
     // Checks that the domain consists of at least one valid domain pieces separated by periods, followed by a tld
     // Each piece of domain name has only the characters a-z, 0-9, and a hyphen (but not at the start or end of chunk)
