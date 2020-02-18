@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import c from 'classnames'
-import {
-  isValidENSAddress,
-  isValidAddress,
-  isValidAddressHead,
-} from '../../../../helpers/utils/util'
+import { isValidDomainName, isValidAddress, isValidAddressHead } from '../../../../helpers/utils/util'
 import { ellipsify } from '../../send.utils'
 
 import { debounce } from 'lodash'
@@ -97,13 +93,8 @@ export default class EnsInput extends Component {
         this.props.updateEnsResolution(address)
       })
       .catch((reason) => {
-        if (
-          isValidENSAddress(recipient) &&
-          reason.message === 'ENS name not defined.'
-        ) {
-          this.props.updateEnsResolutionError(
-            this.context.t('ensNotFoundOnCurrentNetwork')
-          )
+        if (isValidDomainName(recipient) && reason.message === 'ENS name not defined.') {
+          this.props.updateEnsResolutionError(this.context.t('ensNotFoundOnCurrentNetwork'))
         } else {
           log.error(reason)
           this.props.updateEnsResolutionError(reason.message)
@@ -147,7 +138,7 @@ export default class EnsInput extends Component {
       return
     }
 
-    if (isValidENSAddress(input)) {
+    if (isValidDomainName(input)) {
       this.lookupEnsName(input)
     } else if (onValidAddressTyped && isValidAddress(input)) {
       onValidAddressTyped(input)

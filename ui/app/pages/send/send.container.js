@@ -36,10 +36,19 @@ import {
   updateSendEnsResolution,
   updateSendEnsResolutionError,
 } from '../../store/actions'
-import { resetSendState, updateSendErrors } from '../../ducks/send/send.duck'
-import { fetchBasicGasEstimates } from '../../ducks/gas/gas.duck'
-import { calcGasTotal } from './send.utils.js'
-import { isValidENSAddress } from '../../helpers/utils/util'
+import {
+  resetSendState,
+  updateSendErrors,
+} from '../../ducks/send/send.duck'
+import {
+  fetchBasicGasEstimates,
+} from '../../ducks/gas/gas.duck'
+import {
+  calcGasTotal,
+} from './send.utils.js'
+import {
+  isValidDomainName,
+} from '../../helpers/utils/util'
 
 function mapStateToProps (state) {
   return {
@@ -117,9 +126,8 @@ function mapDispatchToProps (dispatch) {
     updateSendEnsResolutionError: (message) =>
       dispatch(updateSendEnsResolutionError(message)),
     updateToNicknameIfNecessary: (to, toNickname, addressBook) => {
-      if (isValidENSAddress(toNickname)) {
-        const addressBookEntry =
-          addressBook.find(({ address }) => to === address) || {}
+      if (isValidDomainName(toNickname)) {
+        const addressBookEntry = addressBook.find(({ address }) => to === address) || {}
         if (!addressBookEntry.name !== toNickname) {
           dispatch(updateSendTo(to, addressBookEntry.name || ''))
         }
