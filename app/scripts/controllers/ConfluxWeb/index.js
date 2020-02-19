@@ -11,7 +11,7 @@ class FakeContract {
   }
 }
 
-module.exports = class Web3 extends Conflux {
+export default class Web3 extends Conflux {
   constructor () {
     if (arguments[0] && arguments[0]._confluxWebProvider) {
       super(arguments[0]._confluxWebProvider)
