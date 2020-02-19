@@ -1080,6 +1080,13 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
+"@babel/runtime@^7.8.4":
+  version "7.8.4"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.8.4.tgz#d79f5a2040f7caa24d53e563aad49cbc05581308"
+  integrity sha512-neAp3zt80trRVBI1x0azq6c57aNBqYZH8KhMm3TaB7wEI5Q4A2SHfBHE8w9gOhI/lrqxtEbXZgQIrHP+wvSGwQ==
+  dependencies:
+    regenerator-runtime "^0.13.2"
+
 "@babel/template@^7.1.0", "@babel/template@^7.4.0", "@babel/template@^7.4.4":
   version "7.4.4"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.4.4.tgz#f4b88d1225689a08f5bc3a17483545be9e4ed237"
@@ -3064,10 +3071,10 @@
     tmp "^0.1.0"
     unzip-stream "^0.3.0"
 
-"@yqrashawn/conflux-portal-inpage-provider@^4.0.7":
-  version "4.0.7"
-  resolved "https://registry.yarnpkg.com/@yqrashawn/conflux-portal-inpage-provider/-/conflux-portal-inpage-provider-4.0.7.tgz#47e2fa969e0d7141ba38ca473be079e09c5b739b"
-  integrity sha512-duFaJHCVNy5/7Kho3D3LxLKnElLIpZAdo/4oH+31MZhkUXgzLeIF+bi3uDZtAsB80lb+d2rAo6CB1Gzrb1Ow3Q==
+"@yqrashawn/conflux-portal-inpage-provider@^4.0.8":
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/@yqrashawn/conflux-portal-inpage-provider/-/conflux-portal-inpage-provider-4.0.8.tgz#55d9ab5b1c79e35a6e4fa4509c7e89cf88d30811"
+  integrity sha512-vq9WTQ8AFfvYqxb8jqDXbhRGHLorOnrj087UzI40O1YvqAFbUr1ubcfoUPkt8lVk9VH6jtLwEB2K3/nYYb/uAA==
   dependencies:
     eth-json-rpc-errors "^2.0.0"
     fast-deep-equal "^2.0.1"
@@ -10458,6 +10465,11 @@ eslint@^6.0.1:
     table "^5.2.3"
     text-table "^0.2.0"
 
+esm@^3.2.25:
+  version "3.2.25"
+  resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.25.tgz#342c18c29d56157688ba5ce31f8431fbb795cc10"
+  integrity sha512-U1suiZ2oDVWv4zPO56S0NcR5QriEahGtdN2OR6FiOG4WJvcjBVFB0qI4+eKoWFH483PKGuLuu6V8Z4T5g63UVA==
+
 espree@6.1.1:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/espree/-/espree-6.1.1.tgz#7f80e5f7257fc47db450022d723e356daeb1e5de"
@@ -16893,11 +16905,14 @@ js-conflux-sdk@^0.4.0-beta:
     secp256k1 "^3.7.1"
     superagent "^5.1.0"
 
-js-conflux-sdk@^0.6.0-alpha:
-  version "0.6.0-alpha"
-  resolved "https://registry.yarnpkg.com/js-conflux-sdk/-/js-conflux-sdk-0.6.0-alpha.tgz#ef43685bf81bddc4b6134e1f5272e90ecd2d6cb3"
-  integrity sha512-JauQcWkCbqPijVlalCNEQC6qbiiQ0nQMJtL+B9nrpmdTnTBLuwIQJshIf1/wjbIfeprWmk1QfwLDLzGNh+8msg==
+js-conflux-sdk@^0.7.5:
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/js-conflux-sdk/-/js-conflux-sdk-0.7.5.tgz#5d47c33664156f16f61ad18e70ab172f97760e4e"
+  integrity sha512-NCo3b10+KDlXDlioKrPPk4DrYehX85+vVb944c0+uSPcy6ZHSWMu0vM7O5vu6M4o27rYhcfEJHxz7F2Au8N3pw==
   dependencies:
+    "@babel/runtime" "^7.8.4"
+    esm "^3.2.25"
+    jsbi "^3.1.1"
     keccak "^2.0.0"
     lodash "^4.17.15"
     secp256k1 "^3.7.1"
@@ -16965,6 +16980,11 @@ jsan@^3.1.13:
   version "3.1.13"
   resolved "https://registry.yarnpkg.com/jsan/-/jsan-3.1.13.tgz#4de8c7bf8d1cfcd020c313d438f930cec4b91d86"
   integrity sha512-9kGpCsGHifmw6oJet+y8HaCl14y7qgAsxVdV3pCHDySNR3BfDC30zgkssd7x5LRVAT22dnpbe9JdzzmXZnq9/g==
+
+jsbi@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/jsbi/-/jsbi-3.1.1.tgz#8ea18b3e08d102c6cc09acaa9a099921d775f4fa"
+  integrity sha512-+HQESPaV0mRiH614z4JPVPAftcRC2p53x92lySPzUzFwJbJTMpzHz8OYUkcXPN3fOcHUe0NdVcHnCtX/1+eCrA==
 
 jsbn@1.1.0:
   version "1.1.0"
