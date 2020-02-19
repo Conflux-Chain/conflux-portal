@@ -35,6 +35,10 @@ export const selectedAddressTxListSelector = (state) =>
   state.metamask.selectedAddressTxList
 export const unapprovedPersonalMsgsSelector = (state) =>
   state.metamask.unapprovedPersonalMsgs
+export const unapprovedDecryptMsgsSelector = (state) =>
+  state.metamask.unapprovedDecryptMsgs
+export const unapprovedEncryptionPublicKeyMsgsSelector = (state) =>
+  state.metamask.unapprovedEncryptionPublicKeyMsgs
 export const unapprovedTypedMessagesSelector = (state) =>
   state.metamask.unapprovedTypedMessages
 export const networkSelector = (state) => state.metamask.network
@@ -42,11 +46,15 @@ export const networkSelector = (state) => state.metamask.network
 export const unapprovedMessagesSelector = createSelector(
   unapprovedMsgsSelector,
   unapprovedPersonalMsgsSelector,
+  unapprovedDecryptMsgsSelector,
+  unapprovedEncryptionPublicKeyMsgsSelector,
   unapprovedTypedMessagesSelector,
   networkSelector,
   (
     unapprovedMsgs = {},
     unapprovedPersonalMsgs = {},
+    unapprovedDecryptMsgs = {},
+    unapprovedEncryptionPublicKeyMsgs = {},
     unapprovedTypedMessages = {},
     network
   ) =>
@@ -54,6 +62,8 @@ export const unapprovedMessagesSelector = createSelector(
       {},
       unapprovedMsgs,
       unapprovedPersonalMsgs,
+      unapprovedDecryptMsgs,
+      unapprovedEncryptionPublicKeyMsgs,
       unapprovedTypedMessages,
       network
     ) || []

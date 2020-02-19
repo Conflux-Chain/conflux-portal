@@ -5,6 +5,8 @@ export default function txHelper (
   unapprovedTxs,
   unapprovedMsgs,
   personalMsgs,
+  decryptMsgs,
+  encryptionPublicKeyMsgs,
   typedMessages,
   network
 ) {
@@ -13,6 +15,8 @@ export default function txHelper (
     unapprovedTxs,
     unapprovedMsgs,
     personalMsgs,
+    decryptMsgs,
+    encryptionPublicKeyMsgs,
     typedMessages,
     network,
   })
@@ -33,6 +37,16 @@ export default function txHelper (
     `tx helper found ${personalValues.length} unsigned personal messages`
   )
   allValues = allValues.concat(personalValues)
+
+  const decryptValues = valuesFor(decryptMsgs)
+  log.debug(`tx helper found ${decryptValues.length} decrypt requests`)
+  allValues = allValues.concat(decryptValues)
+
+  const encryptionPublicKeyValues = valuesFor(encryptionPublicKeyMsgs)
+  log.debug(
+    `tx helper found ${encryptionPublicKeyValues.length} encryptionPublicKey requests`
+  )
+  allValues = allValues.concat(encryptionPublicKeyValues)
 
   const typedValues = valuesFor(typedMessages)
   log.debug(`tx helper found ${typedValues.length} unsigned typed messages`)

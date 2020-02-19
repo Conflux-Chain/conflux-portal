@@ -347,6 +347,8 @@ export function getTotalUnapprovedCount ({ metamask }) {
     unapprovedTxs = {},
     unapprovedMsgCount,
     unapprovedPersonalMsgCount,
+    unapprovedDecryptMsgCount,
+    unapprovedEncryptionPublicKeyMsgCount,
     unapprovedTypedMessagesCount,
   } = metamask
 
@@ -354,7 +356,9 @@ export function getTotalUnapprovedCount ({ metamask }) {
     Object.keys(unapprovedTxs).length +
     unapprovedMsgCount +
     unapprovedPersonalMsgCount +
-    unapprovedTypedMessagesCount
+    unapprovedTypedMessagesCount +
+    unapprovedDecryptMsgCount +
+    unapprovedEncryptionPublicKeyMsgCount
   )
 }
 
