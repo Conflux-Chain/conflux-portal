@@ -39,7 +39,7 @@ async function start () {
   // provide app state to append to error logs
   function getState () {
     // get app state
-    const state = window.getCleanAppState()
+    const state = window.getCleanAppState ? window.getCleanAppState() : {}
     // remove unnecessary data
     delete state.localeMessages
     delete state.metamask.recentBlocks
@@ -48,7 +48,7 @@ async function start () {
   }
 
   // identify window type (popup, notification)
-  const windowType = getEnvironmentType(window.location.href)
+  const windowType = getEnvironmentType()
   global.METAMASK_UI_TYPE = windowType
   closePopupIfOpen(windowType)
 
@@ -139,8 +139,8 @@ function initializeUi (activeTab, container, connectionStream, cb) {
  */
 function connectToAccountManager (connectionStream, cb) {
   const mx = setupMultiplex(connectionStream)
-  setupControllerConnection(mx.createStream('controller'), cb)
-  setupWeb3Connection(mx.createStream('provider'))
+  setupControllerConnection(mx.createStream('confluxPortalController'), cb)
+  setupWeb3Connection(mx.createStream('confluxPortalProvider'))
 }
 
 /**

@@ -155,10 +155,10 @@
   "attributions": {
     "message": "Attributions"
   },
-  "autoLogoutTimeLimit": {
-    "message": "Auto-Logout Timer (minutes)"
+  "autoLockTimeLimit": {
+    "message": "Auto-Lock Timer (minutes)"
   },
-  "autoLogoutTimeLimitDescription": {
+  "autoLockTimeLimitDescription": {
     "message": "Set the idle time in minutes before ConfluxPortal will automatically log out"
   },
   "average": {
@@ -531,6 +531,38 @@
   "enterPasswordContinue": {
     "message": "Enter password to continue"
   },
+  "errorCode": {
+    "message": "Code: $1",
+    "description": "Displayed error code for debugging purposes. $1 is the error code"
+  },
+  "errorDetails": {
+    "message": "Error Details",
+    "description": "Title for collapsible section that displays error details for debugging purposes"
+  },
+  "errorMessage": {
+    "message": "Message: $1",
+    "description": "Displayed error message for debugging purposes. $1 is the error message"
+  },
+  "errorName": {
+    "message": "Code: $1",
+    "description": "Displayed error name for debugging purposes. $1 is the error name"
+  },
+  "errorPageTitle": {
+    "message": "MetaMask encountered an error",
+    "description": "Title of generic error page"
+  },
+  "errorPageMessage": {
+    "message": "Try again by reloading the page, or contact support at support@metamask.io",
+    "description": "Message displayed on generic error page in the fullscreen or notification UI"
+  },
+  "errorPagePopupMessage": {
+    "message": "Try again by closing and reopening the popup, or contact support at support@metamask.io",
+    "description": "Message displayed on generic error page in the popup UI"
+  },
+  "errorStack": {
+    "message": "Stack:",
+    "description": "Title for error stack, which is displayed for debugging purposes"
+  },
   "ethereumPublicAddress": {
     "message": "Conflux Public Address"
   },
@@ -714,6 +746,12 @@
   "knownAddressRecipient": {
     "message": "Known contract address."
   },
+  "knownTokenWarning": {
+    "message": "This action will edit tokens that are already listed in your wallet, which can be used to phish you. Only approve if you are certain that you mean to change what these tokens represent."
+  },
+  "reusedTokenNameWarning": {
+    "message": "A token here reuses a symbol from another token you watch, this can be confusing or deceptive."
+  },
   "invalidAddressRecipientNotEthNetwork": {
     "message": "Not CFX network, set to lowercase"
   },
@@ -791,14 +829,11 @@
   "localhost": {
     "message": "Localhost 12539"
   },
-  "login": {
-    "message": "Log In"
+  "lock": {
+    "message": "Lock"
   },
-  "logout": {
-    "message": "Log out"
-  },
-  "logoutTimeTooGreat": {
-    "message": "Logout time is too great"
+  "lockTimeTooGreat": {
+    "message": "Lock time is too great"
   },
   "mainnet": {
     "message": "Conflux Main Network (not released yet, fallback to conflux test net)"
@@ -817,9 +852,6 @@
   },
   "metamaskDescription": {
     "message": "Connecting you to Conflux and the Decentralized Web."
-  },
-  "metamaskSeedWords": {
-    "message": "ConfluxPortal Seed Words"
   },
   "metamaskVersion": {
     "message": "ConfluxPortal Version"
@@ -1164,7 +1196,7 @@
     "message": "Separate each word with a single space"
   },
   "seedPhraseReq": {
-    "message": "Seed phrases are 12 words long"
+    "message": "Seed phrases contain 12, 15, 18, 21, or 24 words"
   },
   "selectCurrency": {
     "message": "Select Currency"
@@ -1287,6 +1319,12 @@
     "message": "Spend limit requested by $1",
     "description": "Origin of the site requesting the spend limit"
   },
+  "spendLimitTooLarge": {
+    "message": "Spend limit too large"
+  },
+  "spendLimitInvalid": {
+    "message": "Spend limit invalid; must be a positive number"
+  },
   "switchNetworks": {
     "message": "Switch Networks"
   },
@@ -1318,7 +1356,7 @@
     "message": "3. Start using dApps and more!"
   },
   "step3HardwareWalletMsg": {
-    "message": "Use your hardware account like you would with any Conflux account. Log in to dApps, send CFX, buy and store ERC20 tokens and Non-Fungible tokens like CryptoKitties. (hardware account is not fulled tested, use with your own risk)"
+    "message": "Use your hardware account like you would with any Conflux account. Log in to dApps, send CFX, buy and store ERC20 tokens and Non-Fungible tokens like CryptoKitties. (hardware account is not fully tested, use with your own risk)"
   },
   "storePhrase": {
     "message": "Store this phrase in a password manager like 1Password."

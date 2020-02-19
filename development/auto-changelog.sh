@@ -4,7 +4,7 @@ set -e
 set -u
 set -o pipefail
 
-readonly URL='https://github.com/Conflux-Chain/conflux-portal'
+# readonly URL='https://github.com/Conflux-Chain/conflux-portal'
 
 git fetch --tags
 
@@ -18,8 +18,9 @@ do
     # Squash & Merge: the commit subject is parsed as `<description> (#<PR ID>)`
     if grep -E -q '\(#[[:digit:]]+\)' <<< "$subject"
     then
-        pr="$(awk '{print $NF}' <<< "$subject" | tr -d '()')"
-        prefix="[$pr]($URL/pull/${pr###}): "
+        # pr="$(awk '{print $NF}' <<< "$subject" | tr -d '()')"
+        # prefix="[$pr]($URL/pull/${pr###}): "
+        prefix=''
         description="$(awk '{NF--; print $0}' <<< "$subject")"
 
     # Merge: the PR ID is parsed from the git subject (which is of the form `Merge pull request
@@ -27,8 +28,9 @@ do
     #   If no body is found, the description is set to the commit subject
     elif grep -E -q '#[[:digit:]]+\sfrom' <<< "$subject"
     then
-        pr="$(awk '{print $4}' <<< "$subject")"
-        prefix="[$pr]($URL/pull/${pr###}): "
+        # pr="$(awk '{print $4}' <<< "$subject")"
+        # prefix="[$pr]($URL/pull/${pr###}): "
+        prefix=''
 
         first_line_of_body="$(git show -s --format="%b" "$commit" | head -n 1 | tr -d '\r')"
         if [[ -z "$first_line_of_body" ]]
@@ -40,7 +42,7 @@ do
 
     # Normal commits: The commit subject is the description, and the PR ID is omitted.
     else
-        pr=''
+        # pr=''
         prefix=''
         description="$subject"
     fi

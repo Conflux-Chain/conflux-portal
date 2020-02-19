@@ -1,4 +1,4 @@
-/*global confluxJS, conflux, MetamaskOnboarding, HumanStandardTokenContractCode PiggyBankContractCode keccak256*/
+/*global confluxJS, conflux, ConfluxPortalOnboarding, HumanStandardTokenContractCode PiggyBankContractCode keccak256*/
 
 /*
 The `piggybankContract` is compiled from:
@@ -32,7 +32,7 @@ The `piggybankContract` is compiled from:
 
 const forwarderOrigin = 'http://localhost:9010'
 
-const isMetaMaskInstalled = () => {
+const isConfluxPortalInstalled = () => {
   return Boolean(window.conflux && window.conflux.isConfluxPortal)
 }
 
@@ -57,6 +57,8 @@ const initialize = () => {
   )
   const signTypedData = document.getElementById('signTypedData')
   const signTypedDataResults = document.getElementById('signTypedDataResult')
+  const sendSignedTypedData = document.getElementById('sendSignedTypedData')
+  const sendSignedTypedDataResult = document.getElementById('sendSignedTypedDataResult')
   const cfxSignData = document.getElementById('cfxSignData')
   const cfxSignDataResults = document.getElementById('cfxSignDataResult')
   const getAccountsButton = document.getElementById('getAccounts')
@@ -70,9 +72,8 @@ const initialize = () => {
 
   let onboarding
   try {
-    // this is metamask's onboarding package, we don't have one right now
-    // https://github.com/MetaMask/metamask-onboarding/blob/master/src/index.js
-    onboarding = new MetamaskOnboarding({ forwarderOrigin })
+    // https://github.com/yqrashawn/conflux-portal-onboarding/blob/master/src/index.js
+    onboarding = new ConfluxPortalOnboarding({ forwarderOrigin })
   } catch (error) {
     console.error(error)
   }
@@ -94,12 +95,12 @@ const initialize = () => {
     cfxSignData,
   ]
 
-  const isMetaMaskConnected = () => accounts && accounts.length > 0
+  const isConfluxPortalConnected = () => accounts && accounts.length > 0
 
   const onClickInstall = () => {
     onboardButton.innerText = 'Onboarding in progress'
     onboardButton.disabled = true
-    // https://github.com/MetaMask/metamask-onboarding/blob/master/src/index.js#L109
+    // https://github.com/yqrashawn/conflux-portal-onboarding/blob/master/src/index.js#L109
     onboarding.startOnboarding()
   }
 
@@ -109,7 +110,7 @@ const initialize = () => {
 
   const updateButtons = () => {
     const accountButtonsDisabled =
-      !isMetaMaskInstalled() || !isMetaMaskConnected()
+      !isConfluxPortalInstalled() || !isConfluxPortalConnected()
     if (accountButtonsDisabled) {
       for (const button of accountButtons) {
         button.disabled = true
@@ -123,11 +124,11 @@ const initialize = () => {
       signTypedData.disabled = false
     }
 
-    if (!isMetaMaskInstalled()) {
-      onboardButton.innerText = 'Click here to install MetaMask!'
+    if (!isConfluxPortalInstalled()) {
+      onboardButton.innerText = 'Click here to install Conflux Portal!'
       onboardButton.onclick = onClickInstall
       onboardButton.disabled = false
-    } else if (isMetaMaskConnected()) {
+    } else if (isConfluxPortalConnected()) {
       onboardButton.innerText = 'Connected'
       onboardButton.disabled = true
       if (onboarding) {
@@ -213,7 +214,10 @@ const initialize = () => {
         console.log(piggybankContract.deposit())
         const depositResult = await piggybankContract
           .deposit()
-          .sendTransaction({ value: '0x3782dace9d900000', from: accounts[0] })
+          .sendTransaction({ value: '0x3782dace9d900000', from: accounts[0],
+            gas: 300000,
+            gasPrice: 10000000000,
+          })
           .confirmed()
         console.log(depositResult)
         contractStatus.innerHTML = 'Deposit completed'
@@ -222,7 +226,7 @@ const initialize = () => {
       withdrawButton.onclick = async () => {
         const withdrawResult = await piggybankContract
           .withdraw('0xde0b6b3a7640000')
-          .sendTransaction({ from: accounts[0] })
+          .sendTransaction({ from: accounts[0], gas: 300000, gasPrice: 10000000000 })
           .confirmed()
         console.log(withdrawResult)
         contractStatus.innerHTML = 'Withdrawn'
@@ -674,9 +678,23 @@ const initialize = () => {
             console.log(err)
           } else {
             signTypedDataResults.innerHTML = JSON.stringify(result)
+            sendSignedTypedData.disabled = false
           }
         }
       )
+    })
+    sendSignedTypedData.addEventListener('click', async () => {
+      const signedData = JSON.parse(signTypedDataResults.innerHTML).result
+      const txResult = await confluxJS
+        .sendTransaction({
+          from: accounts[0],
+          to: accounts[0],
+          data: signedData,
+          gas: 21000,
+          gasPrice: 10000000000,
+        })
+        .confirmed()
+      sendSignedTypedDataResult.innerText = JSON.stringify(txResult, 2)
     })
 
     getAccountsButton.addEventListener('click', async () => {
@@ -691,7 +709,8 @@ const initialize = () => {
   }
 
   updateButtons()
-  if (isMetaMaskInstalled()) {
+
+  if (isConfluxPortalInstalled()) {
     conflux.autoRefreshOnNetworkChange = false
     conflux.on('networkChanged', networkId => {
       networkDiv.innerHTML = networkId

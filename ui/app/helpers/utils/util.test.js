@@ -121,21 +121,19 @@ describe('util', function () {
   })
 
   describe('#formatBalance', function () {
-    it('when given nothing', function () {
+    it('should return None when given nothing', function () {
       const result = util.formatBalance()
       assert.equal(result, 'None', 'should return "None"')
     })
 
-    it('should return eth as string followed by CFX', function () {
+    it('should return 1.0000 ETH', function () {
       const input = new ethUtil.BN(ethInWei, 10).toJSON()
       const result = util.formatBalance(input, 4)
       assert.equal(result, '1.0000 CFX')
     })
 
-    it('should return eth as string followed by CFX', function () {
-      const input = new ethUtil.BN(ethInWei, 10)
-        .div(new ethUtil.BN('2', 10))
-        .toJSON()
+    it('should return 0.500 ETH', function () {
+      const input = new ethUtil.BN(ethInWei, 10).div(new ethUtil.BN('2', 10)).toJSON()
       const result = util.formatBalance(input, 3)
       assert.equal(result, '0.500 CFX')
     })
@@ -272,6 +270,21 @@ describe('util', function () {
           '0xc3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2'
         )
         assert(result)
+      })
+    })
+
+    describe('#getRandomFileName', function () {
+      it('should only return a string containing alphanumeric characters', function () {
+        const result = util.getRandomFileName()
+        assert(result.match(/^[a-zA-Z0-9]*$/g))
+      })
+
+      // 50 samples
+      it('should return a string that is between 6 and 12 characters in length', function () {
+        for (let i = 0; i < 50; i++) {
+          const result = util.getRandomFileName()
+          assert(result.length >= 6 && result.length <= 12)
+        }
       })
     })
   })

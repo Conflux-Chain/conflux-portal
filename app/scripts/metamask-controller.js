@@ -14,7 +14,7 @@ import ComposableObservableStore from './lib/ComposableObservableStore'
 import asStream from 'obs-store/lib/asStream'
 import AccountTracker from './lib/account-tracker'
 import RpcEngine from 'json-rpc-engine'
-import debounce from 'debounce'
+import { debounce } from 'lodash'
 import createEngineStream from 'json-rpc-middleware-stream/engineStream'
 import createFilterMiddleware from 'eth-json-rpc-filters'
 import createSubscriptionManager from 'eth-json-rpc-filters/subscriptionManager'
@@ -214,7 +214,9 @@ export default class MetamaskController extends EventEmitter {
 
     this.permissionsController = new PermissionsController(
       {
-        keyringController: this.keyringController,
+        getKeyringAccounts: this.keyringController.getAccounts.bind(
+          this.keyringController
+        ),
         platform: opts.platform,
         notifyDomain: this.notifyConnections.bind(this),
         notifyAllDomains: this.notifyAllConnections.bind(this),
@@ -559,6 +561,14 @@ export default class MetamaskController extends EventEmitter {
         preferencesController.addKnownMethodData,
         preferencesController
       ),
+      clearLastSelectedAddressHistory: nodeify(
+        preferencesController.clearLastSelectedAddressHistory,
+        preferencesController
+      ),
+      removeLastSelectedAddressesFor: nodeify(
+        preferencesController.removeLastSelectedAddressesFor,
+        preferencesController
+      ),
 
       // BlacklistController
       whitelistPhishingDomain: this.whitelistPhishingDomain.bind(this),
@@ -682,14 +692,15 @@ export default class MetamaskController extends EventEmitter {
       removePermissionsFor: permissionsController.removePermissionsFor.bind(
         permissionsController
       ),
-      updateExposedAccounts: nodeify(
-        permissionsController.updateExposedAccounts,
+      updatePermittedAccounts: nodeify(
+        permissionsController.updatePermittedAccounts,
         permissionsController
       ),
       legacyExposeAccounts: nodeify(
         permissionsController.legacyExposeAccounts,
         permissionsController
       ),
+      handleNewAccountSelected: nodeify(this.handleNewAccountSelected, this),
 
       getRequestAccountTabIds: cb => cb(null, this.getRequestAccountTabIds()),
       getOpenMetamaskTabsIds: cb => cb(null, this.getOpenMetamaskTabsIds()),
@@ -812,6 +823,10 @@ export default class MetamaskController extends EventEmitter {
         })
       }
     })
+  }
+
+  getCurrentNetwork = () => {
+    return this.networkController.store.getState().network
   }
 
   /**
@@ -1181,6 +1196,18 @@ export default class MetamaskController extends EventEmitter {
     await this.preferencesController.setSelectedAddress(accounts[0])
   }
 
+  /**
+   * Handle when a new account is selected for the given origin in the UI.
+   * Stores the address by origin and notifies external providers associated
+   * with the origin.
+   * @param {string} origin - The origin for which the address was selected.
+   * @param {string} address - The new selected address.
+   */
+  async handleNewAccountSelected (origin, address) {
+    this.permissionsController.handleNewAccountSelected(origin, address)
+    this.preferencesController.setLastSelectedAddress(origin, address)
+  }
+
   // ---------------------------------------------------------------------------
   // Identity Management (signature operations)
 
@@ -1499,8 +1526,11 @@ export default class MetamaskController extends EventEmitter {
     const mux = setupMultiplex(connectionStream)
 
     // messages between inpage and background
-    this.setupProviderConnection(mux.createStream('provider'), sender)
-    this.setupPublicConfig(mux.createStream('publicConfig'))
+    this.setupProviderConnection(
+      mux.createStream('confluxPortalProvider'),
+      sender
+    )
+    this.setupPublicConfig(mux.createStream('confluxPortalPublicConfig'))
   }
 
   /**
@@ -1516,8 +1546,12 @@ export default class MetamaskController extends EventEmitter {
     // setup multiplexing
     const mux = setupMultiplex(connectionStream)
     // connect features
-    this.setupControllerConnection(mux.createStream('controller'))
-    this.setupProviderConnection(mux.createStream('provider'), sender, true)
+    this.setupControllerConnection(mux.createStream('confluxPortalController'))
+    this.setupProviderConnection(
+      mux.createStream('confluxPortalProvider'),
+      sender,
+      true
+    )
   }
 
   /**
@@ -1531,7 +1565,7 @@ export default class MetamaskController extends EventEmitter {
    */
   sendPhishingWarning (connectionStream, hostname) {
     const mux = setupMultiplex(connectionStream)
-    const phishingStream = mux.createStream('phishing')
+    const phishingStream = mux.createStream('confluxPortalPhishing')
     phishingStream.write({ hostname })
   }
 

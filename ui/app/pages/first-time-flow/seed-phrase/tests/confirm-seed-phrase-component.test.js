@@ -13,20 +13,20 @@ function shallowRender (props = {}, context = {}) {
   })
 }
 
-describe('ConfirmSeedPhrase Component', () => {
-  it('should render correctly', () => {
+describe('ConfirmSeedPhrase Component', function () {
+  it('should render correctly', function () {
     const root = shallowRender({
       seedPhrase: '鼠 牛 虎 兔 龍 蛇 馬 羊 猴 雞 狗 豬',
     })
 
     assert.equal(
-      root.find('.confirm-seed-phrase__seed-word--shuffled').length,
+      root.find('.confirm-seed-phrase__seed-word--sorted').length,
       12,
       'should render 12 seed phrases'
     )
   })
 
-  it('should add/remove selected on click', () => {
+  it('should add/remove selected on click', function () {
     const metricsEventSpy = sinon.spy()
     const pushSpy = sinon.spy()
     const root = shallowRender(
@@ -39,7 +39,7 @@ describe('ConfirmSeedPhrase Component', () => {
       }
     )
 
-    const seeds = root.find('.confirm-seed-phrase__seed-word--shuffled')
+    const seeds = root.find('.confirm-seed-phrase__seed-word--sorted')
 
     // Click on 3 seeds to add to selected
     seeds.at(0).simulate('click')
@@ -56,10 +56,7 @@ describe('ConfirmSeedPhrase Component', () => {
     root.state()
     root.update()
     root.state()
-    root
-      .find('.confirm-seed-phrase__seed-word--shuffled')
-      .at(1)
-      .simulate('click')
+    root.find('.confirm-seed-phrase__seed-word--sorted').at(1).simulate('click')
     assert.deepEqual(
       root.state().selectedSeedIndices,
       [0, 2],
@@ -67,7 +64,7 @@ describe('ConfirmSeedPhrase Component', () => {
     )
   })
 
-  it('should render correctly on hover', () => {
+  it('should render correctly on hover', function () {
     const metricsEventSpy = sinon.spy()
     const pushSpy = sinon.spy()
     const root = shallowRender(
@@ -80,7 +77,7 @@ describe('ConfirmSeedPhrase Component', () => {
       }
     )
 
-    const seeds = root.find('.confirm-seed-phrase__seed-word--shuffled')
+    const seeds = root.find('.confirm-seed-phrase__seed-word--sorted')
 
     // Click on 3 seeds to add to selected
     seeds.at(0).simulate('click')
@@ -102,7 +99,7 @@ describe('ConfirmSeedPhrase Component', () => {
     assert.equal(pendingSeeds.at(2).props().seedIndex, 1)
   })
 
-  it('should insert seed in place on drop', () => {
+  it('should insert seed in place on drop', function () {
     const metricsEventSpy = sinon.spy()
     const pushSpy = sinon.spy()
     const root = shallowRender(
@@ -115,7 +112,7 @@ describe('ConfirmSeedPhrase Component', () => {
       }
     )
 
-    const seeds = root.find('.confirm-seed-phrase__seed-word--shuffled')
+    const seeds = root.find('.confirm-seed-phrase__seed-word--sorted')
 
     // Click on 3 seeds to add to selected
     seeds.at(0).simulate('click')
@@ -133,21 +130,8 @@ describe('ConfirmSeedPhrase Component', () => {
     assert.deepEqual(root.state().pendingSeedIndices, [2, 0, 1])
   })
 
-  it('should submit correctly', async () => {
-    const originalSeed = [
-      '鼠',
-      '牛',
-      '虎',
-      '兔',
-      '龍',
-      '蛇',
-      '馬',
-      '羊',
-      '猴',
-      '雞',
-      '狗',
-      '豬',
-    ]
+  it('should submit correctly', async function () {
+    const originalSeed = ['鼠', '牛', '虎', '兔', '龍', '蛇', '馬', '羊', '猴', '雞', '狗', '豬']
     const metricsEventSpy = sinon.spy()
     const pushSpy = sinon.spy()
     const initialize3BoxSpy = sinon.spy()
@@ -163,11 +147,11 @@ describe('ConfirmSeedPhrase Component', () => {
       }
     )
 
-    const shuffled = root.state().shuffledSeedWords
-    const seeds = root.find('.confirm-seed-phrase__seed-word--shuffled')
+    const sorted = root.state().sortedSeedWords
+    const seeds = root.find('.confirm-seed-phrase__seed-word--sorted')
 
     originalSeed.forEach(seed => {
-      const seedIndex = shuffled.findIndex(s => s === seed)
+      const seedIndex = sorted.findIndex(s => s === seed)
       seeds.at(seedIndex).simulate('click')
     })
 

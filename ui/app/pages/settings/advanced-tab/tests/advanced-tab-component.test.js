@@ -5,54 +5,54 @@ import { shallow } from 'enzyme'
 import AdvancedTab from '../advanced-tab.component'
 import TextField from '../../../../components/ui/text-field'
 
-describe('AdvancedTab Component', () => {
-  it.skip('should render correctly when threeBoxFeatureFlag', () => {
-    const root = shallow(
+describe('AdvancedTab Component', function () {
+  it.skip('should render correctly when threeBoxFeatureFlag', function () {
+    const root = shallow((
       <AdvancedTab
         ipfsGateway=""
-        setAutoLogoutTimeLimit={() => {}}
+        setAutoLockTimeLimit={() => {}}
         setIpfsGateway={() => {}}
         setShowFiatConversionOnTestnetsPreference={() => {}}
         setThreeBoxSyncingPermission={() => {}}
         threeBoxDisabled
         threeBoxSyncingAllowed={false}
-      />,
-      {
-        context: {
-          t: s => `_${s}`,
-        },
-      }
+      />),
+    {
+      context: {
+        t: s => `_${s}`,
+      },
+    }
     )
 
     assert.equal(root.find('.settings-page__content-row').length, 7)
   })
 
-  it('should update autoLogoutTimeLimit', () => {
-    const setAutoLogoutTimeLimitSpy = sinon.spy()
-    const root = shallow(
+  it('should update autoLockTimeLimit', function () {
+    const setAutoLockTimeLimitSpy = sinon.spy()
+    const root = shallow((
       <AdvancedTab
         ipfsGateway=""
-        setAutoLogoutTimeLimit={setAutoLogoutTimeLimitSpy}
+        setAutoLockTimeLimit={setAutoLockTimeLimitSpy}
         setIpfsGateway={() => {}}
         setShowFiatConversionOnTestnetsPreference={() => {}}
         setThreeBoxSyncingPermission={() => {}}
         threeBoxDisabled
         threeBoxSyncingAllowed={false}
-      />,
-      {
-        context: {
-          t: s => `_${s}`,
-        },
-      }
+      />),
+    {
+      context: {
+        t: s => `_${s}`,
+      },
+    }
     )
 
     const autoTimeout = root.find('.settings-page__content-row').at(5)
     const textField = autoTimeout.find(TextField)
 
     textField.props().onChange({ target: { value: 1440 } })
-    assert.equal(root.state().autoLogoutTimeLimit, 1440)
+    assert.equal(root.state().autoLockTimeLimit, 1440)
 
     autoTimeout.find('.settings-tab__rpc-save-button').simulate('click')
-    assert.equal(setAutoLogoutTimeLimitSpy.args[0][0], 1440)
+    assert.equal(setAutoLockTimeLimitSpy.args[0][0], 1440)
   })
 })

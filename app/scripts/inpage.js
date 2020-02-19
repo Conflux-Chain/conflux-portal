@@ -13,7 +13,7 @@ const cleanContextForImports = () => {
   try {
     global.define = undefined
   } catch (_) {
-    console.warn('MetaMask - global.define could not be deleted.')
+    console.warn('Conflux Portal - global.define could not be deleted.')
   }
 }
 
@@ -24,7 +24,7 @@ const restoreContextAfterImports = () => {
   try {
     global.define = __define
   } catch (_) {
-    console.warn('MetaMask - global.define could not be overwritten.')
+    console.warn('Conflux Portal - global.define could not be overwritten.')
   }
 }
 
@@ -32,8 +32,7 @@ cleanContextForImports()
 
 import log from 'loglevel'
 import LocalMessageDuplexStream from 'post-message-stream'
-import MetamaskInpageProvider from './metamask-inpage-provider.js'
-
+import ConfluxPortalInpageProvider from '@yqrashawn/conflux-portal-inpage-provider'
 import ConfluxJS from 'js-conflux-sdk/dist/js-conflux-sdk.umd.min.js'
 // import ConfluxJS from 'js-conflux-sdk'
 import setupDappAutoReload from './lib/auto-reload.js'
@@ -53,7 +52,7 @@ const metamaskStream = new LocalMessageDuplexStream({
 })
 
 // compose the inpage provider
-const inpageProvider = new MetamaskInpageProvider(metamaskStream)
+const inpageProvider = new ConfluxPortalInpageProvider(metamaskStream)
 
 // set a high max listener count to avoid unnecesary warnings
 inpageProvider.setMaxListeners(100)
@@ -67,12 +66,13 @@ const proxiedInpageProvider = new Proxy(inpageProvider, {
 })
 
 // setup conflux web
-if (typeof window.conflux !== 'undefined') {
-  throw new Error(`ConfluxPortal detected another conflux.
-     ConfluxPortal will not work reliably with another
-     conflux extension. This usually happens if you have two MetaMasks
-     installed, or MetaMask and another conflux web extension.
-     Please remove one and try again.`)
+
+if (typeof window.confluxJS !== 'undefined') {
+  throw new Error(`ConfluxPortal detected another js-conflux-sdk.
+     ConfluxPortal will not work reliably with another js-conflux-sdk extension.
+     This usually happens if you have two MetaMasks installed,
+     or ConfluxPortal and another conflux web extension. Please remove one
+     and try again.`)
 }
 
 const confluxJS = new ConfluxJS()

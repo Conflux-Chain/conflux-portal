@@ -14,7 +14,6 @@ import {
   createSwappableProxy,
   createEventEmitterProxy,
 } from 'swappable-obj-proxy'
-import extend from 'extend'
 
 const networks = { networkList: {} }
 
@@ -29,8 +28,8 @@ import {
 } from './enums'
 // const INFURA_PROVIDER_TYPES = [ROPSTEN, RINKEBY, KOVAN, MAINNET, GOERLI]
 // TODO: add main net endpoint
-const CONFLUX_MAINNET = 'http://13.67.73.51:12537'
-const CONFLUX_TEST_NET = 'http://13.67.73.51:12537'
+const CONFLUX_MAINNET = 'http://testnet-jsonrpc.conflux-chain.org:12537'
+const CONFLUX_TEST_NET = 'http://testnet-jsonrpc.conflux-chain.org:12537'
 
 const env = process.env.METAMASK_ENV
 const METAMASK_DEBUG = process.env.METAMASK_DEBUG
@@ -286,7 +285,7 @@ export default class NetworkController extends EventEmitter {
     let settings = {
       network: chainId,
     }
-    settings = extend(settings, networks.networkList['rpc'])
+    settings = Object.assign(settings, networks.networkList['rpc'])
     this.networkConfig.putState(settings)
     this._setNetworkClient(networkClient)
   }

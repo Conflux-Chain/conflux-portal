@@ -4,46 +4,51 @@ import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import { DEFAULT_ROUTE } from '../../../../helpers/constants/routes'
 import SendHeader from '../send-header.component.js'
-
 import PageContainerHeader from '../../../../components/ui/page-container/page-container-header'
-
-const propsMethodSpies = {
-  clearSend: sinon.spy(),
-}
-const historySpies = {
-  push: sinon.spy(),
-}
-
-sinon.spy(SendHeader.prototype, 'onClose')
 
 describe('SendHeader Component', function () {
   let wrapper
 
-  beforeEach(() => {
-    wrapper = shallow(
+  const propsMethodSpies = {
+    clearSend: sinon.spy(),
+  }
+  const historySpies = {
+    push: sinon.spy(),
+  }
+
+  before(function () {
+    sinon.spy(SendHeader.prototype, 'onClose')
+  })
+
+  beforeEach(function () {
+    wrapper = shallow((
       <SendHeader
         clearSend={propsMethodSpies.clearSend}
         history={historySpies}
         titleKey="mockTitleKey"
-      />,
-      { context: { t: (str1, str2) => (str2 ? str1 + str2 : str1) } }
+      />),
+    { context: { t: (str1, str2) => (str2 ? str1 + str2 : str1) } }
     )
   })
 
-  afterEach(() => {
+  afterEach(function () {
     propsMethodSpies.clearSend.resetHistory()
     historySpies.push.resetHistory()
     SendHeader.prototype.onClose.resetHistory()
   })
 
-  describe('onClose', () => {
-    it('should call clearSend', () => {
+  after(function () {
+    sinon.restore()
+  })
+
+  describe('onClose', function () {
+    it('should call clearSend', function () {
       assert.equal(propsMethodSpies.clearSend.callCount, 0)
       wrapper.instance().onClose()
       assert.equal(propsMethodSpies.clearSend.callCount, 1)
     })
 
-    it('should call history.push', () => {
+    it('should call history.push', function () {
       assert.equal(historySpies.push.callCount, 0)
       wrapper.instance().onClose()
       assert.equal(historySpies.push.callCount, 1)
@@ -51,13 +56,16 @@ describe('SendHeader Component', function () {
     })
   })
 
-  describe('render', () => {
-    it('should render a PageContainerHeader compenent', () => {
+  describe('render', function () {
+    it('should render a PageContainerHeader compenent', function () {
       assert.equal(wrapper.find(PageContainerHeader).length, 1)
     })
 
-    it('should pass the correct props to PageContainerHeader', () => {
-      const { onClose, title } = wrapper.find(PageContainerHeader).props()
+    it('should pass the correct props to PageContainerHeader', function () {
+      const {
+        onClose,
+        title,
+      } = wrapper.find(PageContainerHeader).props()
       assert.equal(title, 'mockTitleKey')
       assert.equal(SendHeader.prototype.onClose.callCount, 0)
       onClose()

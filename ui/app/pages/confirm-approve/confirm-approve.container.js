@@ -56,8 +56,7 @@ const mapStateToProps = (state, ownProps) => {
   const tokenData = getTokenData(data)
   const tokenValue = tokenData && getTokenValue(tokenData.params)
   const toAddress = tokenData && getTokenToAddress(tokenData.params)
-  const tokenAmount =
-    tokenData && calcTokenAmount(tokenValue, decimals).toNumber()
+  const tokenAmount = tokenData && calcTokenAmount(tokenValue, decimals).toString(10)
   const contractExchangeRate = contractExchangeRateSelector(state)
 
   const { origin } = transaction
@@ -91,24 +90,23 @@ const mapDispatchToProps = dispatch => {
     showCustomizeGasModal: txData =>
       dispatch(showModal({ name: 'CUSTOMIZE_GAS', txData })),
     showEditApprovalPermissionModal: ({
-      tokenAmount,
       customTokenAmount,
-      tokenSymbol,
-      tokenBalance,
-      setCustomAmount,
+      decimals,
       origin,
-    }) =>
-      dispatch(
-        showModal({
-          name: 'EDIT_APPROVAL_PERMISSION',
-          tokenAmount,
-          customTokenAmount,
-          tokenSymbol,
-          tokenBalance,
-          setCustomAmount,
-          origin,
-        })
-      ),
+      setCustomAmount,
+      tokenAmount,
+      tokenBalance,
+      tokenSymbol,
+    }) => dispatch(showModal({
+      name: 'EDIT_APPROVAL_PERMISSION',
+      customTokenAmount,
+      decimals,
+      origin,
+      setCustomAmount,
+      tokenAmount,
+      tokenBalance,
+      tokenSymbol,
+    })),
   }
 }
 

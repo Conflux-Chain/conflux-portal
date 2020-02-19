@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import ConfirmTransactionBase from '../confirm-transaction-base'
 import ConfirmApproveContent from './confirm-approve-content'
 import { getCustomTxParamsData } from './confirm-approve.util'
-import { calcTokenAmount } from '../../helpers/utils/token-util'
+import {
+  calcTokenAmount,
+} from '../../helpers/utils/token-util'
 
 export default class ConfirmApprove extends Component {
   static contextTypes = {
@@ -13,7 +15,7 @@ export default class ConfirmApprove extends Component {
   static propTypes = {
     tokenAddress: PropTypes.string,
     toAddress: PropTypes.string,
-    tokenAmount: PropTypes.number,
+    tokenAmount: PropTypes.string,
     tokenSymbol: PropTypes.string,
     fiatTransactionTotal: PropTypes.string,
     ethTransactionTotal: PropTypes.string,
@@ -31,7 +33,7 @@ export default class ConfirmApprove extends Component {
   }
 
   static defaultProps = {
-    tokenAmount: 0,
+    tokenAmount: '0',
   }
 
   state = {
@@ -67,23 +69,15 @@ export default class ConfirmApprove extends Component {
     } = this.props
     const { customPermissionAmount } = this.state
 
-    const tokensText = `${tokenAmount} ${tokenSymbol}`
+    const tokensText = `${Number(tokenAmount)} ${tokenSymbol}`
 
-    let tokenBalance
+    const tokenBalance = tokenTrackerBalance
+      ? calcTokenAmount(tokenTrackerBalance, decimals).toString(10)
+      : ''
 
-    if (Array.isArray(tokenTrackerBalance)) {
-      tokenBalance = tokenTrackerBalance.map(balance =>
-        (balance
-          ? Number(calcTokenAmount(tokenTrackerBalance, decimals)).toPrecision(
-            9
-          )
-          : '')
-      )
-    } else {
-      tokenBalance = tokenTrackerBalance
-        ? Number(calcTokenAmount(tokenTrackerBalance, decimals)).toPrecision(9)
-        : ''
-    }
+    const customData = customPermissionAmount
+      ? getCustomTxParamsData(data, { customPermissionAmount, decimals })
+      : null
 
     return (
       <ConfirmTransactionBase
@@ -91,38 +85,29 @@ export default class ConfirmApprove extends Component {
         identiconAddress={tokenAddress}
         showAccountInHeader
         title={tokensText}
-        contentComponent={
-          (
-            <ConfirmApproveContent
-              siteImage={siteImage}
-              setCustomAmount={newAmount => {
-                this.setState({ customPermissionAmount: newAmount })
-              }}
-              customTokenAmount={String(customPermissionAmount)}
-              tokenAmount={String(tokenAmount)}
-              origin={origin}
-              tokenSymbol={tokenSymbol}
-              tokenBalance={tokenBalance}
-              showCustomizeGasModal={() => showCustomizeGasModal(txData)}
-              showEditApprovalPermissionModal={showEditApprovalPermissionModal}
-              data={data}
-              toAddress={toAddress}
-              currentCurrency={currentCurrency}
-              ethTransactionTotal={ethTransactionTotal}
-              fiatTransactionTotal={fiatTransactionTotal}
-            />
-          )
-        }
+        contentComponent={(
+          <ConfirmApproveContent
+            decimals={decimals}
+            siteImage={siteImage}
+            setCustomAmount={(newAmount) => {
+              this.setState({ customPermissionAmount: newAmount })
+            }}
+            customTokenAmount={String(customPermissionAmount)}
+            tokenAmount={tokenAmount}
+            origin={origin}
+            tokenSymbol={tokenSymbol}
+            tokenBalance={tokenBalance}
+            showCustomizeGasModal={() => showCustomizeGasModal(txData)}
+            showEditApprovalPermissionModal={showEditApprovalPermissionModal}
+            data={customData || data}
+            toAddress={toAddress}
+            currentCurrency={currentCurrency}
+            ethTransactionTotal={ethTransactionTotal}
+            fiatTransactionTotal={fiatTransactionTotal}
+          />
+        )}
         hideSenderToRecipient
-        customTxParamsData={
-          customPermissionAmount
-            ? getCustomTxParamsData(data, {
-              customPermissionAmount,
-              tokenAmount,
-              decimals,
-            })
-            : null
-        }
+        customTxParamsData={customData}
         {...restProps}
       />
     )

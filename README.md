@@ -30,8 +30,6 @@ Uncompressed builds can be found in `/dist`, compressed builds can be found in `
 
 You can read [our internal docs here](https://github.com/Conflux-Chain/conflux-portal/tree/develop/docs).
 
-You can re-generate the docs locally by running `yarn doc`, and contributors can update the hosted docs by running `yarn publish-docs`.
-
 ### Running Tests
 
 Run tests with `yarn test`.
@@ -56,10 +54,6 @@ yarn start
 ```bash
 yarn dist
 ```
-
-#### Writing Browser Tests
-
-To write tests that will be run in the browser using QUnit, add your test files to `test/integration/lib`.
 
 ## Other Docs
 
