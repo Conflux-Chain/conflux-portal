@@ -12,9 +12,7 @@ import CurrencyDisplay from '../../currency-display'
 describe('CurrencyInput Component', function () {
   describe('rendering', function () {
     it('should render properly without a suffix', function () {
-      const wrapper = shallow(
-        <CurrencyInput />
-      )
+      const wrapper = shallow(<CurrencyInput />)
 
       assert.ok(wrapper)
       assert.equal(wrapper.find(UnitInput).length, 1)
@@ -149,7 +147,7 @@ describe('CurrencyInput Component', function () {
           />
         </Provider>,
         {
-          context: { t: str => str + '_t' },
+          context: { t: (str) => str + '_t' },
           childContextTypes: { t: PropTypes.func },
         }
       )

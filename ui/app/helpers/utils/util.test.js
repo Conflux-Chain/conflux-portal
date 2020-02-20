@@ -133,7 +133,9 @@ describe('util', function () {
     })
 
     it('should return 0.500 ETH', function () {
-      const input = new ethUtil.BN(ethInWei, 10).div(new ethUtil.BN('2', 10)).toJSON()
+      const input = new ethUtil.BN(ethInWei, 10)
+        .div(new ethUtil.BN('2', 10))
+        .toJSON()
       const result = util.formatBalance(input, 3)
       assert.equal(result, '0.500 CFX')
     })

@@ -106,15 +106,15 @@ function mapDispatchToProps (dispatch) {
         })
       )
     },
-    updateSendErrors: newError => dispatch(updateSendErrors(newError)),
+    updateSendErrors: (newError) => dispatch(updateSendErrors(newError)),
     resetSendState: () => dispatch(resetSendState()),
     scanQrCode: () => dispatch(showQrScanner()),
     qrCodeDetected: (data) => dispatch(qrCodeDetected(data)),
     updateSendTo: (to, nickname) => dispatch(updateSendTo(to, nickname)),
     fetchBasicGasEstimates: () => dispatch(fetchBasicGasEstimates()),
-    updateSendEnsResolution: ensResolution =>
+    updateSendEnsResolution: (ensResolution) =>
       dispatch(updateSendEnsResolution(ensResolution)),
-    updateSendEnsResolutionError: message =>
+    updateSendEnsResolutionError: (message) =>
       dispatch(updateSendEnsResolutionError(message)),
     updateToNicknameIfNecessary: (to, toNickname, addressBook) => {
       if (isValidENSAddress(toNickname)) {

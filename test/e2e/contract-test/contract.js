@@ -58,7 +58,9 @@ const initialize = () => {
   const signTypedData = document.getElementById('signTypedData')
   const signTypedDataResults = document.getElementById('signTypedDataResult')
   const sendSignedTypedData = document.getElementById('sendSignedTypedData')
-  const sendSignedTypedDataResult = document.getElementById('sendSignedTypedDataResult')
+  const sendSignedTypedDataResult = document.getElementById(
+    'sendSignedTypedDataResult'
+  )
   const cfxSignData = document.getElementById('cfxSignData')
   const cfxSignDataResults = document.getElementById('cfxSignDataResult')
   const getAccountsButton = document.getElementById('getAccounts')
@@ -191,7 +193,7 @@ const initialize = () => {
           gasPrice: 10000000000,
         })
         .confirmed()
-        .catch(error => {
+        .catch((error) => {
           contractStatus.innerHTML = 'Deployment Failed'
           throw error
         })
@@ -214,7 +216,9 @@ const initialize = () => {
         console.log(piggybankContract.deposit())
         const depositResult = await piggybankContract
           .deposit()
-          .sendTransaction({ value: '0x3782dace9d900000', from: accounts[0],
+          .sendTransaction({
+            value: '0x3782dace9d900000',
+            from: accounts[0],
             gas: 300000,
             gasPrice: 10000000000,
           })
@@ -226,7 +230,11 @@ const initialize = () => {
       withdrawButton.onclick = async () => {
         const withdrawResult = await piggybankContract
           .withdraw('0xde0b6b3a7640000')
-          .sendTransaction({ from: accounts[0], gas: 300000, gasPrice: 10000000000 })
+          .sendTransaction({
+            from: accounts[0],
+            gas: 300000,
+            gasPrice: 10000000000,
+          })
           .confirmed()
         console.log(withdrawResult)
         contractStatus.innerHTML = 'Withdrawn'
@@ -419,7 +427,7 @@ const initialize = () => {
           gasPrice: 10000000000,
         })
         .confirmed()
-        .catch(error => {
+        .catch((error) => {
           tokenAddress.innerHTML = 'Creation Failed'
           throw error
         })
@@ -443,7 +451,7 @@ const initialize = () => {
       transferTokensWithoutGas.disabled = false
       approveTokensWithoutGas.disabled = false
 
-      transferTokens.onclick = async event => {
+      transferTokens.onclick = async (event) => {
         console.log(`event`, event)
         const transferResult = humanstandardtokenContract
           .transfer('0x2f318C334780961FB129D2a6c30D0763d9a5C970', '15000')
@@ -474,7 +482,7 @@ const initialize = () => {
         console.log(approveResult)
       }
 
-      transferTokensWithoutGas.onclick = async event => {
+      transferTokensWithoutGas.onclick = async (event) => {
         console.log(`event`, event)
         const transferResult = await humanstandardtokenContract
           .transfer('0x2f318C334780961FB129D2a6c30D0763d9a5C970', '15000')
@@ -712,13 +720,13 @@ const initialize = () => {
 
   if (isConfluxPortalInstalled()) {
     conflux.autoRefreshOnNetworkChange = false
-    conflux.on('networkChanged', networkId => {
+    conflux.on('networkChanged', (networkId) => {
       networkDiv.innerHTML = networkId
     })
-    conflux.on('chainIdChanged', chainId => {
+    conflux.on('chainIdChanged', (chainId) => {
       chainIdDiv.innerHTML = chainId
     })
-    conflux.on('accountsChanged', newAccounts => {
+    conflux.on('accountsChanged', (newAccounts) => {
       const connecting = Boolean(
         (!accounts || !accounts.length) && newAccounts && newAccounts.length
       )

@@ -349,7 +349,7 @@ function generateTokenTransferData ({
           ['address', 'uint256'],
           [toAddress, ethUtil.addHexPrefix(amount)]
         ),
-        x => ('00' + x.toString(16)).slice(-2)
+        (x) => ('00' + x.toString(16)).slice(-2)
       )
       .join('')
   )
@@ -362,7 +362,7 @@ function estimateGasPriceFromRecentBlocks (recentBlocks) {
   }
 
   const lowestPrices = recentBlocks
-    .map(block => {
+    .map((block) => {
       if (!block.gasPrices || block.gasPrices.length < 1) {
         return ONE_GWEI_IN_WEI_HEX
       }
@@ -379,7 +379,7 @@ function estimateGasPriceFromRecentBlocks (recentBlocks) {
 
 function getToAddressForGasUpdate (...addresses) {
   return [...addresses, '']
-    .find(str => str !== undefined && str !== null)
+    .find((str) => str !== undefined && str !== null)
     .toLowerCase()
 }
 

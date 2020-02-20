@@ -36,7 +36,7 @@ describe('Using MetaMask with an existing account', function () {
     if (process.env.SELENIUM_BROWSER === 'chrome') {
       const errors = await driver.checkBrowserForConsoleErrors(driver)
       if (errors.length) {
-        const errorReports = errors.map(err => err.message)
+        const errorReports = errors.map((err) => err.message)
         const errorMessage = `Errors found in browser console:\n${errorReports.join(
           '\n'
         )}`
@@ -65,7 +65,9 @@ describe('Using MetaMask with an existing account', function () {
     })
 
     it('clicks the "Import Wallet" option', async function () {
-      await driver.clickElement(By.xpath(`//button[contains(text(), 'Import Wallet')]`))
+      await driver.clickElement(
+        By.xpath(`//button[contains(text(), 'Import Wallet')]`)
+      )
       await driver.delay(largeDelayMs)
     })
 
@@ -75,7 +77,9 @@ describe('Using MetaMask with an existing account', function () {
     })
 
     it('imports a seed phrase', async function () {
-      const [seedTextArea] = await driver.findElements(By.css('textarea.first-time-flow__textarea'))
+      const [seedTextArea] = await driver.findElements(
+        By.css('textarea.first-time-flow__textarea')
+      )
       await seedTextArea.sendKeys(testSeedPhrase)
       await driver.delay(regularDelayMs)
 
@@ -95,8 +99,14 @@ describe('Using MetaMask with an existing account', function () {
     })
 
     it('clicks through the success screen', async function () {
-      await driver.findElement(By.xpath(`//div[contains(text(), 'Congratulations')]`))
-      await driver.clickElement(By.xpath(`//button[contains(text(), '${enLocaleMessages.endOfFlowMessage10.message}')]`))
+      await driver.findElement(
+        By.xpath(`//div[contains(text(), 'Congratulations')]`)
+      )
+      await driver.clickElement(
+        By.xpath(
+          `//button[contains(text(), '${enLocaleMessages.endOfFlowMessage10.message}')]`
+        )
+      )
       await driver.delay(regularDelayMs)
     })
   })

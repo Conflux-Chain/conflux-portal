@@ -37,10 +37,10 @@ function setupSentry (opts) {
     environment: METAMASK_ENVIRONMENT,
     integrations: [new Dedupe(), new ExtraErrorData()],
     release,
-    beforeSend: report => rewriteReport(report),
+    beforeSend: (report) => rewriteReport(report),
   })
 
-  Sentry.configureScope(scope => {
+  Sentry.configureScope((scope) => {
     scope.setExtra('isBrave', isBrave)
   })
 
@@ -65,7 +65,7 @@ function setupSentry (opts) {
 }
 
 function simplifyErrorMessages (report) {
-  rewriteErrorMessages(report, errorMessage => {
+  rewriteErrorMessages(report, (errorMessage) => {
     // simplify ethjs error messages
     errorMessage = extractEthjsErrorMessage(errorMessage)
     // simplify 'Transaction Failed: known transaction'
@@ -84,7 +84,7 @@ function rewriteErrorMessages (report, rewriteFn) {
   }
   // rewrite each exception message
   if (report.exception && report.exception.values) {
-    report.exception.values.forEach(item => {
+    report.exception.values.forEach((item) => {
       if (typeof item.value === 'string') {
         item.value = rewriteFn(item.value)
       }
@@ -97,8 +97,8 @@ function rewriteReportUrls (report) {
   report.request.url = toMetamaskUrl(report.request.url)
   // update exception stack trace
   if (report.exception && report.exception.values) {
-    report.exception.values.forEach(item => {
-      item.stacktrace.frames.forEach(frame => {
+    report.exception.values.forEach((item) => {
+      item.stacktrace.frames.forEach((frame) => {
         frame.filename = toMetamaskUrl(frame.filename)
       })
     })

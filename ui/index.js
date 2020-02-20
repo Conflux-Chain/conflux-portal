@@ -20,11 +20,10 @@ export default function launchMetamaskUi (opts, cb) {
     if (err) {
       return cb(err)
     }
-    startApp(metamaskState, backgroundConnection, opts)
-      .then((store) => {
-        setupDebuggingHelpers(store)
-        cb(null, store)
-      })
+    startApp(metamaskState, backgroundConnection, opts).then((store) => {
+      setupDebuggingHelpers(store)
+      cb(null, store)
+    })
   })
 }
 
@@ -89,10 +88,10 @@ async function startApp (metamaskState, backgroundConnection, opts) {
 
   // global metamask api - used by tooling
   global.metamask = {
-    updateCurrentLocale: code => {
+    updateCurrentLocale: (code) => {
       store.dispatch(actions.updateCurrentLocale(code))
     },
-    setProviderType: type => {
+    setProviderType: (type) => {
       store.dispatch(actions.setProviderType(type))
     },
     setFeatureFlag: (key, value) => {

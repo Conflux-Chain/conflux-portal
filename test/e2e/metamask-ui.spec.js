@@ -37,7 +37,7 @@ describe('MetaMask', function () {
     if (process.env.SELENIUM_BROWSER === 'chrome') {
       const errors = await driver.checkBrowserForConsoleErrors(driver)
       if (errors.length) {
-        const errorReports = errors.map(err => err.message)
+        const errorReports = errors.map((err) => err.message)
         const errorMessage = `Errors found in browser console:\n${errorReports.join(
           '\n'
         )}`
@@ -66,7 +66,9 @@ describe('MetaMask', function () {
     })
 
     it('clicks the "Create New Wallet" option', async function () {
-      await driver.clickElement(By.xpath(`//button[contains(text(), 'Create a Wallet')]`))
+      await driver.clickElement(
+        By.xpath(`//button[contains(text(), 'Create a Wallet')]`)
+      )
       await driver.delay(largeDelayMs)
     })
 
@@ -76,8 +78,12 @@ describe('MetaMask', function () {
     })
 
     it('accepts a secure password', async function () {
-      const passwordBox = await driver.findElement(By.css('.first-time-flow__form #create-password'))
-      const passwordBoxConfirm = await driver.findElement(By.css('.first-time-flow__form #confirm-password'))
+      const passwordBox = await driver.findElement(
+        By.css('.first-time-flow__form #create-password')
+      )
+      const passwordBoxConfirm = await driver.findElement(
+        By.css('.first-time-flow__form #confirm-password')
+      )
 
       await passwordBox.sendKeys('correct horse battery staple')
       await passwordBoxConfirm.sendKeys('correct horse battery staple')
@@ -91,7 +97,9 @@ describe('MetaMask', function () {
     let seedPhrase
 
     it('reveals the seed phrase', async function () {
-      const byRevealButton = By.css('.reveal-seed-phrase__secret-blocker .reveal-seed-phrase__reveal-button')
+      const byRevealButton = By.css(
+        '.reveal-seed-phrase__secret-blocker .reveal-seed-phrase__reveal-button'
+      )
       await driver.findElement(byRevealButton)
       await driver.clickElement(byRevealButton)
       await driver.delay(regularDelayMs)
@@ -112,7 +120,11 @@ describe('MetaMask', function () {
     })
 
     async function clickWordAndWait (word) {
-      await driver.clickElement(By.css(`[data-testid="seed-phrase-sorted"] [data-testid="draggable-seed-${word}"]`))
+      await driver.clickElement(
+        By.css(
+          `[data-testid="seed-phrase-sorted"] [data-testid="draggable-seed-${word}"]`
+        )
+      )
       await driver.delay(tinyDelayMs)
     }
 
@@ -130,8 +142,14 @@ describe('MetaMask', function () {
     })
 
     it('clicks through the success screen', async function () {
-      await driver.findElement(By.xpath(`//div[contains(text(), 'Congratulations')]`))
-      await driver.clickElement(By.xpath(`//button[contains(text(), '${enLocaleMessages.endOfFlowMessage10.message}')]`))
+      await driver.findElement(
+        By.xpath(`//div[contains(text(), 'Congratulations')]`)
+      )
+      await driver.clickElement(
+        By.xpath(
+          `//button[contains(text(), '${enLocaleMessages.endOfFlowMessage10.message}')]`
+        )
+      )
       await driver.delay(regularDelayMs)
     })
   })
@@ -183,7 +201,9 @@ describe('MetaMask', function () {
     })
 
     it('set account name', async function () {
-      const accountName = await driver.findElement(By.css('.new-account-create-form input'))
+      const accountName = await driver.findElement(
+        By.css('.new-account-create-form input')
+      )
       await accountName.sendKeys('2nd account')
       await driver.delay(regularDelayMs)
 
@@ -194,7 +214,9 @@ describe('MetaMask', function () {
     })
 
     it('should display correct account name', async function () {
-      const accountName = await driver.findElement(By.css('.account-details__account-name'))
+      const accountName = await driver.findElement(
+        By.css('.account-details__account-name')
+      )
       assert.equal(await accountName.getText(), '2nd account')
       await driver.delay(regularDelayMs)
     })
@@ -214,8 +236,13 @@ describe('MetaMask', function () {
     })
 
     it('imports seed phrase', async function () {
-      const restoreSeedLink = await driver.findClickableElement(By.css('.unlock-page__link--import'))
-      assert.equal(await restoreSeedLink.getText(), 'Import using account seed phrase')
+      const restoreSeedLink = await driver.findClickableElement(
+        By.css('.unlock-page__link--import')
+      )
+      assert.equal(
+        await restoreSeedLink.getText(),
+        'Import using account seed phrase'
+      )
       await restoreSeedLink.click()
       await driver.delay(regularDelayMs)
 
@@ -237,7 +264,9 @@ describe('MetaMask', function () {
     })
 
     it('balance renders', async function () {
-      const balance = await driver.findElement(By.css('.balance-display .token-amount'))
+      const balance = await driver.findElement(
+        By.css('.balance-display .token-amount')
+      )
       await driver.wait(until.elementTextMatches(balance, /100\s*ETH/))
       await driver.delay(regularDelayMs)
     })
@@ -496,7 +525,7 @@ describe('MetaMask', function () {
         windowHandles
       )
       popup = windowHandles.find(
-        handle => handle !== extension && handle !== dapp
+        (handle) => handle !== extension && handle !== dapp
       )
 
       await driver.switchToWindow(popup)
@@ -517,7 +546,10 @@ describe('MetaMask', function () {
     })
 
     it('initiates a send from the dapp', async function () {
-      await driver.clickElement(By.xpath(`//button[contains(text(), 'Send')]`), 10000)
+      await driver.clickElement(
+        By.xpath(`//button[contains(text(), 'Send')]`),
+        10000
+      )
       await driver.delay(2000)
 
       windowHandles = await driver.getAllWindowHandles()
@@ -709,7 +741,9 @@ describe('MetaMask', function () {
     })
 
     it('adds a transaction while confirm screen is in focus', async function () {
-      let navigationElement = await driver.findElement(By.css('.confirm-page-container-navigation'))
+      let navigationElement = await driver.findElement(
+        By.css('.confirm-page-container-navigation')
+      )
       let navigationText = await navigationElement.getText()
       assert.equal(
         navigationText.includes('2'),
@@ -835,7 +869,9 @@ describe('MetaMask', function () {
     })
 
     it('confirms a deploy contract transaction', async function () {
-      await driver.clickElement(By.xpath(`//button[contains(text(), 'Confirm')]`))
+      await driver.clickElement(
+        By.xpath(`//button[contains(text(), 'Confirm')]`)
+      )
       await driver.delay(largeDelayMs)
 
       await driver.wait(async () => {
@@ -986,9 +1022,14 @@ describe('MetaMask', function () {
     })
 
     it('renders the correct ETH balance', async function () {
-      const balance = await driver.findElement(By.css('.transaction-view-balance__primary-balance'))
+      const balance = await driver.findElement(
+        By.css('.transaction-view-balance__primary-balance')
+      )
       await driver.delay(regularDelayMs)
-      await driver.wait(until.elementTextMatches(balance, /^87.*\s*ETH.*$/), 10000)
+      await driver.wait(
+        until.elementTextMatches(balance, /^87.*\s*ETH.*$/),
+        10000
+      )
       const tokenAmount = await balance.getText()
       assert.ok(/^87.*\s*ETH.*$/.test(tokenAmount))
       await driver.delay(regularDelayMs)
@@ -1054,12 +1095,16 @@ describe('MetaMask', function () {
     })
 
     it('clicks on the Add Token button', async function () {
-      await driver.clickElement(By.xpath(`//div[contains(text(), 'Add Token')]`))
+      await driver.clickElement(
+        By.xpath(`//div[contains(text(), 'Add Token')]`)
+      )
       await driver.delay(regularDelayMs)
     })
 
     it('picks the newly created Test token', async function () {
-      await driver.clickElement(By.xpath("//li[contains(text(), 'Custom Token')]"))
+      await driver.clickElement(
+        By.xpath("//li[contains(text(), 'Custom Token')]")
+      )
       await driver.delay(regularDelayMs)
 
       const newTokenAddress = await driver.findElement(
@@ -1078,7 +1123,11 @@ describe('MetaMask', function () {
     })
 
     it('renders the balance for the new token', async function () {
-      const balance = await driver.findElement(By.css('.transaction-view-balance .transaction-view-balance__primary-balance'))
+      const balance = await driver.findElement(
+        By.css(
+          '.transaction-view-balance .transaction-view-balance__primary-balance'
+        )
+      )
       await driver.wait(until.elementTextMatches(balance, /^10.000\s*TST\s*$/))
       const tokenAmount = await balance.getText()
       assert.ok(/^10.000\s*TST\s*$/.test(tokenAmount))
@@ -1361,7 +1410,9 @@ describe('MetaMask', function () {
     })
 
     it('displays the token approval data', async function () {
-      await driver.clickElement(By.css('.confirm-approve-content__view-full-tx-button'))
+      await driver.clickElement(
+        By.css('.confirm-approve-content__view-full-tx-button')
+      )
       await driver.delay(regularDelayMs)
 
       const functionType = await driver.findElement(
@@ -1384,7 +1435,9 @@ describe('MetaMask', function () {
     })
 
     it('opens the gas edit modal', async function () {
-      await driver.clickElement(By.css('.confirm-approve-content__small-blue-text.cursor-pointer'))
+      await driver.clickElement(
+        By.css('.confirm-approve-content__small-blue-text.cursor-pointer')
+      )
       await driver.delay(regularDelayMs)
 
       gasModal = await driver.findElement(By.css('span .modal'))
@@ -1424,7 +1477,9 @@ describe('MetaMask', function () {
     })
 
     it('edits the permission', async function () {
-      const editButtons = await driver.findClickableElements(By.css('.confirm-approve-content__small-blue-text.cursor-pointer'))
+      const editButtons = await driver.findClickableElements(
+        By.css('.confirm-approve-content__small-blue-text.cursor-pointer')
+      )
       await editButtons[1].click()
       await driver.delay(regularDelayMs)
 
@@ -1646,7 +1701,9 @@ describe('MetaMask', function () {
 
   describe('Add existing token using search', function () {
     it('clicks on the Add Token button', async function () {
-      await driver.clickElement(By.xpath(`//div[contains(text(), 'Add Token')]`))
+      await driver.clickElement(
+        By.xpath(`//div[contains(text(), 'Add Token')]`)
+      )
       await driver.delay(regularDelayMs)
     })
 
@@ -1668,7 +1725,9 @@ describe('MetaMask', function () {
     })
 
     it('renders the balance for the chosen token', async function () {
-      const balance = await driver.findElement(By.css('.transaction-view-balance__primary-balance'))
+      const balance = await driver.findElement(
+        By.css('.transaction-view-balance__primary-balance')
+      )
       await driver.wait(until.elementTextMatches(balance, /0\s*BAT/))
       await driver.delay(regularDelayMs)
     })
@@ -1682,7 +1741,7 @@ describe('MetaMask', function () {
       'http://127.0.0.1:8545/4',
     ]
 
-    customRpcUrls.forEach(customRpcUrl => {
+    customRpcUrls.forEach((customRpcUrl) => {
       it(`creates custom RPC: ${customRpcUrl}`, async function () {
         await driver.clickElement(By.css('.network-name'))
         await driver.delay(regularDelayMs)
@@ -1731,7 +1790,9 @@ describe('MetaMask', function () {
     })
 
     it('deletes a custom RPC', async function () {
-      const networkListItems = await driver.findClickableElements(By.css('.networks-tab__networks-list-name'))
+      const networkListItems = await driver.findClickableElements(
+        By.css('.networks-tab__networks-list-name')
+      )
       const lastNetworkListItem = networkListItems[networkListItems.length - 1]
       await lastNetworkListItem.click()
       await driver.delay(100)

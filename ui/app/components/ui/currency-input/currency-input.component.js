@@ -95,7 +95,7 @@ export default class CurrencyInput extends PureComponent {
     })
   }
 
-  handleChange = decimalValue => {
+  handleChange = (decimalValue) => {
     const {
       currentCurrency: fromCurrency,
       conversionRate,

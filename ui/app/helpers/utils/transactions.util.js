@@ -60,7 +60,7 @@ const registry = new MethodRegistry({ provider: global.ethereumProvider })
  */
 export async function getMethodDataAsync (fourBytePrefix) {
   try {
-    const fourByteSig = getMethodFrom4Byte(fourBytePrefix).catch(e => {
+    const fourByteSig = getMethodFrom4Byte(fourBytePrefix).catch((e) => {
       log.error(e)
       return null
     })

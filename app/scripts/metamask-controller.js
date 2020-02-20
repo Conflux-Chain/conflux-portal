@@ -171,7 +171,7 @@ export default class MetamaskController extends EventEmitter {
     })
 
     // start and stop polling for balances based on activeControllerConnections
-    this.on('controllerConnectionChanged', activeControllerConnections => {
+    this.on('controllerConnectionChanged', (activeControllerConnections) => {
       if (activeControllerConnections > 0) {
         this.accountTracker.start()
         this.incomingTransactionsController.start()
@@ -208,7 +208,7 @@ export default class MetamaskController extends EventEmitter {
       ),
       encryptor: opts.encryptor || undefined,
     })
-    this.keyringController.memStore.subscribe(s =>
+    this.keyringController.memStore.subscribe((s) =>
       this._onKeyringControllerUpdate(s)
     )
 
@@ -317,7 +317,7 @@ export default class MetamaskController extends EventEmitter {
     })
 
     // ensure isClientOpenAndUnlocked is updated when memState updates
-    this.on('update', memState => {
+    this.on('update', (memState) => {
       this.isClientOpenAndUnlocked = memState.isUnlocked && this._isClientOpen
     })
 
@@ -398,7 +398,7 @@ export default class MetamaskController extends EventEmitter {
       processTypedMessageV4: this.newUnsignedTypedMessage.bind(this),
       processPersonalMessage: this.newUnsignedPersonalMessage.bind(this),
       getPendingNonce: this.getPendingNonce.bind(this),
-      getPendingTransactionByHash: hash =>
+      getPendingTransactionByHash: (hash) =>
         this.txController.getFilteredTxList({ hash, status: 'submitted' })[0],
     }
     const providerProxy = this.networkController.initializeProvider(
@@ -476,7 +476,7 @@ export default class MetamaskController extends EventEmitter {
 
     return {
       // etc
-      getState: cb => cb(null, this.getState()),
+      getState: (cb) => cb(null, this.getState()),
       setCurrentCurrency: this.setCurrentCurrency.bind(this),
       setUseBlockie: this.setUseBlockie.bind(this),
       setUseNonceField: this.setUseNonceField.bind(this),
@@ -487,7 +487,7 @@ export default class MetamaskController extends EventEmitter {
       setCurrentLocale: this.setCurrentLocale.bind(this),
       markPasswordForgotten: this.markPasswordForgotten.bind(this),
       unMarkPasswordForgotten: this.unMarkPasswordForgotten.bind(this),
-      getGasPrice: cb => cb(null, this.getGasPrice()),
+      getGasPrice: (cb) => cb(null, this.getGasPrice()),
 
       // coinbase
       buyEth: this.buyEth.bind(this),
@@ -702,8 +702,8 @@ export default class MetamaskController extends EventEmitter {
       ),
       handleNewAccountSelected: nodeify(this.handleNewAccountSelected, this),
 
-      getRequestAccountTabIds: cb => cb(null, this.getRequestAccountTabIds()),
-      getOpenMetamaskTabsIds: cb => cb(null, this.getOpenMetamaskTabsIds()),
+      getRequestAccountTabIds: (cb) => cb(null, this.getRequestAccountTabIds()),
+      getOpenMetamaskTabsIds: (cb) => cb(null, this.getOpenMetamaskTabsIds()),
     }
   }
 
@@ -847,11 +847,11 @@ export default class MetamaskController extends EventEmitter {
 
     // Filter ERC20 tokens
     const filteredAccountTokens = {}
-    Object.keys(accountTokens).forEach(address => {
+    Object.keys(accountTokens).forEach((address) => {
       const checksummedAddress = ethUtil.toChecksumAddress(address)
       filteredAccountTokens[checksummedAddress] = {}
       Object.keys(accountTokens[address]).forEach(
-        networkType =>
+        (networkType) =>
           (filteredAccountTokens[checksummedAddress][networkType] =
             networkType !== 'mainnet'
               ? accountTokens[address][networkType]
@@ -879,7 +879,7 @@ export default class MetamaskController extends EventEmitter {
     const accounts = {
       hd: hdAccounts
         .filter((item, pos) => hdAccounts.indexOf(item) === pos)
-        .map(address => ethUtil.toChecksumAddress(address)),
+        .map((address) => ethUtil.toChecksumAddress(address)),
       simpleKeyPair: [],
       ledger: [],
       trezor: [],
@@ -889,7 +889,7 @@ export default class MetamaskController extends EventEmitter {
 
     let transactions = this.txController.store.getState().transactions
     // delete tx for other accounts that we're not importing
-    transactions = transactions.filter(tx => {
+    transactions = transactions.filter((tx) => {
       const checksummedTxFrom = ethUtil.toChecksumAddress(tx.txParams.from)
       return accounts.hd.includes(checksummedTxFrom)
     })
@@ -916,7 +916,7 @@ export default class MetamaskController extends EventEmitter {
 
     // verify keyrings
     const nonSimpleKeyrings = this.keyringController.keyrings.filter(
-      keyring => keyring.type !== 'Simple Key Pair'
+      (keyring) => keyring.type !== 'Simple Key Pair'
     )
     if (nonSimpleKeyrings.length > 1 && this.diagnostics) {
       await this.diagnostics.reportMultipleKeyrings(nonSimpleKeyrings)
@@ -1013,7 +1013,7 @@ export default class MetamaskController extends EventEmitter {
     const oldAccounts = await this.keyringController.getAccounts()
     const accountsToTrack = [
       ...new Set(
-        oldAccounts.concat(accounts.map(a => a.address.toLowerCase()))
+        oldAccounts.concat(accounts.map((a) => a.address.toLowerCase()))
       ),
     ]
     this.accountTracker.syncWithAddresses(accountsToTrack)
@@ -1054,7 +1054,7 @@ export default class MetamaskController extends EventEmitter {
     const keyState = await this.keyringController.addNewAccount(keyring)
     const newAccounts = await this.keyringController.getAccounts()
     this.preferencesController.setAddresses(newAccounts)
-    newAccounts.forEach(address => {
+    newAccounts.forEach((address) => {
       if (!oldAccounts.includes(address)) {
         // Set the account label to Trezor 1 /  Ledger 1, etc
         this.preferencesController.setAccountLabel(
@@ -1097,7 +1097,7 @@ export default class MetamaskController extends EventEmitter {
     await this.verifySeedPhrase()
 
     this.preferencesController.setAddresses(newAccounts)
-    newAccounts.forEach(address => {
+    newAccounts.forEach((address) => {
       if (!oldAccounts.includes(address)) {
         this.preferencesController.setSelectedAddress(address)
       }
@@ -1258,11 +1258,11 @@ export default class MetamaskController extends EventEmitter {
     // and removes the metamaskId for signing
     return this.messageManager
       .approveMessage(msgParams)
-      .then(cleanMsgParams => {
+      .then((cleanMsgParams) => {
         // signs the message
         return this.keyringController.signMessage(cleanMsgParams)
       })
-      .then(rawSig => {
+      .then((rawSig) => {
         // tells the listener that the message has been signed
         // and can be returned to the dapp
         this.messageManager.setMsgStatusSigned(msgId, rawSig)
@@ -1320,11 +1320,11 @@ export default class MetamaskController extends EventEmitter {
     // and removes the metamaskId for signing
     return this.personalMessageManager
       .approveMessage(msgParams)
-      .then(cleanMsgParams => {
+      .then((cleanMsgParams) => {
         // signs the message
         return this.keyringController.signPersonalMessage(cleanMsgParams)
       })
-      .then(rawSig => {
+      .then((rawSig) => {
         // tells the listener that the message has been signed
         // and can be returned to the dapp
         this.personalMessageManager.setMsgStatusSigned(msgId, rawSig)
@@ -1584,7 +1584,7 @@ export default class MetamaskController extends EventEmitter {
     this.activeControllerConnections++
     this.emit('controllerConnectionChanged', this.activeControllerConnections)
     // connect dnode api to remote connection
-    pump(outStream, dnode, outStream, err => {
+    pump(outStream, dnode, outStream, (err) => {
       // report new active controller connection
       this.activeControllerConnections--
       this.emit('controllerConnectionChanged', this.activeControllerConnections)
@@ -1593,9 +1593,9 @@ export default class MetamaskController extends EventEmitter {
         log.error(err)
       }
     })
-    dnode.on('remote', remote => {
+    dnode.on('remote', (remote) => {
       // push updates to popup
-      const sendUpdate = update => remote.sendUpdate(update)
+      const sendUpdate = (update) => remote.sendUpdate(update)
       this.on('update', sendUpdate)
       // remove update listener once the connection ends
       dnode.on('end', () => this.removeListener('update', sendUpdate))
@@ -1631,9 +1631,9 @@ export default class MetamaskController extends EventEmitter {
 
     const connectionId = this.addConnection(origin, { engine })
 
-    pump(outStream, providerStream, outStream, err => {
+    pump(outStream, providerStream, outStream, (err) => {
       // handle any middleware cleanup
-      engine._middleware.forEach(mid => {
+      engine._middleware.forEach((mid) => {
         if (mid.destroy && typeof mid.destroy === 'function') {
           mid.destroy()
         }
@@ -1667,7 +1667,7 @@ export default class MetamaskController extends EventEmitter {
       provider,
       blockTracker,
     })
-    subscriptionManager.events.on('notification', message =>
+    subscriptionManager.events.on('notification', (message) =>
       engine.emit('notification', message)
     )
 
@@ -1714,7 +1714,7 @@ export default class MetamaskController extends EventEmitter {
     const configStore = this.createPublicConfigStore()
     const configStream = asStream(configStore)
 
-    pump(configStream, outStream, err => {
+    pump(configStream, outStream, (err) => {
       configStore.destroy()
       configStream.destroy()
       if (err) {
@@ -1785,7 +1785,7 @@ export default class MetamaskController extends EventEmitter {
       return
     }
 
-    Object.values(connections).forEach(conn => {
+    Object.values(connections).forEach((conn) => {
       conn.engine && conn.engine.emit('notification', payload)
     })
   }
@@ -1803,8 +1803,8 @@ export default class MetamaskController extends EventEmitter {
       return
     }
 
-    Object.values(this.connections).forEach(origin => {
-      Object.values(origin).forEach(conn => {
+    Object.values(this.connections).forEach((origin) => {
+      Object.values(origin).forEach((conn) => {
         conn.engine && conn.engine.emit('notification', payload)
       })
     })
@@ -1874,18 +1874,18 @@ export default class MetamaskController extends EventEmitter {
     }
 
     const lowestPrices = recentBlocks
-      .map(block => {
+      .map((block) => {
         if (!block.gasPrices || block.gasPrices.length < 1) {
           return GWEI_BN
         }
         return block.gasPrices
-          .map(hexPrefix => hexPrefix.substr(2))
-          .map(hex => new BN(hex, 16))
+          .map((hexPrefix) => hexPrefix.substr(2))
+          .map((hex) => new BN(hex, 16))
           .sort((a, b) => {
             return a.gt(b) ? 1 : -1
           })[0]
       })
-      .map(number => number.div(GWEI_BN).toNumber())
+      .map((number) => number.div(GWEI_BN).toNumber())
 
     const percentileNum = percentile(65, lowestPrices)
     const percentileNumBn = new BN(percentileNum)
@@ -2018,7 +2018,7 @@ export default class MetamaskController extends EventEmitter {
   ) {
     const frequentRpcListDetail = this.preferencesController.getFrequentRpcListDetail()
     const rpcSettings = frequentRpcListDetail.find(
-      rpc => rpcTarget === rpc.rpcUrl
+      (rpc) => rpcTarget === rpc.rpcUrl
     )
 
     if (rpcSettings) {

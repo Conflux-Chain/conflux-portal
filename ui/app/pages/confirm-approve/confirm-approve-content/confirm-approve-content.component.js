@@ -111,8 +111,13 @@ export default class ConfirmApproveContent extends Component {
           {t('accessAndSpendNotice', [origin])}
         </div>
         <div className="flex-row">
-          <div className="confirm-approve-content__label">{ t('amountWithColon') }</div>
-          <div className="confirm-approve-content__medium-text">{ `${Number(customTokenAmount || tokenAmount)} ${tokenSymbol}` }</div>
+          <div className="confirm-approve-content__label">
+            {t('amountWithColon')}
+          </div>
+          <div className="confirm-approve-content__medium-text">{`${Number(
+            customTokenAmount || tokenAmount
+          )} ${tokenSymbol}`}
+          </div>
         </div>
         <div className="flex-row">
           <div className="confirm-approve-content__label">
@@ -180,15 +185,17 @@ export default class ConfirmApproveContent extends Component {
         <div className="confirm-approve-content__edit-submission-button-container">
           <div
             className="confirm-approve-content__medium-link-text cursor-pointer"
-            onClick={() => showEditApprovalPermissionModal({
-              customTokenAmount,
-              decimals,
-              origin,
-              setCustomAmount,
-              tokenAmount,
-              tokenSymbol,
-              tokenBalance,
-            })}
+            onClick={() =>
+              showEditApprovalPermissionModal({
+                customTokenAmount,
+                decimals,
+                origin,
+                setCustomAmount,
+                tokenAmount,
+                tokenSymbol,
+                tokenBalance,
+              })
+            }
           >
             {t('editPermission')}
           </div>
@@ -226,39 +233,36 @@ export default class ConfirmApproveContent extends Component {
           })}
         </div>
 
-        {
-          showFullTxDetails
-            ? (
-              <div className="confirm-approve-content__full-tx-content">
-                <div className="confirm-approve-content__permission">
-                  {this.renderApproveContentCard({
-                    symbol: <img src="/images/user-check.svg" />,
-                    title: 'Permission',
-                    content: this.renderPermissionContent(),
-                    showEdit: true,
-                    onEditClick: () => showEditApprovalPermissionModal({
-                      customTokenAmount,
-                      decimals,
-                      origin,
-                      setCustomAmount,
-                      tokenAmount,
-                      tokenSymbol,
-                      tokenBalance,
-                    }),
-                  })}
-                </div>
-                <div className="confirm-approve-content__data">
-                  {this.renderApproveContentCard({
-                    symbol: <i className="fa fa-file" />,
-                    title: 'Data',
-                    content: this.renderDataContent(),
-                    noBorder: true,
-                  })}
-                </div>
-              </div>
-            )
-            : null
-        }
+        {showFullTxDetails ? (
+          <div className="confirm-approve-content__full-tx-content">
+            <div className="confirm-approve-content__permission">
+              {this.renderApproveContentCard({
+                symbol: <img src="/images/user-check.svg" />,
+                title: 'Permission',
+                content: this.renderPermissionContent(),
+                showEdit: true,
+                onEditClick: () =>
+                  showEditApprovalPermissionModal({
+                    customTokenAmount,
+                    decimals,
+                    origin,
+                    setCustomAmount,
+                    tokenAmount,
+                    tokenSymbol,
+                    tokenBalance,
+                  }),
+              })}
+            </div>
+            <div className="confirm-approve-content__data">
+              {this.renderApproveContentCard({
+                symbol: <i className="fa fa-file" />,
+                title: 'Data',
+                content: this.renderDataContent(),
+                noBorder: true,
+              })}
+            </div>
+          </div>
+        ) : null}
       </div>
     )
   }
