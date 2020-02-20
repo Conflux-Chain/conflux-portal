@@ -18,7 +18,7 @@ class ChromeDriver {
     }
     const driver = builder.build()
     const chromeDriver = new ChromeDriver(driver)
-    const extensionId = await chromeDriver.getExtensionIdByName('MetaMask')
+    const extensionId = await chromeDriver.getExtensionIdByName('ConfluxPortal')
 
     return {
       driver,
