@@ -35,14 +35,16 @@ export default class CurrencyDisplay extends PureComponent {
 
     let currencyDisplayClass = 'currency-display-component'
 
-    if (isNaN(parseInt(title[0]))) {
+    if (!title.endsWith('CFX') && isNaN(parseInt(title[0]))) {
       currencyDisplayClass =
         'currency-display-component currency-display-component-hide'
+      console.log("title = ", title);
     }
 
     if (suffix && currencies.includes(suffix.toLowerCase())) {
       currencyDisplayClass =
         'currency-display-component currency-display-component-hide'
+      console.log("suffix.toLowerCase = ", suffix.toLowerCase);
     }
 
     return (

@@ -267,7 +267,7 @@ describe('MetaMask', function () {
       const balance = await driver.findElement(
         By.css('.balance-display .token-amount')
       )
-      await driver.wait(until.elementTextMatches(balance, /100\s*ETH/))
+      await driver.wait(until.elementTextMatches(balance, /100\s*CFX/))
       await driver.delay(regularDelayMs)
     })
   })
@@ -294,6 +294,8 @@ describe('MetaMask', function () {
         'send screen should render an insufficient fund error message'
       )
 
+      await inputAmount.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
       await inputAmount.sendKeys(Key.BACK_SPACE)
       await driver.delay(50)
       await inputAmount.sendKeys(Key.BACK_SPACE)
@@ -349,11 +351,11 @@ describe('MetaMask', function () {
       const txValues = await driver.findElement(
         By.css('.transaction-list-item__amount--primary')
       )
-      await driver.wait(until.elementTextMatches(txValues, /-1\s*ETH/), 10000)
+      await driver.wait(until.elementTextMatches(txValues, /-1\s*CFX/), 10000)
     })
   })
 
-  describe('Send ETH from inside MetaMask using fast gas option', function () {
+  describe.skip('Send ETH from inside MetaMask using fast gas option', function () {
     it('starts a send transaction', async function () {
       await driver.clickElement(By.xpath(`//button[contains(text(), 'Send')]`))
       await driver.delay(regularDelayMs)
@@ -400,11 +402,12 @@ describe('MetaMask', function () {
       const txValues = await driver.findElement(
         By.css('.transaction-list-item__amount--primary')
       )
-      await driver.wait(until.elementTextMatches(txValues, /-1\s*ETH/), 10000)
+      await driver.wait(until.elementTextMatches(txValues, /-1\s*CFX/), 10000)
     })
   })
 
-  describe('Send ETH from inside MetaMask using advanced gas modal', function () {
+  // portal don't support this yet
+  describe.skip('Send ETH from inside MetaMask using advanced gas modal', function () {
     it('starts a send transaction', async function () {
       await driver.clickElement(By.xpath(`//button[contains(text(), 'Send')]`))
       await driver.delay(regularDelayMs)
@@ -460,7 +463,7 @@ describe('MetaMask', function () {
       const txValues = await driver.findElement(
         By.css('.transaction-list-item__amount--primary')
       )
-      await driver.wait(until.elementTextMatches(txValues, /-1\s*ETH/), 10000)
+      await driver.wait(until.elementTextMatches(txValues, /-1\s*CFX/), 10000)
     })
   })
 
@@ -487,16 +490,16 @@ describe('MetaMask', function () {
         )
       )
 
-      const advancedGasTitle = await driver.findElement(
-        By.xpath(`//span[contains(text(), 'Advanced gas controls')]`)
-      )
-      await driver.scrollToElement(advancedGasTitle)
+      // const advancedGasTitle = await driver.findElement(
+      //   By.xpath(`//span[contains(text(), 'Advanced gas controls')]`)
+      // )
+      // await driver.scrollToElement(advancedGasTitle)
 
-      await driver.clickElement(
-        By.css(
-          '[data-testid="advanced-setting-advanced-gas-inline"] .settings-page__content-item-col > div > div'
-        )
-      )
+      // await driver.clickElement(
+      //   By.css(
+      //     '[data-testid="advanced-setting-advanced-gas-inline"] .settings-page__content-item-col > div > div'
+      //   )
+      // )
       windowHandles = await driver.getAllWindowHandles()
       extension = windowHandles[0]
       await driver.closeAllWindowHandlesExcept([extension])
@@ -554,7 +557,7 @@ describe('MetaMask', function () {
 
       windowHandles = await driver.getAllWindowHandles()
       await driver.switchToWindowWithTitle(
-        'MetaMask Notification',
+        'Conflux Portal Notification',
         windowHandles
       )
       await driver.delay(regularDelayMs)
@@ -566,16 +569,31 @@ describe('MetaMask', function () {
       const [gasPriceInput, gasLimitInput] = await driver.findElements(
         By.css('.advanced-gas-inputs__gas-edit-row__input')
       )
-      await gasPriceInput.sendKeys(Key.chord(Key.CONTROL, 'a'))
+      await gasPriceInput.click()
       await driver.delay(50)
-
+      await gasPriceInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
+      await gasPriceInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
       await gasPriceInput.sendKeys(Key.BACK_SPACE)
       await driver.delay(50)
       await gasPriceInput.sendKeys('10')
       await driver.delay(50)
       await driver.delay(tinyDelayMs)
       await driver.delay(50)
-      await gasLimitInput.sendKeys(Key.chord(Key.CONTROL, 'a'))
+      await gasLimitInput.click()
+      await driver.delay(50)
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
       await driver.delay(50)
       await gasLimitInput.sendKeys('25000')
 
@@ -599,13 +617,13 @@ describe('MetaMask', function () {
             '.transaction-list__completed-transactions .transaction-list-item'
           )
         )
-        return confirmedTxes.length === 4
+        return confirmedTxes.length === 2 // 4
       }, 10000)
 
       const txValue = await driver.findClickableElement(
         By.css('.transaction-list-item__amount--primary')
       )
-      await driver.wait(until.elementTextMatches(txValue, /-3\s*ETH/), 10000)
+      await driver.wait(until.elementTextMatches(txValue, /-3\s*CFX/), 10000)
     })
 
     it('the transaction has the expected gas price', async function () {
@@ -820,7 +838,7 @@ describe('MetaMask', function () {
           '.transaction-list__completed-transactions .transaction-list-item'
         )
       )
-      assert.equal(confirmedTxes.length, 5, '5 transactions present')
+      assert.equal(confirmedTxes.length, 3, '3 transactions present') // 5
     })
   })
 
@@ -880,7 +898,7 @@ describe('MetaMask', function () {
             '.transaction-list__completed-transactions .transaction-list-item'
           )
         )
-        return confirmedTxes.length === 6
+        return confirmedTxes.length === 4 // 6
       }, 10000)
 
       const txAction = await driver.findElements(
@@ -920,7 +938,7 @@ describe('MetaMask', function () {
         By.css('.transaction-list-item__amount--primary')
       )
       await driver.wait(
-        until.elementTextMatches(txListValue, /-4\s*ETH/),
+        until.elementTextMatches(txListValue, /-4\s*CFX/),
         10000
       )
       await txListValue.click()
@@ -934,22 +952,35 @@ describe('MetaMask', function () {
 
       const gasModal = await driver.findElement(By.css('span .modal'))
       await driver.delay(regularDelayMs)
-      await driver.clickElement(By.css('.page-container__tab:nth-of-type(2)'))
-      await driver.delay(regularDelayMs)
+
+      // portal only support advanced gas option
+      // await driver.clickElement(By.css('.page-container__tab:nth-of-type(2)'))
+      // await driver.delay(regularDelayMs)
 
       const [gasPriceInput, gasLimitInput] = await driver.findElements(
         By.css('.advanced-gas-inputs__gas-edit-row__input')
       )
       const gasLimitValue = await gasLimitInput.getAttribute('value')
-      assert(Number(gasLimitValue) < 100000, 'Gas Limit too high')
-      await gasPriceInput.sendKeys(Key.chord(Key.CONTROL, 'a'))
+      assert(Number(gasLimitValue) < 1000000, 'Gas Limit too high')
+      await gasPriceInput.sendKeys(Key.BACK_SPACE)
       await driver.delay(50)
-
+      await gasPriceInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
       await gasPriceInput.sendKeys(Key.BACK_SPACE)
       await driver.delay(50)
       await gasPriceInput.sendKeys('10')
       await driver.delay(50)
-      await gasLimitInput.sendKeys(Key.chord(Key.CONTROL, 'a'))
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
       await driver.delay(50)
       await gasLimitInput.sendKeys(Key.BACK_SPACE)
       await driver.delay(50)
@@ -973,14 +1004,14 @@ describe('MetaMask', function () {
             '.transaction-list__completed-transactions .transaction-list-item'
           )
         )
-        return confirmedTxes.length === 7
+        return confirmedTxes.length === 5 // 7
       }, 10000)
 
       const txValues = await driver.findElements(
         By.css('.transaction-list-item__amount--primary')
       )
       await driver.wait(
-        until.elementTextMatches(txValues[0], /-4\s*ETH/),
+        until.elementTextMatches(txValues[0], /-4\s*CFX/),
         10000
       )
     })
@@ -1009,13 +1040,13 @@ describe('MetaMask', function () {
             '.transaction-list__completed-transactions .transaction-list-item'
           )
         )
-        return confirmedTxes.length === 8
+        return confirmedTxes.length === 6 // 8
       }, 10000)
 
       const txValues = await driver.findElement(
         By.css('.transaction-list-item__amount--primary')
       )
-      await driver.wait(until.elementTextMatches(txValues, /-0\s*ETH/), 10000)
+      await driver.wait(until.elementTextMatches(txValues, /-0\s*CFX/), 10000)
 
       await driver.closeAllWindowHandlesExcept([extension, dapp])
       await driver.switchToWindow(extension)
@@ -1027,11 +1058,11 @@ describe('MetaMask', function () {
       )
       await driver.delay(regularDelayMs)
       await driver.wait(
-        until.elementTextMatches(balance, /^87.*\s*ETH.*$/),
+        until.elementTextMatches(balance, /^95.*\s*CFX.*$/),
         10000
       )
       const tokenAmount = await balance.getText()
-      assert.ok(/^87.*\s*ETH.*$/.test(tokenAmount))
+      assert.ok(/^95.*\s*CFX.*$/.test(tokenAmount))
       await driver.delay(regularDelayMs)
     })
   })
@@ -1067,9 +1098,8 @@ describe('MetaMask', function () {
       const [gasPriceInput, gasLimitInput] = await driver.findElements(
         By.css('.advanced-gas-inputs__gas-edit-row__input')
       )
-      assert(gasPriceInput.getAttribute('value'), 20)
-      assert(gasLimitInput.getAttribute('value'), 4700000)
-
+      assert(gasPriceInput.getAttribute('value'), 10)
+      assert(gasLimitInput.getAttribute('value'), 500000)
       await driver.clickElement(By.xpath(`//button[contains(text(), 'Save')]`))
       await driver.delay(regularDelayMs)
 
@@ -1295,14 +1325,23 @@ describe('MetaMask', function () {
       const [gasPriceInput, gasLimitInput] = await driver.findElements(
         By.css('.advanced-gas-inputs__gas-edit-row__input')
       )
-      await gasPriceInput.sendKeys(Key.chord(Key.CONTROL, 'a'))
+      await gasPriceInput.sendKeys(Key.BACK_SPACE)
       await driver.delay(50)
-
+      await gasPriceInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
       await gasPriceInput.sendKeys(Key.BACK_SPACE)
       await driver.delay(50)
       await gasPriceInput.sendKeys('10')
       await driver.delay(50)
-      await gasLimitInput.sendKeys(Key.chord(Key.CONTROL, 'a'))
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
       await driver.delay(50)
       await gasLimitInput.sendKeys(Key.BACK_SPACE)
       await driver.delay(50)
@@ -1450,14 +1489,26 @@ describe('MetaMask', function () {
       const [gasPriceInput, gasLimitInput] = await driver.findElements(
         By.css('.advanced-gas-inputs__gas-edit-row__input')
       )
-      await gasPriceInput.sendKeys(Key.chord(Key.CONTROL, 'a'))
-      await driver.delay(50)
 
+      await gasPriceInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
+      await gasPriceInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
       await gasPriceInput.sendKeys(Key.BACK_SPACE)
       await driver.delay(50)
       await gasPriceInput.sendKeys('10')
       await driver.delay(50)
-      await gasLimitInput.sendKeys(Key.chord(Key.CONTROL, 'a'))
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
+      await driver.delay(50)
+      await gasLimitInput.sendKeys(Key.BACK_SPACE)
       await driver.delay(50)
       await gasLimitInput.sendKeys(Key.BACK_SPACE)
       await driver.delay(50)
@@ -1473,7 +1524,7 @@ describe('MetaMask', function () {
           '.confirm-approve-content__transaction-details-content__secondary-fee'
         )
       )
-      assert.equal(await gasFeeInEth.getText(), '0.0006 ETH')
+      assert.equal(await gasFeeInEth.getText(), '0.0006 CFX')
     })
 
     it('edits the permission', async function () {

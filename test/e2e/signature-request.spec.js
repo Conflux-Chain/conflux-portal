@@ -114,7 +114,7 @@ describe('MetaMask', function () {
       await driver.delay(regularDelayMs)
       windowHandles = await driver.getAllWindowHandles()
       await driver.switchToWindowWithTitle(
-        'MetaMask Notification',
+        'Conflux Portal Notification',
         windowHandles
       )
       await driver.delay(regularDelayMs)
