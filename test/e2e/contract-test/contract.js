@@ -423,7 +423,7 @@ const initialize = () => {
         .constructor(_initialAmount, _tokenName, _decimalUnits, _tokenSymbol)
         .sendTransaction({
           from: accounts[0],
-          gas: 500000,
+          gas: 2000000,
           gasPrice: 10000000000,
         })
         .confirmed()
