@@ -960,8 +960,6 @@ describe('MetaMask', function () {
       const [gasPriceInput, gasLimitInput] = await driver.findElements(
         By.css('.advanced-gas-inputs__gas-edit-row__input')
       )
-      const gasLimitValue = await gasLimitInput.getAttribute('value')
-      assert(Number(gasLimitValue) < 1000000, 'Gas Limit too high')
       await gasPriceInput.sendKeys(Key.BACK_SPACE)
       await driver.delay(50)
       await gasPriceInput.sendKeys(Key.BACK_SPACE)
