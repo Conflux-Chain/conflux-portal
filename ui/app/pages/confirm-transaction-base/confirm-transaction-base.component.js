@@ -263,9 +263,9 @@ export default class ConfirmTransactionBase extends Component {
             <ConfirmDetailRow
               label="Gas Fee"
               value={hexTransactionFee}
-              headerText="Edit"
+              headerText={advancedInlineGasShown ? '' : 'Edit' }
               headerTextClassName="confirm-detail-row__header-text--edit"
-              onHeaderClick={() => this.handleEditGas()}
+              onHeaderClick={() => !advancedInlineGasShown && this.handleEditGas()}
               secondaryText={
                 hideFiatConversion
                   ? this.context.t('noConversionRateAvailable')
