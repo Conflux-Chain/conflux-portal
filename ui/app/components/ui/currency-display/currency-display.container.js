@@ -54,6 +54,7 @@ const mergeProps = (stateProps, _, ownProps) => {
     ...restOwnProps,
     displayValue,
     suffix,
+    hide: !propsSuffix && toCurrency === currentCurrency,
   }
 }
 

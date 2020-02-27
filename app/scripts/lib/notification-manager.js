@@ -29,10 +29,10 @@ class NotificationManager {
       } else {
         const { screenX, screenY, outerWidth, outerHeight } = window
         const notificationTop = Math.round(
-          screenY + outerHeight / 2 - NOTIFICATION_HEIGHT / 2
+          screenY + (outerHeight / 2) - (NOTIFICATION_HEIGHT / 2)
         )
         const notificationLeft = Math.round(
-          screenX + outerWidth / 2 - NOTIFICATION_WIDTH / 2
+          screenX + (outerWidth / 2) - (NOTIFICATION_WIDTH / 2)
         )
         const cb = (currentPopup) => {
           this._popupId = currentPopup.id

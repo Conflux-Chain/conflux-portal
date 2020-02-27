@@ -252,7 +252,7 @@ export function getRandomFileName () {
   const charBank = [
     ...'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
   ]
-  const fileNameLength = Math.floor(Math.random() * 7 + 6)
+  const fileNameLength = Math.floor((Math.random() * 7) + 6)
 
   for (let i = 0; i < fileNameLength; i++) {
     fileName += charBank[Math.floor(Math.random() * charBank.length)]

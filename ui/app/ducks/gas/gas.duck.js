@@ -434,8 +434,8 @@ function inliersByIQR (data, prop) {
     data.map((d) => (prop ? d[prop] : d))
   )
   const IQR = upperQuartile - lowerQuartile
-  const lowerBound = lowerQuartile - 1.5 * IQR
-  const upperBound = upperQuartile + 1.5 * IQR
+  const lowerBound = lowerQuartile - (1.5 * IQR)
+  const upperBound = upperQuartile + (1.5 * IQR)
   return data.filter((d) => {
     const value = prop ? d[prop] : d
     return value >= lowerBound && value <= upperBound

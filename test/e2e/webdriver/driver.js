@@ -30,7 +30,7 @@ class Driver {
   // Element interactions
 
   async findElement (locator) {
-    console.log("locator = ", locator);
+    console.log('locator = ', locator)
     return await this.driver.wait(until.elementLocated(locator), this.timeout)
   }
 

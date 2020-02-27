@@ -723,7 +723,7 @@ describe('Gas Duck', function () {
       assert.equal(thirdDispatchCallType, SET_PRICE_AND_TIME_ESTIMATES)
       assert(
         priceAndTimeEstimateResult.length <
-          mockPredictTableResponse.length * 3 - 2
+          (mockPredictTableResponse.length * 3) - 2
       )
       assert(!priceAndTimeEstimateResult.find((d) => d.expectedTime > 100))
       assert(
