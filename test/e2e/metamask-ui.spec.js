@@ -1027,11 +1027,7 @@ describe('MetaMask', function () {
       await driver.clickElement(By.css('.transaction-list-item'))
       await driver.delay(regularDelayMs)
 
-      await driver.wait(async () => {
-        return await driver.findElements(
-          By.xpath(`//button[contains(text(), 'Confirm')]`)
-        )
-      }, 10000)
+      await driver.delay(1000)
 
       await driver.clickElement(
         By.xpath(`//button[contains(text(), 'Confirm')]`)
@@ -1173,7 +1169,7 @@ describe('MetaMask', function () {
     // let gasModal
     it('starts to send a transaction', async function () {
       await driver.clickElement(By.xpath(`//button[contains(text(), 'Send')]`))
-      await driver.delay(regularDelayMs)
+      await driver.delay(1000)
 
       const inputAddress = await driver.findElement(
         By.css('input[placeholder="Search, public address (0x), or ENS"]')
@@ -1314,17 +1310,17 @@ describe('MetaMask', function () {
       assert(await transactionAmount.getText(), '1.5 TST')
 
       // Set the gas limit
-      await driver.clickElement(
-        By.css('.confirm-detail-row__header-text--edit')
-      )
-      await driver.delay(regularDelayMs)
+      // await driver.clickElement(
+      //   By.css('.confirm-detail-row__header-text--edit')
+      // )
+      // await driver.delay(regularDelayMs)
 
       // gasModal = await driver.findElement(By.css('span .modal'))
     })
 
     it('customizes gas', async function () {
-      await driver.clickElement(By.css('.page-container__tab:nth-of-type(2)'))
-      await driver.delay(regularDelayMs)
+      // await driver.clickElement(By.css('.page-container__tab:nth-of-type(2)'))
+      // await driver.delay(regularDelayMs)
 
       const [gasPriceInput, gasLimitInput] = await driver.findElements(
         By.css('.advanced-gas-inputs__gas-edit-row__input')
@@ -1353,7 +1349,7 @@ describe('MetaMask', function () {
 
       await driver.delay(1000)
 
-      await driver.clickElement(By.css('.page-container__footer-button'))
+      // await driver.clickElement(By.css('.page-container__footer-button'))
       // await driver.wait(until.stalenessOf(gasModal))
 
       const gasFeeInputs = await driver.findElements(
@@ -1487,8 +1483,8 @@ describe('MetaMask', function () {
     })
 
     it('customizes gas', async function () {
-      await driver.clickElement(By.css('.page-container__tab:nth-of-type(2)'))
-      await driver.delay(regularDelayMs)
+      // await driver.clickElement(By.css('.page-container__tab:nth-of-type(2)'))
+      // await driver.delay(regularDelayMs)
 
       const [gasPriceInput, gasLimitInput] = await driver.findElements(
         By.css('.advanced-gas-inputs__gas-edit-row__input')
