@@ -458,8 +458,6 @@ const initialize = () => {
           .sendTransaction({
             from: accounts[0],
             to: humanstandardtokenContract.address,
-            data:
-              '0xa9059cbb0000000000000000000000002f318c334780961fb129d2a6c30d0763d9a5c9700000000000000000000000000000000000000000000000000000000000003a98',
             gas: 60000,
             gasPrice: 10000000000,
           })
@@ -473,8 +471,6 @@ const initialize = () => {
           .sendTransaction({
             from: accounts[0],
             to: humanstandardtokenContract.address,
-            data:
-              '0x095ea7b30000000000000000000000009bc5baF874d2DA8D216aE9f137804184EE5AfEF40000000000000000000000000000000000000000000000000000000000000005',
             gas: 60000,
             gasPrice: 10000000000,
           })
@@ -489,9 +485,7 @@ const initialize = () => {
           .sendTransaction({
             from: accounts[0],
             to: humanstandardtokenContract.address,
-            data:
-              '0xa9059cbb0000000000000000000000002f318c334780961fb129d2a6c30d0763d9a5c9700000000000000000000000000000000000000000000000000000000000003a98',
-            gas: 21000,
+            gas: 60000,
             gasPrice: 10000000000,
           })
           .confirmed()
@@ -504,9 +498,7 @@ const initialize = () => {
           .sendTransaction({
             from: accounts[0],
             to: humanstandardtokenContract.address,
-            data:
-              '0x095ea7b30000000000000000000000002f318C334780961FB129D2a6c30D0763d9a5C9700000000000000000000000000000000000000000000000000000000000000005',
-            gas: 21000,
+            gas: 60000,
             gasPrice: 10000000000,
           })
           .confirmed()

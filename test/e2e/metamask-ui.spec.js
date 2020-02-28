@@ -1760,10 +1760,10 @@ describe('MetaMask', function () {
 
     it('can pick a token from the existing options', async function () {
       const tokenSearch = await driver.findElement(By.css('#search-tokens'))
-      await tokenSearch.sendKeys('BAT')
+      await tokenSearch.sendKeys('FC')
       await driver.delay(regularDelayMs)
 
-      await driver.clickElement(By.xpath("//span[contains(text(), 'BAT')]"))
+      await driver.clickElement(By.xpath("//span[contains(text(), 'FC')]"))
       await driver.delay(regularDelayMs)
 
       await driver.clickElement(By.xpath(`//button[contains(text(), 'Next')]`))
@@ -1779,12 +1779,12 @@ describe('MetaMask', function () {
       const balance = await driver.findElement(
         By.css('.transaction-view-balance__primary-balance')
       )
-      await driver.wait(until.elementTextMatches(balance, /0\s*BAT/))
+      await driver.wait(until.elementTextMatches(balance, /0\s*FC/))
       await driver.delay(regularDelayMs)
     })
   })
 
-  describe('Stores custom RPC history', function () {
+  describe.skip('Stores custom RPC history', function () {
     const customRpcUrls = [
       'http://127.0.0.1:8545/1',
       'http://127.0.0.1:8545/2',
