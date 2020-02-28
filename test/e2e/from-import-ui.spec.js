@@ -231,12 +231,12 @@ describe('Using MetaMask with an existing account', function () {
       await inputAmount.sendKeys('1')
 
       // Set the gas limit
-      await driver.clickElement(By.css('.advanced-gas-options-btn'))
-      await driver.delay(regularDelayMs)
+      // await driver.clickElement(By.css('.advanced-gas-options-btn'))
+      // await driver.delay(regularDelayMs)
 
-      const gasModal = await driver.findElement(By.css('span .modal'))
-      await driver.clickElement(By.xpath(`//button[contains(text(), 'Save')]`))
-      await driver.wait(until.stalenessOf(gasModal))
+      // const gasModal = await driver.findElement(By.css('span .modal'))
+      // await driver.clickElement(By.xpath(`//button[contains(text(), 'Save')]`))
+      // await driver.wait(until.stalenessOf(gasModal))
       await driver.delay(regularDelayMs)
 
       // Continue to next screen
@@ -265,7 +265,7 @@ describe('Using MetaMask with an existing account', function () {
         By.css('.transaction-list-item__amount--primary')
       )
       assert.equal(txValues.length, 1)
-      assert.ok(/-1\s*ETH/.test(await txValues[0].getText()))
+      assert.ok(/-1\s*CFX/.test(await txValues[0].getText()))
     })
   })
 

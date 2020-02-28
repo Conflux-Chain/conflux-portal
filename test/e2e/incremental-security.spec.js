@@ -137,6 +137,7 @@ describe('MetaMask', function () {
       await addressInput.sendKeys(publicAddress)
       await driver.delay(regularDelayMs)
 
+      debugger
       await driver.clickElement(By.css('#send'))
 
       const txStatus = await driver.findElement(By.css('#success'))
