@@ -1,7 +1,7 @@
 const assert = require('assert')
 const webdriver = require('selenium-webdriver')
 
-const { By, Key, until } = webdriver
+const { By, Key } = webdriver
 const { tinyDelayMs, regularDelayMs, largeDelayMs } = require('./helpers')
 const { buildWebDriver } = require('./webdriver')
 const Ganache = require('./ganache')
