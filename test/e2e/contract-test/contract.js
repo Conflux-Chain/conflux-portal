@@ -232,7 +232,7 @@ const initialize = () => {
           .withdraw('0xde0b6b3a7640000')
           .sendTransaction({
             from: accounts[0],
-            gas: 300000,
+            gas: 600000,
             gasPrice: 10000000000,
           })
           .confirmed()

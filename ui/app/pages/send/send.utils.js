@@ -277,7 +277,7 @@ async function estimateGas ({
           const estimateWithBuffer = addGasBuffer(
             paramsForGasEstimate.gas,
             blockGasLimit,
-            1
+            1.5
           )
           return resolve(ethUtil.addHexPrefix(estimateWithBuffer))
         } else {
@@ -287,7 +287,7 @@ async function estimateGas ({
       const estimateWithBuffer = addGasBuffer(
         estimatedGas.toString(16),
         blockGasLimit,
-        1
+        1.5
       )
       return resolve(ethUtil.addHexPrefix(estimateWithBuffer))
     })

@@ -7,7 +7,7 @@ const { buildWebDriver } = require('./webdriver')
 const Ganache = require('./ganache')
 const enLocaleMessages = require('../../app/_locales/en/messages.json')
 
-const ganacheServer = new Ganache({ genBlockInterval: 300 })
+const ganacheServer = new Ganache({ genBlockInterval: 250 })
 
 describe('MetaMask', function () {
   let driver
@@ -826,7 +826,7 @@ describe('MetaMask', function () {
 
     it('rejects the rest of the transactions', async function () {
       await driver.clickElement(By.xpath(`//a[contains(text(), 'Reject 3')]`))
-      await driver.delay(regularDelayMs)
+      await driver.delay(regularDelayMs / 2)
 
       await driver.clickElement(
         By.xpath(`//button[contains(text(), 'Reject All')]`)
@@ -994,7 +994,7 @@ describe('MetaMask', function () {
       await driver.clickElement(
         By.xpath(`//button[contains(text(), 'Confirm')]`)
       )
-      await driver.delay(regularDelayMs)
+      await driver.delay(1000)
 
       await driver.wait(async () => {
         const confirmedTxes = await driver.findElements(
@@ -1019,7 +1019,7 @@ describe('MetaMask', function () {
       await driver.delay(regularDelayMs)
 
       await driver.clickElement(By.css('#withdrawButton'))
-      await driver.delay(regularDelayMs)
+      await driver.delay(regularDelayMs * 2)
 
       await driver.switchToWindow(extension)
       await driver.delay(largeDelayMs * 2)
