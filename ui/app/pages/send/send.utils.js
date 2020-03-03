@@ -14,6 +14,7 @@ import {
   INSUFFICIENT_FUNDS_ERROR,
   INSUFFICIENT_TOKENS_ERROR,
   MIN_GAS_LIMIT_HEX,
+  MAX_GAS_LIMIT_HEX,
   NEGATIVE_ETH_ERROR,
   ONE_GWEI_IN_WEI_HEX,
   SIMPLE_GAS_COST,
@@ -249,10 +250,12 @@ async function estimateGas ({
   // if not, fall back to block gasLimit
   if (!blockGasLimit) {
     blockGasLimit = MIN_GAS_LIMIT_HEX
+  } else if(parseInt(blockGasLimit) > parseInt(MAX_GAS_LIMIT_HEX)) {
+    blockGasLimit = MAX_GAS_LIMIT_HEX
   }
 
   paramsForGasEstimate.gas = ethUtil.addHexPrefix(
-    multiplyCurrencies(blockGasLimit, 0.95, {
+    multiplyCurrencies(blockGasLimit, 0.99, {
       multiplicandBase: 16,
       multiplierBase: 10,
       roundDown: '0',
@@ -265,6 +268,7 @@ async function estimateGas ({
     return estimateGasMethod(paramsForGasEstimate, (err, estimatedGas) => {
       if (err) {
         const simulationFailed =
+          err.message.includes('Internal error') ||
           err.message.includes('Transaction execution error.') ||
           err.message.includes(
             'gas required exceeds allowance or always failing transaction'
@@ -273,7 +277,7 @@ async function estimateGas ({
           const estimateWithBuffer = addGasBuffer(
             paramsForGasEstimate.gas,
             blockGasLimit,
-            1.5
+            1
           )
           return resolve(ethUtil.addHexPrefix(estimateWithBuffer))
         } else {
@@ -283,7 +287,7 @@ async function estimateGas ({
       const estimateWithBuffer = addGasBuffer(
         estimatedGas.toString(16),
         blockGasLimit,
-        1.5
+        1
       )
       return resolve(ethUtil.addHexPrefix(estimateWithBuffer))
     })

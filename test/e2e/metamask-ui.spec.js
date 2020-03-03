@@ -1169,7 +1169,7 @@ describe('MetaMask', function () {
     // let gasModal
     it('starts to send a transaction', async function () {
       await driver.clickElement(By.xpath(`//button[contains(text(), 'Send')]`))
-      await driver.delay(5000)
+      await driver.delay(1000)
 
       const inputAddress = await driver.findElement(
         By.css('input[placeholder="Search, public address (0x), or ENS"]')
