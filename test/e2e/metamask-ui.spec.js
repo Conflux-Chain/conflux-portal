@@ -1242,7 +1242,6 @@ describe('MetaMask', function () {
     })
 
     it('finds the transaction in the transactions list', async function () {
-      debugger
       await driver.wait(async () => {
         const confirmedTxes = await driver.findElements(
           By.css(
