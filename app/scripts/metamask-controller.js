@@ -1631,9 +1631,9 @@ export default class MetamaskController extends EventEmitter {
   }
 
   estimateGas (estimateGasParams) {
-    return new Promise(async (resolve, reject) => {
+    return this.getNextNonce(estimateGasParams.from).then(nonce => {
       return this.txController.txGasUtil.query.estimateGas(
-        { ...estimateGasParams, nonce: await this.getNextNonce(estimateGasParams.from) },
+        { ...estimateGasParams, nonce },
         (err, res) => {
           if (err) {
             return reject(err)
