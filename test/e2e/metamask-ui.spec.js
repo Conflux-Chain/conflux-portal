@@ -1234,6 +1234,7 @@ describe('MetaMask', function () {
     })
 
     it('submits the transaction', async function () {
+      await driver.delay(1000)
       await driver.clickElement(
         By.xpath(`//button[contains(text(), 'Confirm')]`)
       )
@@ -1241,6 +1242,7 @@ describe('MetaMask', function () {
     })
 
     it('finds the transaction in the transactions list', async function () {
+      debugger
       await driver.wait(async () => {
         const confirmedTxes = await driver.findElements(
           By.css(

@@ -28,7 +28,7 @@ import EnsController from './controllers/ens'
 import NetworkController from './controllers/network'
 import PreferencesController from './controllers/preferences'
 import AppStateController from './controllers/app-state'
-import InfuraController from './controllers/infura'
+// import InfuraController from './controllers/infura'
 import CachedBalancesController from './controllers/cached-balances'
 import OnboardingController from './controllers/onboarding'
 // import ThreeBoxController from './controllers/threebox'
@@ -129,10 +129,10 @@ export default class MetamaskController extends EventEmitter {
       initState.CurrencyController
     )
 
-    this.infuraController = new InfuraController({
-      initState: initState.InfuraController,
-    })
-    this.infuraController.scheduleInfuraNetworkCheck()
+    // this.infuraController = new InfuraController({
+    //   initState: initState.InfuraController,
+    // })
+    // this.infuraController.scheduleInfuraNetworkCheck()
 
     this.phishingController = new PhishingController()
 
@@ -334,7 +334,7 @@ export default class MetamaskController extends EventEmitter {
       CurrencyController: this.currencyRateController,
       ShapeShiftController: this.shapeshiftController,
       NetworkController: this.networkController.store,
-      InfuraController: this.infuraController.store,
+      // InfuraController: this.infuraController.store,
       CachedBalancesController: this.cachedBalancesController.store,
       OnboardingController: this.onboardingController.store,
       IncomingTransactionsController: this.incomingTransactionsController.store,
@@ -362,7 +362,7 @@ export default class MetamaskController extends EventEmitter {
       AddressBookController: this.addressBookController,
       CurrencyController: this.currencyRateController,
       ShapeshiftController: this.shapeshiftController,
-      InfuraController: this.infuraController.store,
+      // InfuraController: this.infuraController.store,
       OnboardingController: this.onboardingController.store,
       IncomingTransactionsController: this.incomingTransactionsController.store,
       PermissionsController: this.permissionsController.permissions,
@@ -1630,16 +1630,16 @@ export default class MetamaskController extends EventEmitter {
     return state
   }
 
-  estimateGas (estimateGasParams) {
-    return this.getNextNonce(estimateGasParams.from).then(nonce => {
-      return this.txController.txGasUtil.query.estimateGas(
+  async estimateGas (estimateGasParams) {
+    const nonce = await this.getNextNonce(estimateGasParams.from)
+    return new Promise((resolve, reject) => {
+      this.txController.txGasUtil.query.estimateGas(
         { ...estimateGasParams, nonce },
         (err, res) => {
           if (err) {
-            return reject(err)
+            reject(err)
           }
-
-          return resolve(res)
+          resolve(res)
         }
       )
     })

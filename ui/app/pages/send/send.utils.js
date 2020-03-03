@@ -250,12 +250,12 @@ async function estimateGas ({
   // if not, fall back to block gasLimit
   if (!blockGasLimit) {
     blockGasLimit = MIN_GAS_LIMIT_HEX
-  } else if (parseInt(blockGasLimit) > parseInt(MAX_GAS_LIMIT_HEX)) {
+  } else if (parseInt(blockGasLimit) > parseInt(`0x{MAX_GAS_LIMIT_HEX}`)) {
     blockGasLimit = MAX_GAS_LIMIT_HEX
   }
 
   paramsForGasEstimate.gas = ethUtil.addHexPrefix(
-    multiplyCurrencies(blockGasLimit, 0.99, {
+    multiplyCurrencies(blockGasLimit, 0.95, {
       multiplicandBase: 16,
       multiplierBase: 10,
       roundDown: '0',

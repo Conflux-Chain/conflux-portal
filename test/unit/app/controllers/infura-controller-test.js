@@ -2,7 +2,7 @@ import assert from 'assert'
 import sinon from 'sinon'
 import InfuraController from '../../../../app/scripts/controllers/infura'
 
-describe('infura-controller', function () {
+describe.skip('infura-controller', function () {
   let infuraController, networkStatus
   const response = {
     mainnet: 'degraded',
