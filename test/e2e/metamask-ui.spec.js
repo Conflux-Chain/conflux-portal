@@ -825,6 +825,7 @@ describe('MetaMask', function () {
     })
 
     it('rejects the rest of the transactions', async function () {
+      await driver.delay(regularDelayMs)
       await driver.clickElement(By.xpath(`//a[contains(text(), 'Reject 3')]`))
       await driver.delay(regularDelayMs / 2)
 
