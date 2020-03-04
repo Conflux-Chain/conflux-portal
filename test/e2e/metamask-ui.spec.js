@@ -317,6 +317,7 @@ describe('MetaMask', function () {
       assert(Number(inputValue) > 99)
 
       await amountMax.click()
+      await driver.delay(regularDelayMs / 2)
 
       assert.equal(await inputAmount.isEnabled(), true)
 
@@ -808,7 +809,7 @@ describe('MetaMask', function () {
       assert.equal(navigationText.includes('4'), true, 'transaction rejected')
     })
 
-    it('confirms a transaction', async function () {
+    it('confirms a transaction and reject rest', async function () {
       await driver.delay(tinyDelayMs / 2)
       await driver.clickElement(
         By.xpath(`//button[contains(text(), 'Confirm')]`)
@@ -820,11 +821,24 @@ describe('MetaMask', function () {
       )
       await driver.delay(tinyDelayMs / 2)
       const navigationText = await navigationElement.getText()
-      await driver.delay(tinyDelayMs / 2)
       assert.equal(navigationText.includes('3'), true, 'transaction confirmed')
+      await driver.clickElement(By.xpath(`//a[contains(text(), 'Reject 3')]`))
+      await driver.delay(regularDelayMs)
+
+      await driver.clickElement(
+        By.xpath(`//button[contains(text(), 'Reject All')]`)
+      )
+      await driver.delay(largeDelayMs * 2)
+
+      const confirmedTxes = await driver.findElements(
+        By.css(
+          '.transaction-list__completed-transactions .transaction-list-item'
+        )
+      )
+      assert.equal(confirmedTxes.length, 3, '3 transactions present') // 5
     })
 
-    it('rejects the rest of the transactions', async function () {
+    it.skip('rejects the rest of the transactions', async function () {
       await driver.clickElement(By.xpath(`//a[contains(text(), 'Reject 3')]`))
       await driver.delay(regularDelayMs)
 

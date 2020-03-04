@@ -2583,15 +2583,16 @@ export function hideSeedPhraseBackupAfterOnboarding () {
 }
 
 export function initializeThreeBox () {
-  return (dispatch) => {
-    return new Promise((resolve, reject) => {
-      background.initializeThreeBox((err) => {
-        if (err) {
-          dispatch(displayWarning(err.message))
-          return reject(err)
-        }
-        resolve()
-      })
+  return (/* dispatch */) => {
+    return new Promise((/* resolve, */ reject) => {
+      reject('threebox is disabled')
+      // background.initializeThreeBox((err) => {
+      //   if (err) {
+      //     dispatch(displayWarning(err.message))
+      //     return reject(err)
+      //   }
+      //   resolve()
+      // })
     })
   }
 }
