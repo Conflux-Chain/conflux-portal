@@ -310,7 +310,7 @@ describe('MetaMask', function () {
       )
 
       await amountMax.click()
-      await driver.delay(tinyDelayMs)
+      await driver.delay(regularDelayMs)
       assert.equal(await inputAmount.isEnabled(), false)
 
       let inputValue = await inputAmount.getAttribute('value')

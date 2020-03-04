@@ -6,9 +6,9 @@ import extractEthjsErrorMessage from './extractEthjsErrorMessage'
 const METAMASK_DEBUG = process.env.METAMASK_DEBUG
 const METAMASK_ENVIRONMENT = process.env.METAMASK_ENVIRONMENT
 const SENTRY_DSN_PROD =
-  'https://9f364c1e50ff4c8b96f279b236019359@sentry.conflux-chain.org/10'
+      'https://756aa0cb47eb4b44ac25739ceba42c07@sentry.io/3624979'
 const SENTRY_DSN_DEV =
-  'https://b6d6770834fe4c6bb3912b598d6b53b8@sentry.conflux-chain.org/9'
+      'https://756aa0cb47eb4b44ac25739ceba42c07@sentry.io/3624979'
 
 export default setupSentry
 
