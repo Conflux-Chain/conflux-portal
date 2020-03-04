@@ -1529,6 +1529,7 @@ describe('MetaMask', function () {
     })
 
     it('edits the permission', async function () {
+      await driver.delay(regularDelayMs)
       const editButtons = await driver.findClickableElements(
         By.css('.confirm-approve-content__small-blue-text.cursor-pointer')
       )
