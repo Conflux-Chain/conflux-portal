@@ -334,15 +334,16 @@ export function requestRevealSeedWords (password) {
   }
 }
 
-export function tryReverseResolveAddress (address) {
+export function tryReverseResolveAddress (/* address */) {
   return () => {
     return new Promise((resolve) => {
-      background.tryReverseResolveAddress(address, (err) => {
-        if (err) {
-          log.error(err)
-        }
-        resolve()
-      })
+      resolve()
+      // background.tryReverseResolveAddress(address, (err) => {
+      //   if (err) {
+      //     log.error(err)
+      //   }
+      //   resolve()
+      // })
     })
   }
 }
