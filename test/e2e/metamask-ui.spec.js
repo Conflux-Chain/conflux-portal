@@ -308,8 +308,9 @@ describe('MetaMask', function () {
       const amountMax = await driver.findClickableElement(
         By.css('.send-v2__amount-max')
       )
-      await amountMax.click()
 
+      await amountMax.click()
+      await driver.delay(tinyDelayMs)
       assert.equal(await inputAmount.isEnabled(), false)
 
       let inputValue = await inputAmount.getAttribute('value')
