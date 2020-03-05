@@ -191,7 +191,6 @@ describe('CurrencyInput Component', function () {
         <Provider store={store}>
           <CurrencyInput
             onChange={handleChangeSpy}
-            onBlur={handleBlurSpy}
             suffix="CFX"
             nativeCurrency="CFX"
             currentCurrency="usd"
@@ -202,7 +201,6 @@ describe('CurrencyInput Component', function () {
 
       assert.ok(wrapper)
       assert.equal(handleChangeSpy.callCount, 0)
-      assert.equal(handleBlurSpy.callCount, 0)
 
       const currencyInputInstance = wrapper
         .find(CurrencyInput)
@@ -226,11 +224,6 @@ describe('CurrencyInput Component', function () {
       )
       assert.equal(currencyInputInstance.state.decimalValue, 1)
       assert.equal(currencyInputInstance.state.hexValue, 'de0b6b3a7640000')
-
-      assert.equal(handleBlurSpy.callCount, 0)
-      input.simulate('blur')
-      assert.equal(handleBlurSpy.callCount, 1)
-      assert.ok(handleBlurSpy.calledWith('de0b6b3a7640000'))
     })
 
     it('should call onChange on input changes with the hex value for fiat', function () {
@@ -246,7 +239,6 @@ describe('CurrencyInput Component', function () {
         <Provider store={store}>
           <CurrencyInput
             onChange={handleChangeSpy}
-            onBlur={handleBlurSpy}
             suffix="USD"
             nativeCurrency="CFX"
             currentCurrency="usd"
@@ -258,7 +250,6 @@ describe('CurrencyInput Component', function () {
 
       assert.ok(wrapper)
       assert.equal(handleChangeSpy.callCount, 0)
-      assert.equal(handleBlurSpy.callCount, 0)
 
       const currencyInputInstance = wrapper
         .find(CurrencyInput)
@@ -279,11 +270,6 @@ describe('CurrencyInput Component', function () {
       // )
       assert.equal(currencyInputInstance.state.decimalValue, 1)
       assert.equal(currencyInputInstance.state.hexValue, 'f602f2234d0ea')
-
-      assert.equal(handleBlurSpy.callCount, 0)
-      input.simulate('blur')
-      assert.equal(handleBlurSpy.callCount, 1)
-      assert.ok(handleBlurSpy.calledWith('f602f2234d0ea'))
     })
 
     it('should change the state and pass in a new decimalValue when props.value changes', function () {
@@ -299,7 +285,6 @@ describe('CurrencyInput Component', function () {
         <Provider store={store}>
           <CurrencyInput
             onChange={handleChangeSpy}
-            onBlur={handleBlurSpy}
             suffix="USD"
             nativeCurrency="CFX"
             currentCurrency="usd"
@@ -335,7 +320,6 @@ describe('CurrencyInput Component', function () {
         <Provider store={store}>
           <CurrencyInput
             onChange={handleChangeSpy}
-            onBlur={handleBlurSpy}
             nativeSuffix="CFX"
             fiatSuffix="USD"
             nativeCurrency="CFX"
@@ -347,7 +331,6 @@ describe('CurrencyInput Component', function () {
 
       assert.ok(wrapper)
       assert.equal(handleChangeSpy.callCount, 0)
-      assert.equal(handleBlurSpy.callCount, 0)
 
       const currencyInputInstance = wrapper
         .find(CurrencyInput)
@@ -371,11 +354,6 @@ describe('CurrencyInput Component', function () {
       // )
       assert.equal(currencyInputInstance.state.decimalValue, 1)
       assert.equal(currencyInputInstance.state.hexValue, 'de0b6b3a7640000')
-
-      assert.equal(handleBlurSpy.callCount, 0)
-      input.simulate('blur')
-      assert.equal(handleBlurSpy.callCount, 1)
-      assert.ok(handleBlurSpy.calledWith('de0b6b3a7640000'))
 
       const swap = wrapper.find('.currency-input__swap-component')
       swap.simulate('click')

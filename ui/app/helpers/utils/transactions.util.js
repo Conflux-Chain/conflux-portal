@@ -200,8 +200,12 @@ export async function isSmartContractAddress (address) {
 
   try {
     await global.eth.getCode(address)
-  } catch(err) {
-    code = '0x'
+  } catch (err) {
+    if (err && err.message.includes('does not exist')) {
+      code = '0x'
+    } else {
+      throw err
+    }
   }
   // Geth will return '0x', and ganache-core v2.2.1 will return '0x0'
   const codeIsEmpty = !code || code === '0x' || code === '0x0'
