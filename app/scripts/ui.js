@@ -156,17 +156,6 @@ function setupWeb3Connection (connectionStream) {
   global.ethereumProvider = providerStream
   global.ethQuery = new EthQuery(providerStream)
   global.eth = new Eth(providerStream)
-  global.eth.getCode = (...args) => {
-    // Geth will return '0x', and ganache-core v2.2.1 will return '0x0'
-    // conflux will return an error
-    let result
-    try {
-      result = global.ethQuery.getCode.apply(global.ethQuery, args)
-    } catch (err) {
-      result = '0x'
-    }
-    return result
-  }
 }
 
 /**

@@ -214,7 +214,12 @@ async function estimateGas ({
 
   // if recipient has no code, gas is 21k max:
   if (!selectedToken && !data) {
-    const code = Boolean(to) && (await global.eth.getCode(to))
+    let code
+    try {
+      code = Boolean(to) && (await global.eth.getCode(to))
+    } catch(err) {
+      code = '0x'
+    }
     // Geth will return '0x', and ganache-core v2.2.1 will return '0x0'
     // conflux will return error if there's no contract at that address
     const codeIsEmpty = !code || code === '0x' || code === '0x0'
