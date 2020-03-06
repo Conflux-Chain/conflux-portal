@@ -2731,17 +2731,17 @@
     pify "^3.0.0"
     safe-event-emitter "^1.0.1"
 
-"@yqrashawn/conflux-local-network-lite@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@yqrashawn/conflux-local-network-lite/-/conflux-local-network-lite-1.0.4.tgz#c8792a46729f6fec4627711efe54f0ad47c49805"
-  integrity sha512-8Ewdcs1eWFeFFLoc8iJoaYl95y5f8KYiUQc8J5FRiLvd8dtsgi6GYTnymZa/JjIKpp40y90sLVSc82Zz1wHI+Q==
+"@yqrashawn/conflux-local-network-lite@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@yqrashawn/conflux-local-network-lite/-/conflux-local-network-lite-1.0.7.tgz#23c41c59ec973f689d9f2844a7226b3d3a55852b"
+  integrity sha512-5ZsRlhCsR/Elr8a8JXMZCqIITl4Br/Uuhf8SdROFV0NDMJ4ivDnYscxGYNerJO1Lp81CeK+h/5PnwriIBPMNqg==
   dependencies:
     ethereumjs-util "^6.2.0"
     express "^4.17.1"
     express-async-errors "^3.1.1"
     got "^10.2.2"
     jayson "^3.2.0"
-    js-conflux-sdk "^0.4.0-beta"
+    js-conflux-sdk "^0.7.5"
     make-dir "^3.0.0"
     platform-is "^1.0.4"
     rimraf "^3.0.1"
@@ -5029,11 +5029,6 @@ bignumber.js@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-4.1.0.tgz#db6f14067c140bd46624815a7916c92d9b6c24b1"
   integrity sha512-eJzYkFYy9L4JzXsbymsFn3p54D+llV27oTQ+ziJG7WFRheJcNZilgVXMG0LoZtlQSKBsJdWtLFqOD0u+U0jZKA==
-
-bignumber.js@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-9.0.0.tgz#805880f84a329b5eac6e7cb6f8274b6d82bdf075"
-  integrity sha512-t/OYhhJ2SD+YGBQcjY8GzzDHEk9f3nerxjtfa6tlMXfe7frs/WozhvCNoGvpM0P3bNf3Gq5ZRMlGr5f3r4/N8A==
 
 "bignumber.js@git+https://github.com/debris/bignumber.js.git#94d7146671b9719e00a09c29b01a691bc85048c2":
   version "2.0.7"
@@ -15144,17 +15139,6 @@ js-beautify@^1.10.2:
     glob "^7.1.3"
     mkdirp "~0.5.1"
     nopt "~4.0.1"
-
-js-conflux-sdk@^0.4.0-beta:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/js-conflux-sdk/-/js-conflux-sdk-0.4.1.tgz#2c961c27ac0e59ea9050c36eaf76f01c007842d9"
-  integrity sha512-D6dfrHDz5lfRb2Ufn40M8KNESql4Vd3wmqJ108sK30+3lWhxMfG5i5PUPpNq1+j0kLNcoKOPmS0081LR/1wP5w==
-  dependencies:
-    bignumber.js "^9.0.0"
-    keccak "^2.0.0"
-    lodash "^4.17.15"
-    secp256k1 "^3.7.1"
-    superagent "^5.1.0"
 
 js-conflux-sdk@^0.7.5:
   version "0.7.5"
