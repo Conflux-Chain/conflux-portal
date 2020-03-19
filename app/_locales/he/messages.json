@@ -426,7 +426,7 @@
     "message": "כתובת אתריום ציבורית"
   },
   "etherscanView": {
-    "message": "הצג חשבון ב- Etherscan"
+    "message": "הצג חשבון ב- Confluxscan"
   },
   "estimatedProcessingTimes": {
     "message": "זמני עיבוד משוערים"
@@ -1306,7 +1306,7 @@
     "message": "הצג ב- $1"
   },
   "viewOnEtherscan": {
-    "message": "הצג ב-Etherscan"
+    "message": "הצג ב-Confluxscan"
   },
   "visitWebSite": {
     "message": "בקר/י באתר שלנו"

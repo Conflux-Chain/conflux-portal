@@ -426,7 +426,7 @@
     "message": "Ethereum nyilvános címe"
   },
   "etherscanView": {
-    "message": "Fiók megtekintése Etherscanen"
+    "message": "Fiók megtekintése Confluxscanen"
   },
   "estimatedProcessingTimes": {
     "message": "Becsült feldolgozási idők"
@@ -1302,7 +1302,7 @@
     "message": "Megtekintés $1-kor"
   },
   "viewOnEtherscan": {
-    "message": "Nézze meg Etherscanen"
+    "message": "Nézze meg Confluxscanen"
   },
   "visitWebSite": {
     "message": "Látogass el weboldalunkra"

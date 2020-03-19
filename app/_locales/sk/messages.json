@@ -417,7 +417,7 @@
     "message": "Verejná adresa Ethereum"
   },
   "etherscanView": {
-    "message": "Prohlédněte si účet na Etherscan"
+    "message": "Prohlédněte si účet na Confluxscan"
   },
   "estimatedProcessingTimes": {
     "message": "Odhadovaný čas spracovania"
@@ -1266,7 +1266,7 @@
     "message": "Zobraziť na $1"
   },
   "viewOnEtherscan": {
-    "message": "Zobraziť na Etherscan"
+    "message": "Zobraziť na Confluxscan"
   },
   "visitWebSite": {
     "message": "Navštivte naši stránku"

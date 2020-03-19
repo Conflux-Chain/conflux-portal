@@ -396,7 +396,7 @@
     "message": "Ilagay ang password para magpatuloy"
   },
   "etherscanView": {
-    "message": "Tingnan ang account sa Etherscan"
+    "message": "Tingnan ang account sa Confluxscan"
   },
   "estimatedProcessingTimes": {
     "message": "Tinatantiyang Tagal ng Pagproseso"
@@ -1203,7 +1203,7 @@
     "message": "Tingnan sa $1"
   },
   "viewOnEtherscan": {
-    "message": "Tingnan sa Etherscan"
+    "message": "Tingnan sa Confluxscan"
   },
   "visitWebSite": {
     "message": "Bisitahin ang aming web site"

@@ -417,7 +417,7 @@
     "message": "Alamat Publik Ethereum "
   },
   "etherscanView": {
-    "message": "Lihat akun di Etherscan"
+    "message": "Lihat akun di Confluxscan"
   },
   "estimatedProcessingTimes": {
     "message": "Estimasi Waktu Pemrosesan"
@@ -1281,7 +1281,7 @@
     "message": "Lihat di $1"
   },
   "viewOnEtherscan": {
-    "message": "Lihat di Etherscan"
+    "message": "Lihat di Confluxscan"
   },
   "visitWebSite": {
     "message": "Kunjungi website kami"
