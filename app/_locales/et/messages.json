@@ -426,7 +426,7 @@
     "message": "Ethereumi avalik aadress"
   },
   "etherscanView": {
-    "message": "Vaadake kontot Etherscanil"
+    "message": "Vaadake kontot Confluxscanil"
   },
   "estimatedProcessingTimes": {
     "message": "Eeldatavad töötlemisajad"
@@ -1302,7 +1302,7 @@
     "message": "Vaata $1"
   },
   "viewOnEtherscan": {
-    "message": "Kuva Etherscanil"
+    "message": "Kuva Confluxscanil"
   },
   "visitWebSite": {
     "message": "Külastage meie veebilehte"

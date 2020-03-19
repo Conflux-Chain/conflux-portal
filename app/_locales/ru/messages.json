@@ -170,7 +170,7 @@
     "message": "Введите пароль"
   },
   "etherscanView": {
-    "message": "Просмотреть счет на Etherscan"
+    "message": "Просмотреть счет на Confluxscan"
   },
   "exportPrivateKey": {
     "message": "Экспортировать закрытый ключ"
@@ -1333,7 +1333,7 @@
     "message": "Посмотреть на $1"
   },
   "viewOnEtherscan": {
-    "message": "Посмотреть на Etherscan"
+    "message": "Посмотреть на Confluxscan"
   },
   "welcomeBack": {
     "message": "Рад видеть вас снова!"
