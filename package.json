@@ -107,7 +107,6 @@
     "eth-json-rpc-filters": "^4.1.1",
     "eth-json-rpc-infura": "^4.0.2",
     "eth-ledger-bridge-keyring": "^0.2.0",
-    "eth-method-registry": "^1.2.0",
     "eth-phishing-detect": "^1.1.4",
     "eth-query": "^2.1.2",
     "eth-sig-util": "^2.3.0",
