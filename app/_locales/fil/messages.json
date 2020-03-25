@@ -790,7 +790,7 @@
     "message": "Address ng Recipient"
   },
   "recipientAddressPlaceholder": {
-    "message": "Maghanap, pampublikong address (0x), o ENS"
+    "message": "Maghanap, pampublikong address (0x)"
   },
   "rejectAll": {
     "message": "Tanggihan Lahat"

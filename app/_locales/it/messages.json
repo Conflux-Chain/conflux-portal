@@ -829,7 +829,7 @@
     "message": "Indirizzo Destinatario"
   },
   "recipientAddressPlaceholder": {
-    "message": "Ricerca, indirizzo pubblico (0x) o ENS"
+    "message": "Ricerca, indirizzo pubblico (0x)"
   },
   "rejectAll": {
     "message": "Respingi Tutto"

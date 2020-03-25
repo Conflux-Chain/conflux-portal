@@ -857,7 +857,7 @@
     "message": "Adresa primaoca"
   },
   "recipientAddressPlaceholder": {
-    "message": "Pretraga, javna adresa (0x) ili ENS"
+    "message": "Pretraga, javna adresa (0x)"
   },
   "rejectAll": {
     "message": "Odbacite sve"

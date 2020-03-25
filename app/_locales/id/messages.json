@@ -844,7 +844,7 @@
     "message": "Alamat Penerima"
   },
   "recipientAddressPlaceholder": {
-    "message": "Pencarian, alamat publik  (0x), atau ENS"
+    "message": "Pencarian, alamat publik  (0x)"
   },
   "rejectAll": {
     "message": "Tolak Semua"

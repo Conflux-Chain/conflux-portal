@@ -848,7 +848,7 @@
     "message": "接收地址"
   },
   "recipientAddressPlaceholder": {
-    "message": "查找、公用地址 (0x) 或 ENS"
+    "message": "查找、公用地址 (0x)"
   },
   "rejectAll": {
     "message": "拒绝所有"

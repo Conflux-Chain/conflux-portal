@@ -851,7 +851,7 @@
     "message": "Dirección del destinatario"
   },
   "recipientAddressPlaceholder": {
-    "message": "Buscar, dirección pública (0x) o ENS"
+    "message": "Buscar, dirección pública (0x)"
   },
   "rejectAll": {
     "message": "Rechazar todo"

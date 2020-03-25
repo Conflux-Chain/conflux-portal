@@ -844,7 +844,7 @@
     "message": "Adreça del destinatari"
   },
   "recipientAddressPlaceholder": {
-    "message": "Cerca, adreça pública (0x), o ENS"
+    "message": "Cerca, adreça pública (0x)"
   },
   "rejectAll": {
     "message": "Rebutja-ho tot"

@@ -857,7 +857,7 @@
     "message": "받는 주소"
   },
   "recipientAddressPlaceholder": {
-    "message": "검색, 공개 주소 (0x), 또는 ENS"
+    "message": "검색, 공개 주소 (0x)"
   },
   "rejectAll": {
     "message": "모두 거부"

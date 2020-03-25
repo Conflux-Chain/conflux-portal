@@ -863,7 +863,7 @@
     "message": "የተቀባይ አድራሻ"
   },
   "recipientAddressPlaceholder": {
-    "message": "ፍለጋ፣ ለሕዝብ ክፍት የሆነ አድራሻ (0x), ወይም ENS"
+    "message": "ፍለጋ፣ ለሕዝብ ክፍት የሆነ አድራሻ (0x)"
   },
   "rejectAll": {
     "message": "ሁሉንም አትቀበል"

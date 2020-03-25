@@ -1023,7 +1023,7 @@
     "message": "Недавние"
   },
   "recipientAddressPlaceholder": {
-    "message": "Поиск, публичный адрес  (0x)или ENS"
+    "message": "Поиск, публичный адрес  (0x)"
   },
   "rejectAll": {
     "message": "Отклонить все"

@@ -856,7 +856,7 @@
     "message": "Saaja aadress"
   },
   "recipientAddressPlaceholder": {
-    "message": "Otsing, avalik aadress (0x) või ENS"
+    "message": "Otsing, avalik aadress (0x)"
   },
   "rejectAll": {
     "message": "Lükka kõik tagasi"

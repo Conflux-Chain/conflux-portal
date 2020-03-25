@@ -851,7 +851,7 @@
     "message": "Prejemnikov naslov"
   },
   "recipientAddressPlaceholder": {
-    "message": "Iskanje, javni naslov (0x) ali ENS"
+    "message": "Iskanje, javni naslov (0x)"
   },
   "rejectAll": {
     "message": "Zavrni vse"

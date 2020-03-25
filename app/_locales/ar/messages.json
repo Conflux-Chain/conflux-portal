@@ -859,7 +859,7 @@
     "message": "عنوان المستلم"
   },
   "recipientAddressPlaceholder": {
-    "message": "البحث، العنوان العام (0x)، أو ENS"
+    "message": "البحث، العنوان العام (0x)"
   },
   "rejectAll": {
     "message": "رفض الكل"

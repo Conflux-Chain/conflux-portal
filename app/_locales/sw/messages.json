@@ -844,7 +844,7 @@
     "message": "Anwani ya Mpokeaji"
   },
   "recipientAddressPlaceholder": {
-    "message": "Tafuta, anwani za umma (0x), au ENS"
+    "message": "Tafuta, anwani za umma (0x)"
   },
   "rejectAll": {
     "message": "Kataa Zote"

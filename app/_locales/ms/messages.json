@@ -837,7 +837,7 @@
     "message": "Alamat Penerima"
   },
   "recipientAddressPlaceholder": {
-    "message": "Cari, alamat awam (0x), atau ENS"
+    "message": "Cari, alamat awam (0x)"
   },
   "rejectAll": {
     "message": "Tolak Semua"

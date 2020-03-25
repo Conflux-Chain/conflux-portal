@@ -850,7 +850,7 @@
     "message": "Mottagaradress"
   },
   "recipientAddressPlaceholder": {
-    "message": "Sök, allmän adress (0x) eller ENS"
+    "message": "Sök, allmän adress (0x)"
   },
   "rejectAll": {
     "message": "Neka alla"

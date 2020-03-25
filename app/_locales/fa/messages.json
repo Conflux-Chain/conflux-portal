@@ -866,7 +866,7 @@
     "message": "آدرس دریافت کننده"
   },
   "recipientAddressPlaceholder": {
-    "message": "جستجو، آدرس عمومی (0x)، یا ENS"
+    "message": "جستجو، آدرس عمومی (0x)"
   },
   "rejectAll": {
     "message": "رد همه"

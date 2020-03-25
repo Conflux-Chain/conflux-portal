@@ -862,7 +862,7 @@
     "message": "Saņēmēja adrese"
   },
   "recipientAddressPlaceholder": {
-    "message": "Meklēšana, publiskā adrese (0x) vai ENS"
+    "message": "Meklēšana, publiskā adrese (0x)"
   },
   "rejectAll": {
     "message": "Noraidīt visus"

@@ -863,7 +863,7 @@
     "message": "प्राप्तकर्ता का पता"
   },
   "recipientAddressPlaceholder": {
-    "message": "ढूँढें, सार्वजनिक पता (0x), या ENS"
+    "message": "ढूँढें, सार्वजनिक पता (0x)"
   },
   "rejectAll": {
     "message": "सभी को अस्वीकार करें"

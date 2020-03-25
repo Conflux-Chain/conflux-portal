@@ -832,7 +832,7 @@
     "message": "Empfängeradresse"
   },
   "recipientAddressPlaceholder": {
-    "message": "Suchen, öffentliche Adresse (0x) oder ENS"
+    "message": "Suchen, öffentliche Adresse (0x)"
   },
   "rejectAll": {
     "message": "Alle verwerfen"

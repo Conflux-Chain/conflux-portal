@@ -859,7 +859,7 @@
     "message": "Adresa primatelja"
   },
   "recipientAddressPlaceholder": {
-    "message": "Pretraži, javne adrese (0x) ili ENS"
+    "message": "Pretraži, javne adrese (0x)"
   },
   "rejectAll": {
     "message": "Odbaci sve"

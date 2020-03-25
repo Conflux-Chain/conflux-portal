@@ -866,7 +866,7 @@
     "message": "Адреса отримувача"
   },
   "recipientAddressPlaceholder": {
-    "message": "Пошук, публічна адреса (0x), або ENS"
+    "message": "Пошук, публічна адреса (0x)"
   },
   "rejectAll": {
     "message": "Відхилити все"

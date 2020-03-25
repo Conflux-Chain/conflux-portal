@@ -862,7 +862,7 @@
     "message": "Адрес на получателя"
   },
   "recipientAddressPlaceholder": {
-    "message": "Търсене, публичен адрес (0x) или ENS"
+    "message": "Търсене, публичен адрес (0x)"
   },
   "rejectAll": {
     "message": "Отхвърлете всички"

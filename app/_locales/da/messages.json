@@ -844,7 +844,7 @@
     "message": "Modtagerens adresse"
   },
   "recipientAddressPlaceholder": {
-    "message": "Søg, offentlig adresse (0x) eller ENS"
+    "message": "Søg, offentlig adresse (0x)"
   },
   "rejectAll": {
     "message": "Afvis Alle"

@@ -859,7 +859,7 @@
     "message": "Címzett címe"
   },
   "recipientAddressPlaceholder": {
-    "message": "Keresés, nyilvános cím (0x) vagy ENS"
+    "message": "Keresés, nyilvános cím (0x)"
   },
   "rejectAll": {
     "message": "Mindet elutasít"

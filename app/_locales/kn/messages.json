@@ -866,7 +866,7 @@
     "message": "ಸ್ವೀಕರಿಸುವವರ ವಿಳಾಸ"
   },
   "recipientAddressPlaceholder": {
-    "message": "ಸಾರ್ವಜನಿಕ ವಿಳಾಸ (0x) ಅಥವಾ ENS ಹುಡುಕಿ"
+    "message": "ಸಾರ್ವಜನಿಕ ವಿಳಾಸ (0x)"
   },
   "rejectAll": {
     "message": "ಎಲ್ಲವನ್ನೂ ತಿರಸ್ಕರಿಸಿ"

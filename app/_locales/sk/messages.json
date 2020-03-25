@@ -832,7 +832,7 @@
     "message": "Adresa příjemce"
   },
   "recipientAddressPlaceholder": {
-    "message": "Vyhľadávať verejnú adresu (0x) alebo ENS"
+    "message": "Vyhľadávať verejnú adresu (0x)"
   },
   "rejectAll": {
     "message": "Odmietnuť všetko"

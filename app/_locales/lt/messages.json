@@ -866,7 +866,7 @@
     "message": "Gavėjo adresas"
   },
   "recipientAddressPlaceholder": {
-    "message": "Ieška, viešieji adresai (0x) arba ENS"
+    "message": "Ieška, viešieji adresai (0x)"
   },
   "rejectAll": {
     "message": "Atmesti viską"

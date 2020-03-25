@@ -863,7 +863,7 @@
     "message": "כתובת הנמען"
   },
   "recipientAddressPlaceholder": {
-    "message": "חיפוש, כתובת ציבורית (0x), או ENS"
+    "message": "חיפוש, כתובת ציבורית (0x)"
   },
   "rejectAll": {
     "message": "דחה הכל"

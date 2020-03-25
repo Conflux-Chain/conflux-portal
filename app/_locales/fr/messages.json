@@ -845,7 +845,7 @@
     "message": "Adresse du destinataire"
   },
   "recipientAddressPlaceholder": {
-    "message": "Recherche, adresse publique (0x) ou ENS"
+    "message": "Recherche, adresse publique (0x)"
   },
   "rejectAll": {
     "message": "Tout rejeter"

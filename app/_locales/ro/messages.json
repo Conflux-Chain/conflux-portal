@@ -853,7 +853,7 @@
     "message": "Adresă destinatar"
   },
   "recipientAddressPlaceholder": {
-    "message": "Căutare, adresa publică (0x) sau ENS"
+    "message": "Căutare, adresa publică (0x)"
   },
   "rejectAll": {
     "message": "Respingere toate"

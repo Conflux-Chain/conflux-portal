@@ -863,7 +863,7 @@
     "message": "Vastaanottajan osoite"
   },
   "recipientAddressPlaceholder": {
-    "message": "Haku, julkinen osoite (0x) tai ENS"
+    "message": "Haku, julkinen osoite (0x)"
   },
   "rejectAll": {
     "message": "Hylkää kaikki"

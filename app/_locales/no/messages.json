@@ -856,7 +856,7 @@
     "message": "Mottakeradresse"
   },
   "recipientAddressPlaceholder": {
-    "message": "Søk, offentlig adresse (0x) eller ENS"
+    "message": "Søk, offentlig adresse (0x)"
   },
   "rejectAll": {
     "message": "Avvis alle"
