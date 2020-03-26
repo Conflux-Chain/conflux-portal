@@ -387,7 +387,7 @@
     "message": "Jika Anda perlu mencadangkan frase seed lagi, Anda dapat menemukannya dalam Pengaturan -> Keamanan."
   },
   "endOfFlowMessage7": {
-    "message": "Jika Anda punya pertanyaan atau melihat sesuatu yang ganjil, kirimkan email ke support@metamask.io."
+    "message": "Jika Anda punya pertanyaan atau melihat sesuatu yang ganjil, kirimkan email ke portal@conflux-chain.org."
   },
   "endOfFlowMessage8": {
     "message": "MetaMask tidak dapat memulihkan frasa seed Anda. Pelajari lebih lanjut."
@@ -728,7 +728,7 @@
     "message": "Berhati-hatilah dengan frasa seed Anda — terdapat laporan tentang website yang coba mengimitasi MetaMask. MetaMask tidak akan pernah meminta frasa seed Anda!"
   },
   "protectYourKeysMessage2": {
-    "message": "Jaga keamanan frasa Anda. Jika Anda menemukan sesuatu yang mencurigakan, atau ragu dengan sebuah situs web, kirim surel ke support@metamask.io"
+    "message": "Jaga keamanan frasa Anda. Jika Anda menemukan sesuatu yang mencurigakan, atau ragu dengan sebuah situs web, kirim surel ke portal@conflux-chain.org"
   },
   "rpcUrl": {
     "message": "URL RPC Baru"
