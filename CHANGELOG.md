@@ -1,6 +1,8 @@
 # Changelog
 
 ## Current Develop Branch
+
+## 0.1.7 Sun Apr 26 2020
 - Version v0.1.6
 - Add: more trans
 - Fix: react network proptype
