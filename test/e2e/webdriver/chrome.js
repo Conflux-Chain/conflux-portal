@@ -10,6 +10,12 @@ class ChromeDriver {
     if (responsive) {
       args.push('--auto-open-devtools-for-tabs')
     }
+    if (process.env.BUILDKITE === 'true') {
+      // fix the DevToolsActivePort file doesn't exist error
+      // https://stackoverflow.com/a/50642913/5671288
+      // https://github.com/puppeteer/puppeteer/issues/1834
+      args.push('--disable-dev-shm-usage')
+    }
     const options = new chrome.Options().addArguments(args)
     if (responsive) {
       options.windowSize({ width: 1000, height: 1000 })
