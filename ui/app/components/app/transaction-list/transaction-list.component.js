@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import TransactionListItem from '../transaction-list-item'
 import ShapeShiftTransactionListItem from '../shift-list-item'
 import { TRANSACTION_TYPE_SHAPESHIFT } from '../../../helpers/constants/transactions'
+import { orderBy } from 'lodash'
 
 export default class TransactionList extends PureComponent {
   static contextTypes = {
@@ -90,7 +91,14 @@ export default class TransactionList extends PureComponent {
 
   renderTransactions () {
     const { t } = this.context
-    const { pendingTransactions = [], completedTransactions = [] } = this.props
+    let { completedTransactions = [], pendingTransactions = [] } = this.props
+    // order by time in descending order no matter that the conditions
+    pendingTransactions = orderBy(pendingTransactions, function (e) {
+      return e.initialTransaction && e.initialTransaction.time
+    }, ['desc'])
+    completedTransactions = orderBy(completedTransactions, function (e) {
+      return e.initialTransaction && e.initialTransaction.time
+    }, ['desc'])
     const pendingLength = pendingTransactions.length
 
     return (
