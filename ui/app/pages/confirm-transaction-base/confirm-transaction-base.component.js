@@ -621,6 +621,9 @@ export default class ConfirmTransactionBase extends Component {
 
   renderSponsoredTxFee () {
     const { hexSponsoredTransactionFee } = this.props
+    if (hexSponsoredTransactionFee === '0x0') {
+      return <div></div>
+    }
 
     return (
       <div style={{ display: 'flex', fontSize: '0.7rem', color: '#2F9AE0' }}>
