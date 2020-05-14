@@ -60,7 +60,7 @@ async function runTxListItemsTest (assert) {
   )
   assert.equal(
     unapprovedMsgDescription[0].textContent,
-    'Signature Request',
+    'sent CFX',
     'unapprovedMsg has correct description'
   )
 
@@ -71,7 +71,7 @@ async function runTxListItemsTest (assert) {
   )
   assert.equal(
     approvedTxRenderedStatus[0].textContent,
-    'pending',
+    'Unapproved',
     'approvedTx has correct label'
   )
 
