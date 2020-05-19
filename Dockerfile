@@ -19,6 +19,11 @@ RUN --mount=type=cache,target=$YARN_CACHE_DIR ./deps-install.sh
 COPY --chown=circleci:circleci development/prepare-conflux-local-netowrk-lite.js ./development/prepare-conflux-local-netowrk-lite.js
 COPY --chown=circleci:circleci . .
 
+RUN printf '#!/bin/sh\nexec "$@"\n' > /tmp/entrypoint-prep-deps \
+  && chmod +x /tmp/entrypoint-prep-deps \
+  && sudo mv /tmp/entrypoint-prep-deps /docker-entrypoint-prep-deps.sh
+ENTRYPOINT ["/docker-entrypoint-prep-deps.sh"]
+
 # prep-deps with browser
 FROM circleci/node:10.16.3-browsers AS prep-deps-browser
 RUN sudo apt update && sudo apt install lsof -y
@@ -67,31 +72,31 @@ RUN yarn lint:shellcheck
 FROM prep-deps-browser AS prep-build-test
 RUN yarn build:test
 
-# prep-build-storybook
-FROM prep-deps AS prep-build-storybook
-RUN yarn storybook:build
+# # prep-build-storybook
+# FROM prep-deps AS prep-build-storybook
+# RUN yarn storybook:build
 
 # prep-build
 FROM prep-deps AS prep-build
 RUN yarn dist
 RUN find dist/ -type f -exec md5sum {} \; | sort -k 2
 
-# test-unit
-FROM prep-deps AS test-unit
-RUN yarn test:coverage
+# # test-unit
+# FROM prep-deps AS test-unit
+# RUN yarn test:coverage
 
-# test-unit-global
-FROM prep-deps AS test-unit-global
-RUN yarn test:unit:global
+# # test-unit-global
+# FROM prep-deps AS test-unit-global
+# RUN yarn test:unit:global
 
-# test-lint
-FROM prep-deps AS test-lint
-RUN yarn lint
-RUN yarn verify-locales --quiet
+# # test-lint
+# FROM prep-deps AS test-lint
+# RUN yarn lint
+# RUN yarn verify-locales --quiet
 
-# test-lint-lockfile
-FROM prep-deps AS test-lint-lockfile
-RUN yarn lint:lockfile
+# # test-lint-lockfile
+# FROM prep-deps AS test-lint-lockfile
+# RUN yarn lint:lockfile
 
 # prep-scss
 FROM prep-deps-browser AS prep-scss
@@ -116,17 +121,17 @@ CMD ["/bin/sh"]
 # RUN yarn test:flat
 
 # # test-e2e-chrome
-# FROM prep-deps-browser AS e2e-chrome
+# FROM prep-build-test AS e2e-chrome
 # RUN yarn test:e2e:chrome
 
 # # test-e2e-firefox
-# FROM prep-deps-browser AS e2e-firefox
+# FROM prep-build-test AS e2e-firefox
 # RUN yarn test:e2e:firefox
 
 # # benchmark
 # FROM prep-build-test AS benchmark
 # RUN yarn benchmark:chrome --out test-artifacts/chrome/benchmark/pageload.json
 
-# test-mozilla-lint
-FROM prep-build AS test-mozilla-lint
-RUN NODE_OPTIONS=--max_old_space_size=3072 yarn mozilla-lint
+# # test-mozilla-lint
+# FROM prep-build AS test-mozilla-lint
+# RUN NODE_OPTIONS=--max_old_space_size=3072 yarn mozilla-lint
