@@ -55,7 +55,7 @@ steps:
     label: "unit test"
     branches: "buildkite"
     depends_on: "prep-deps"
-    command: "docker run --rm portal-prep-deps-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT test:unit"
+    command: "docker run --rm portal-prep-deps-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn test:unit"
     # artifact_paths:
     #   - ".nyc_output"
     #   - "coverage"
@@ -73,7 +73,7 @@ steps:
     depends_on: "prep-deps"
     command:
       - "docker run --rm portal-prep-deps-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn lint"
-      - "docker run --rm portal-prep-deps-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn verify-locales --quite"
+      - "docker run --rm portal-prep-deps-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn verify-locales"
 
   - key: "test-lint-lockfile"
     label: "lint lockfile"
