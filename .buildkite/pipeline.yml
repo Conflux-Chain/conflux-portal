@@ -115,7 +115,9 @@ steps:
     label: "chrome e2e test %n"
     branches: "buildkite"
     depends_on: "prep-build-test"
-    command: "docker run --rm portal-prep-build-test-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn test:e2e:chrome"
+    commands:
+      - "env"
+      - "docker run --rm portal-prep-build-test-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn test:e2e:chrome"
     parallelism: 9
     # artifact_paths:
     #   - "test-artifacts"
@@ -124,7 +126,9 @@ steps:
     label: "firefox e2e test %n"
     branches: "buildkite"
     depends_on: "prep-build-test"
-    command: "docker run --rm portal-prep-build-test-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn test:e2e:firefox"
+    commands:
+      - "env"
+      - "docker run --rm portal-prep-build-test-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn test:e2e:firefox"
     parallelism: 9
     # artifact_paths:
     #   - "test-artifacts"
