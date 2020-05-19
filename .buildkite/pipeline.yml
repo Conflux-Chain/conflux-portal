@@ -5,9 +5,6 @@ steps:
     branches: "buildkite"
     command: "DOCKER_BUILDKIT=1 docker build --progress=plain --target=base -t portal-base-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT ."
 
-  # # - wait
-
-  ### L1
   - key: "audit-deps"
     label: "yarn audit"
     branches: "buildkite"
@@ -15,37 +12,46 @@ steps:
     command: "DOCKER_BUILDKIT=1 docker build --progress=plain --target=audit-deps -t portal-audit-deps-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT ."
 
   - key: "prep-deps"
-    label: "install deps"
+    label: "yarn install"
     branches: "buildkite"
     depends_on: "base"
     command: "DOCKER_BUILDKIT=1 docker build --progress=plain --target=prep-deps -t portal-prep-deps-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT ."
 
+  - key: "prep-deps-with-prod-files"
+    label: "install deps with prod files"
+    branches: "buildkite"
+    depends_on: "prep-deps"
+    command: "DOCKER_BUILDKIT=1 docker build --progress=plain --target=prep-deps-with-prod-files -t portal-prep-deps-with-prod-files-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT ."
+
+  - key: "prep-deps-with-files"
+    label: "install deps with all files"
+    branches: "buildkite"
+    depends_on: "prep-deps"
+    command: "DOCKER_BUILDKIT=1 docker build --progress=plain --target=prep-deps-with-files -t portal-prep-deps-with-files-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT ."
+
   - key: "shellcheck"
     label: "shellcheck"
     branches: "buildkite"
-    depends_on: "prep-deps"
+    depends_on: "prep-deps-with-files"
     command: "DOCKER_BUILDKIT=1 docker build --progress=plain --target=shellcheck -t portal-shellcheck-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT ."
 
   - key: "prep-deps-browser"
     label: "install deps with browsers"
     branches: "buildkite"
-    depends_on: "prep-deps"
+    depends_on: "prep-deps-with-files"
     command: "DOCKER_BUILDKIT=1 docker build --progress=plain --target=prep-deps-browser -t portal-prep-deps-browser-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT ."
-
-  # - wait
-
-  ### L2
 
   - key: "prep-build-storybook"
     label: "build storybook"
     branches: "buildkite"
-    depends_on: "prep-deps"
-    command: "docker run --rm portal-prep-deps-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn storybook:build"
+    depends_on: "prep-deps-with-prod-files"
+    commands:
+      - "DOCKER_BUILDKIT=1 docker build --progress=plain --target=prep-build-storybook -t portal-prep-build-storybook-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT ."
 
   - key: "prep-build"
     label: "yarn dist"
     branches: "buildkite"
-    depends_on: "prep-deps"
+    depends_on: "prep-deps-with-prod-files"
     command: "DOCKER_BUILDKIT=1 docker build --progress=plain --target=prep-build -t portal-prep-build-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT ."
     # artifact_paths:
     #   - "builds"
@@ -54,8 +60,8 @@ steps:
   - key: "test-unit"
     label: "unit test"
     branches: "buildkite"
-    depends_on: "prep-deps"
-    command: "docker run --rm portal-prep-deps-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn test:unit"
+    depends_on: "prep-deps-with-files"
+    command: "docker run --rm portal-prep-deps-with-files-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn test:unit"
     # artifact_paths:
     #   - ".nyc_output"
     #   - "coverage"
@@ -64,22 +70,22 @@ steps:
   - key: "test-unit-global"
     label: "unit test global"
     branches: "buildkite"
-    depends_on: "prep-deps"
-    command: "docker run --rm portal-prep-deps-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn test:unit:global"
+    depends_on: "prep-deps-with-files"
+    command: "docker run --rm portal-prep-deps-with-files-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn test:unit:global"
 
   - key: "test-lint"
     label: "lint"
     branches: "buildkite"
-    depends_on: "prep-deps"
+    depends_on: "prep-deps-with-files"
     command:
-      - "docker run --rm portal-prep-deps-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn lint"
-      - "docker run --rm portal-prep-deps-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn verify-locales"
+      - "docker run --rm portal-prep-deps-with-files-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn lint"
+      - "docker run --rm portal-prep-deps-with-files-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn verify-locales"
 
   - key: "test-lint-lockfile"
     label: "lint lockfile"
     branches: "buildkite"
-    depends_on: "prep-deps"
-    command: "docker run --rm portal-prep-deps-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn lint:lockfile"
+    depends_on: "prep-deps-with-files"
+    command: "docker run --rm portal-prep-deps-with-files-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn lint:lockfile"
 
   - key: "prep-scss"
     label: "build scss"
@@ -146,5 +152,3 @@ steps:
     branches: "buildkite"
     depends_on: "prep-build"
     command: "docker run --rm --env NODE_OPTIONS=--max_old_space_size=3072 portal-prep-build-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn mozilla-lint"
-
-  # - wait

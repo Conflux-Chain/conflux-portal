@@ -16,7 +16,15 @@ FROM base as prep-deps
 ARG YARN_CACHE_DIR=/usr/local/share/.cache/yarn/
 COPY --chown=circleci:circleci .circleci/scripts/deps-install.sh .
 RUN --mount=type=cache,target=$YARN_CACHE_DIR ./deps-install.sh
-COPY --chown=circleci:circleci development/prepare-conflux-local-netowrk-lite.js ./development/prepare-conflux-local-netowrk-lite.js
+
+# prep-deps-with-files without browser
+FROM base as prep-deps-with-files
+ARG YARN_CACHE_DIR=/usr/local/share/.cache/yarn/
+COPY --chown=circleci:circleci .circleci/scripts/deps-install.sh .
+RUN --mount=type=cache,target=$YARN_CACHE_DIR ./deps-install.sh
+# install fullnode
+COPY ./development/prepare-conflux-local-netowrk-lite.js ./development/
+RUN yarn test:prepare-conflux-local
 COPY --chown=circleci:circleci . .
 
 RUN printf '#!/bin/sh\nexec "$@"\n' > /tmp/entrypoint-prep-deps \
@@ -57,27 +65,34 @@ RUN printf '#!/bin/sh\nsudo Xvfb :99 -screen 0 1280x1024x24 &\nexec "$@"\n' > /t
   && chmod +x /tmp/entrypoint \
   && sudo mv /tmp/entrypoint /docker-entrypoint.sh
 
-COPY --chown=circleci:circleci --from=prep-deps /home/circleci/portal/ .
+COPY --chown=circleci:circleci --from=prep-deps-with-files /home/circleci/portal/ .
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["/bin/sh"]
 
 ### Level 2
 # test-lint-shellcheck
-FROM prep-deps AS shellcheck
+FROM prep-deps-with-files AS shellcheck
 RUN sudo apt update && sudo apt install jq shellcheck -y
 RUN yarn lint:shellcheck
+
+# prep-deps-with-prod-file
+FROM prep-deps AS prep-deps-with-prod-files
+COPY --chown=circleci:circleci gulpfile.js babel.config.js .
+COPY --chown=circleci:circleci ui ./ui
+COPY --chown=circleci:circleci app ./app
 
 # prep-build-test
 FROM prep-deps-browser AS prep-build-test
 RUN yarn build:test
 
 # # prep-build-storybook
-# FROM prep-deps AS prep-build-storybook
-# RUN yarn storybook:build
+FROM prep-deps-with-prod-files AS prep-build-storybook
+COPY --chown=circleci:circleci .storybook .
+RUN yarn storybook:build
 
 # prep-build
-FROM prep-deps AS prep-build
+FROM prep-deps-with-prod-files AS prep-build
 RUN yarn dist
 RUN find dist/ -type f -exec md5sum {} \; | sort -k 2
 
@@ -90,7 +105,8 @@ RUN find dist/ -type f -exec md5sum {} \; | sort -k 2
 # RUN yarn test:unit:global
 
 # # test-lint
-# FROM prep-deps AS test-lint
+# FROM prep-deps-with-prod-files AS test-lint
+# COPY .eslintignore .eslintrc.js development test .
 # RUN yarn lint
 # RUN yarn verify-locales --quiet
 
