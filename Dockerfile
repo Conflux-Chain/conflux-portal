@@ -17,7 +17,6 @@ ARG YARN_CACHE_DIR=/usr/local/share/.cache/yarn/
 COPY --chown=circleci:circleci .circleci/scripts/deps-install.sh .
 RUN --mount=type=cache,target=$YARN_CACHE_DIR ./deps-install.sh
 COPY --chown=circleci:circleci development/prepare-conflux-local-netowrk-lite.js ./development/prepare-conflux-local-netowrk-lite.js
-RUN yarn test:prepare-conflux-local
 COPY --chown=circleci:circleci . .
 
 # prep-deps with browser

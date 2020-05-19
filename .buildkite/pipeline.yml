@@ -47,12 +47,19 @@ steps:
     branches: "buildkite"
     depends_on: "prep-deps"
     command: "DOCKER_BUILDKIT=1 docker build --progress=plain --target=prep-build -t portal-prep-build-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT ."
+    artifact_paths:
+      - "builds"
+
 
   - key: "test-unit"
     label: "unit test"
     branches: "buildkite"
     depends_on: "prep-deps"
     command: "DOCKER_BUILDKIT=1 docker build --progress=plain --target=test-unit -t portal-test-unit-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT ."
+    artifact_paths:
+      - ".nyc_output"
+      - "coverage"
+
 
   - key: "test-unit-global"
     label: "unit test global"
@@ -103,22 +110,30 @@ steps:
     command: "docker run --rm portal-prep-scss-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT"
 
   - key: "e2e-chrome"
-    label: "chrome e2e test"
+    label: "chrome e2e test %n"
     branches: "buildkite"
     depends_on: "prep-build-test"
     command: "docker run --rm portal-prep-build-test-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn test:e2e:chrome"
+    parallelism: 9
+    artifact_paths:
+      - "test-artifacts"
 
   - key: "e2e-firefox"
-    label: "firefox e2e test"
+    label: "firefox e2e test %n"
     branches: "buildkite"
     depends_on: "prep-build-test"
     command: "docker run --rm portal-prep-build-test-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn test:e2e:firefox"
+    parallelism: 9
+    artifact_paths:
+      - "test-artifacts"
 
   - key: "benchmark"
     label: "benchmark"
     branches: "buildkite"
     depends_on: "prep-build-test"
     command: "docker run --rm portal-prep-build-test-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT yarn benchmark:chrome --out test-artifacts/chrome/benchmark/pageload.json"
+    artifact_paths:
+      - "test-artifacts"
 
   - key: "test-mozilla-lint"
     label: "mozilla lint"
