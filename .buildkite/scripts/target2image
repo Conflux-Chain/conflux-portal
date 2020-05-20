@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -x
+set -e
+set -o pipefail
+
+echo "--rm \
+      --env BUILDKITE \
+      --env BUILDKITE_ARTIFACT_PATHS \
+      --env BUILDKITE_BRANCH \
+      --env BUILDKITE_COMMAND \
+      --env BUILDKITE_LABEL \
+      --env BUILDKITE_ORGANIZATION_SLUG \
+      --env BUILDKITE_PARALLEL_JOB \
+      --env BUILDKITE_PARALLEL_JOB_COUNT \
+      --env BUILDKITE_REPO \
+      --env CI=$CI \
+      portal-$1-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT"

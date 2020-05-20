@@ -13,16 +13,11 @@ RUN ./yarn-audit
 
 # prep-deps without browser
 FROM base as prep-deps
-ARG YARN_CACHE_DIR=/usr/local/share/.cache/yarn/
 COPY --chown=circleci:circleci .circleci/scripts/deps-install.sh .
-RUN --mount=type=cache,target=$YARN_CACHE_DIR ./deps-install.sh
+RUN --mount=type=cache,target=/usr/local/share/.cache/yarn ./deps-install.sh
 
 # prep-deps-with-files without browser
-FROM base as prep-deps-with-files
-ARG YARN_CACHE_DIR=/usr/local/share/.cache/yarn/
-COPY --chown=circleci:circleci .circleci/scripts/deps-install.sh .
-RUN --mount=type=cache,target=$YARN_CACHE_DIR ./deps-install.sh
-# install fullnode
+FROM prep-deps as prep-deps-with-files
 COPY ./development/prepare-conflux-local-netowrk-lite.js ./development/
 RUN yarn test:prepare-conflux-local
 COPY --chown=circleci:circleci . .
@@ -93,6 +88,8 @@ RUN yarn storybook:build
 
 # prep-build
 FROM prep-deps-with-prod-files AS prep-build
+ARG BUILDKITE_BRANCH
+ENV BUILDKITE_BRANCH ${BUILDKITE_BRANCH}
 RUN yarn dist
 RUN find dist/ -type f -exec md5sum {} \; | sort -k 2
 
