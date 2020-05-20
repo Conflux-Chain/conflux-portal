@@ -13,7 +13,6 @@ const zip = require('gulp-zip')
 const { assign } = require('lodash')
 const livereload = require('gulp-livereload')
 const del = require('del')
-const manifest = require('./app/manifest.json')
 const sass = require('gulp-sass')
 const autoprefixer = require('gulp-autoprefixer')
 const gulpStylelint = require('gulp-stylelint')
@@ -606,7 +605,7 @@ function zipTask (target) {
   return () => {
     return gulp
       .src(`dist/${target}/**`)
-      .pipe(zip(`conflux-portal-${target}-${manifest.version}.zip`))
+      .pipe(zip(`conflux-portal-${target}-${require('./app/manifest.json').version}.zip`))
       .pipe(gulp.dest('builds'))
   }
 }

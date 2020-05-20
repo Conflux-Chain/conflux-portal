@@ -17,6 +17,12 @@ steps:
     depends_on: "base"
     command: "BUILD_TARGET=prep-deps ./.buildkite/scripts/docker-build"
 
+  - key: "test-lint-lockfile"
+    label: ":nsp: lint lockfile"
+    branches: "buildkite"
+    depends_on: "prep-deps"
+    command: "BUILD_TARGET=test-lint-lockfile ./.buildkite/scripts/docker-build"
+
   - key: "prep-deps-with-prod-files"
     label: ":parcel: install deps with prod files"
     branches: "buildkite"
@@ -38,8 +44,16 @@ steps:
   - key: "prep-deps-browser"
     label: ":parcel: install deps with browsers"
     branches: "buildkite"
-    depends_on: "prep-deps-with-files"
+    depends_on: "prep-deps"
     command: "BUILD_TARGET=prep-deps-browser ./.buildkite/scripts/docker-build"
+
+  - key: "prep-deps-browser-with-files"
+    label: ":parcel: install deps with browsers and all files"
+    branches: "buildkite"
+    depends_on:
+      - "prep-deps-with-files"
+      - "prep-deps-browser"
+    command: "BUILD_TARGET=prep-deps-browser-with-files ./.buildkite/scripts/docker-build"
 
   - key: "prep-build-storybook"
     label: ":storybook: build storybook"
@@ -57,35 +71,32 @@ steps:
     #   - "builds"
 
 
+  - key: "test-prep"
+    label: ":parcel: unit prep"
+    branches: "buildkite"
+    depends_on: "prep-deps-with-files"
+    command: "BUILD_TARGET=test-prep ./.buildkite/scripts/docker-build"
+
   - key: "test-unit"
     label: ":mocha: unit test"
     branches: "buildkite"
-    depends_on: "prep-deps-with-files"
-    command: "docker run $(./.buildkite/scripts/target2image prep-deps-with-files) yarn test:unit"
+    depends_on: "test-prep"
+    command: "BUILD_TARGET=test-unit ./.buildkite/scripts/docker-build"
     # artifact_paths:
     #   - ".nyc_output"
     #   - "coverage"
 
-
   - key: "test-unit-global"
     label: ":mocha: unit test global"
     branches: "buildkite"
-    depends_on: "prep-deps-with-files"
-    command: "docker run $(./.buildkite/scripts/target2image prep-deps-with-files) yarn test:unit:global"
+    depends_on: "test-prep"
+    command: "BUILD_TARGET=test-unit-global ./.buildkite/scripts/docker-build"
 
   - key: "test-lint"
     label: ":eslint: lint"
     branches: "buildkite"
     depends_on: "prep-deps-with-files"
-    command:
-      - "docker run $(./.buildkite/scripts/target2image prep-deps-with-files) yarn lint"
-      - "docker run $(./.buildkite/scripts/target2image prep-deps-with-files) yarn verify-locales"
-
-  - key: "test-lint-lockfile"
-    label: ":nsp: lint lockfile"
-    branches: "buildkite"
-    depends_on: "prep-deps-with-files"
-    command: "docker run $(./.buildkite/scripts/target2image prep-deps-with-files) yarn lint:lockfile"
+    command: "BUILD_TARGET=test-lint ./.buildkite/scripts/docker-build"
 
   - key: "prep-scss"
     label: ":scsslint: build scss"
@@ -93,29 +104,31 @@ steps:
     depends_on: "prep-deps-browser"
     command: "BUILD_TARGET=prep-scss ./.buildkite/scripts/docker-build"
 
+  - key: "prep-test-flat"
+    label: ":parcel: build test flat"
+    branches: "buildkite"
+    depends_on: "prep-scss"
+    command: "BUILD_TARGET=prep-test-flat ./.buildkite/scripts/docker-build"
+
   - key: "prep-build-test"
     label: ":parcel: build test"
     branches: "buildkite"
-    depends_on: "prep-deps-browser"
+    depends_on: "prep-deps-browser-with-files"
     command: "BUILD_TARGET=prep-build-test ./.buildkite/scripts/docker-build"
   # - wait
 
   ### Level 3
   - key: "test-flat-chrome"
-    env:
-      browsers: "'[\"Chrome\"]'"
     label: ":chrome: chrome integration test"
     branches: "buildkite"
-    depends_on: "prep-scss"
-    command: "docker run $(./.buildkite/scripts/target2image prep-scss) yarn test:flat"
+    depends_on: "prep-test-flat"
+    command: "BUILD_TARGET=test-flat ./.buildkite/scripts/docker-build --build-arg browsers='[\"Chrome\"]'"
 
   - key: "test-flat-firefox"
-    env:
-      browsers: "'[\"FireFox\"]'"
     label: ":firefox: firefox integration test"
     branches: "buildkite"
-    depends_on: "prep-scss"
-    command: "docker run $(./.buildkite/scripts/target2image prep-scss) yarn test:flat"
+    depends_on: "prep-test-flat"
+    command: "BUILD_TARGET=test-flat ./.buildkite/scripts/docker-build --build-arg browsers='[\"FireFox\"]'"
 
   - key: "e2e-chrome"
     label: ":chrome: chrome e2e test %n"
