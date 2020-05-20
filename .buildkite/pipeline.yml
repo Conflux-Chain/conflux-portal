@@ -1,55 +1,55 @@
 steps:
   # L0
   - key: "base"
-    label: "build base image"
+    label: ":docker: build base image"
     branches: "buildkite"
     command: "BUILD_TARGET=base ./.buildkite/scripts/docker-build"
 
   - key: "audit-deps"
-    label: "yarn audit"
+    label: ":nsp: yarn audit"
     branches: "buildkite"
     depends_on: "base"
     command: "BUILD_TARGET=audit-deps ./.buildkite/scripts/docker-build"
 
   - key: "prep-deps"
-    label: "yarn install"
+    label: ":parcel: yarn install"
     branches: "buildkite"
     depends_on: "base"
     command: "BUILD_TARGET=prep-deps ./.buildkite/scripts/docker-build"
 
   - key: "prep-deps-with-prod-files"
-    label: "install deps with prod files"
+    label: ":parcel: install deps with prod files"
     branches: "buildkite"
     depends_on: "prep-deps"
     command: "BUILD_TARGET=prep-deps-with-prod-files ./.buildkite/scripts/docker-build"
 
   - key: "prep-deps-with-files"
-    label: "install deps with all files"
+    label: ":parcel: install deps with all files"
     branches: "buildkite"
     depends_on: "prep-deps"
     command: "BUILD_TARGET=prep-deps-with-files ./.buildkite/scripts/docker-build"
 
   - key: "shellcheck"
-    label: "shellcheck"
+    label: ":heavy_check_mark: shellcheck"
     branches: "buildkite"
     depends_on: "prep-deps-with-files"
     command: "BUILD_TARGET=shellcheck ./.buildkite/scripts/docker-build"
 
   - key: "prep-deps-browser"
-    label: "install deps with browsers"
+    label: ":parcel: install deps with browsers"
     branches: "buildkite"
     depends_on: "prep-deps-with-files"
     command: "BUILD_TARGET=prep-deps-browser ./.buildkite/scripts/docker-build"
 
   - key: "prep-build-storybook"
-    label: "build storybook"
+    label: ":storybook: build storybook"
     branches: "buildkite"
     depends_on: "prep-deps-with-prod-files"
     commands:
       - "BUILD_TARGET=prep-build-storybook ./.buildkite/scripts/docker-build"
 
   - key: "prep-build"
-    label: "yarn dist"
+    label: ":parcel: yarn dist"
     branches: "buildkite"
     depends_on: "prep-deps-with-prod-files"
     command: "BUILD_TARGET=prep-build ./.buildkite/scripts/docker-build"
@@ -58,7 +58,7 @@ steps:
 
 
   - key: "test-unit"
-    label: "unit test"
+    label: ":mocha: unit test"
     branches: "buildkite"
     depends_on: "prep-deps-with-files"
     command: "docker run $(./.buildkite/scripts/target2image prep-deps-with-files) yarn test:unit"
@@ -68,13 +68,13 @@ steps:
 
 
   - key: "test-unit-global"
-    label: "unit test global"
+    label: ":mocha: unit test global"
     branches: "buildkite"
     depends_on: "prep-deps-with-files"
     command: "docker run $(./.buildkite/scripts/target2image prep-deps-with-files) yarn test:unit:global"
 
   - key: "test-lint"
-    label: "lint"
+    label: ":eslint: lint"
     branches: "buildkite"
     depends_on: "prep-deps-with-files"
     command:
@@ -82,19 +82,19 @@ steps:
       - "docker run $(./.buildkite/scripts/target2image prep-deps-with-files) yarn verify-locales"
 
   - key: "test-lint-lockfile"
-    label: "lint lockfile"
+    label: ":nsp: lint lockfile"
     branches: "buildkite"
     depends_on: "prep-deps-with-files"
     command: "docker run $(./.buildkite/scripts/target2image prep-deps-with-files) yarn lint:lockfile"
 
   - key: "prep-scss"
-    label: "build scss"
+    label: ":scsslint: build scss"
     branches: "buildkite"
     depends_on: "prep-deps-browser"
     command: "BUILD_TARGET=prep-scss ./.buildkite/scripts/docker-build"
 
   - key: "prep-build-test"
-    label: "build test"
+    label: ":parcel: build test"
     branches: "buildkite"
     depends_on: "prep-deps-browser"
     command: "BUILD_TARGET=prep-build-test ./.buildkite/scripts/docker-build"
@@ -104,7 +104,7 @@ steps:
   - key: "test-flat-chrome"
     env:
       browsers: "'[\"Chrome\"]'"
-    label: "chrome integration test"
+    label: ":chrome: chrome integration test"
     branches: "buildkite"
     depends_on: "prep-scss"
     command: "docker run $(./.buildkite/scripts/target2image prep-scss) yarn test:flat"
@@ -112,13 +112,13 @@ steps:
   - key: "test-flat-firefox"
     env:
       browsers: "'[\"FireFox\"]'"
-    label: "firefox integration test"
+    label: ":firefox: firefox integration test"
     branches: "buildkite"
     depends_on: "prep-scss"
-    command: "docker run $(./.buildkite/scripts/target2image prep-scss) yarn test:falt"
+    command: "docker run $(./.buildkite/scripts/target2image prep-scss) yarn test:flat"
 
   - key: "e2e-chrome"
-    label: "chrome e2e test %n"
+    label: ":chrome: chrome e2e test %n"
     branches: "buildkite"
     depends_on: "prep-build-test"
     commands:
@@ -128,7 +128,7 @@ steps:
     #   - "test-artifacts"
 
   - key: "e2e-firefox"
-    label: "firefox e2e test %n"
+    label: ":firefox: firefox e2e test %n"
     branches: "buildkite"
     depends_on: "prep-build-test"
     commands:
@@ -138,7 +138,7 @@ steps:
     #   - "test-artifacts"
 
   - key: "benchmark"
-    label: "benchmark"
+    label: ":chrome: benchmark"
     branches: "buildkite"
     depends_on: "prep-build-test"
     command: "docker run $(./.buildkite/scripts/target2image prep-build-test) yarn benchmark:chrome --out test-artifacts/chrome/benchmark/pageload.json"
@@ -146,7 +146,7 @@ steps:
     #   - "test-artifacts"
 
   - key: "test-mozilla-lint"
-    label: "mozilla lint"
+    label: ":firefox: mozilla lint"
     branches: "buildkite"
     depends_on: "prep-build"
-    command: "docker run $(./.buildkite/scripts/target2image -env NODE_OPTIONS=--max_old_space_size=3072 portal-prep-build) yarn mozilla-lint"
+    command: "docker run --env NODE_OPTIONS=--max_old_space_size=3072 $(./.buildkite/scripts/target2image portal-prep-build) yarn mozilla-lint"
