@@ -122,7 +122,7 @@ steps:
     branches: "buildkite"
     depends_on: "prep-build-test"
     commands:
-      - "docker run $(./.buildkite/scripts/target2image prep-build-test) yarn test:e2e:chrome"
+      - "docker run $(./.buildkite/scripts/target2image prep-build-test) yarn test:e2e:chrome:parallel"
     parallelism: 9
     # artifact_paths:
     #   - "test-artifacts"
@@ -132,7 +132,7 @@ steps:
     branches: "buildkite"
     depends_on: "prep-build-test"
     commands:
-      - "docker run $(./.buildkite/scripts/target2image prep-build-test) yarn test:e2e:firefox"
+      - "docker run $(./.buildkite/scripts/target2image prep-build-test) yarn test:e2e:firefox:parallel"
     parallelism: 9
     # artifact_paths:
     #   - "test-artifacts"
@@ -149,4 +149,4 @@ steps:
     label: ":firefox: mozilla lint"
     branches: "buildkite"
     depends_on: "prep-build"
-    command: "docker run --env NODE_OPTIONS=--max_old_space_size=3072 $(./.buildkite/scripts/target2image portal-prep-build) yarn mozilla-lint"
+    command: "docker run --env NODE_OPTIONS=--max_old_space_size=3072 $(./.buildkite/scripts/target2image prep-build) yarn mozilla-lint"
