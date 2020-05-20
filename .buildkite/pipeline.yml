@@ -1,10 +1,11 @@
 steps:
-  # L0
+  # L1
   - key: "base"
     label: ":docker: build base image"
     branches: "buildkite"
     command: "BUILD_TARGET=base ./.buildkite/scripts/docker-build"
 
+  # L2
   - key: "audit-deps"
     label: ":nsp: yarn audit"
     branches: "buildkite"
@@ -17,11 +18,12 @@ steps:
     depends_on: "base"
     command: "BUILD_TARGET=prep-deps ./.buildkite/scripts/docker-build"
 
-  - key: "test-lint-lockfile"
-    label: ":nsp: lint lockfile"
+  # L3
+  - key: "prep-deps-with-files"
+    label: ":parcel: install deps with all files"
     branches: "buildkite"
     depends_on: "prep-deps"
-    command: "BUILD_TARGET=test-lint-lockfile ./.buildkite/scripts/docker-build"
+    command: "BUILD_TARGET=prep-deps-with-files ./.buildkite/scripts/docker-build"
 
   - key: "prep-deps-with-prod-files"
     label: ":parcel: install deps with prod files"
@@ -29,38 +31,24 @@ steps:
     depends_on: "prep-deps"
     command: "BUILD_TARGET=prep-deps-with-prod-files ./.buildkite/scripts/docker-build"
 
-  - key: "prep-deps-with-files"
-    label: ":parcel: install deps with all files"
+  - key: "test-lint-lockfile"
+    label: ":nsp: lint lockfile"
     branches: "buildkite"
     depends_on: "prep-deps"
-    command: "BUILD_TARGET=prep-deps-with-files ./.buildkite/scripts/docker-build"
+    command: "BUILD_TARGET=test-lint-lockfile ./.buildkite/scripts/docker-build"
 
-  - key: "shellcheck"
-    label: ":heavy_check_mark: shellcheck"
-    branches: "buildkite"
-    depends_on: "prep-deps-with-files"
-    command: "BUILD_TARGET=shellcheck ./.buildkite/scripts/docker-build"
-
+  # L4
   - key: "prep-deps-browser"
     label: ":parcel: install deps with browsers"
     branches: "buildkite"
-    depends_on: "prep-deps"
+    depends_on: "prep-deps-with-files"
     command: "BUILD_TARGET=prep-deps-browser ./.buildkite/scripts/docker-build"
 
-  - key: "prep-deps-browser-with-files"
-    label: ":parcel: install deps with browsers and all files"
-    branches: "buildkite"
-    depends_on:
-      - "prep-deps-with-files"
-      - "prep-deps-browser"
-    command: "BUILD_TARGET=prep-deps-browser-with-files ./.buildkite/scripts/docker-build"
-
-  - key: "prep-build-storybook"
-    label: ":storybook: build storybook"
+  - key: "prep-test"
+    label: ":parcel: unit prep"
     branches: "buildkite"
     depends_on: "prep-deps-with-prod-files"
-    commands:
-      - "BUILD_TARGET=prep-build-storybook ./.buildkite/scripts/docker-build"
+    command: "BUILD_TARGET=prep-test ./.buildkite/scripts/docker-build"
 
   - key: "prep-build"
     label: ":parcel: yarn dist"
@@ -70,17 +58,42 @@ steps:
     # artifact_paths:
     #   - "builds"
 
+  - key: "prep-build-storybook"
+    label: ":storybook: build storybook"
+    branches: "buildkite"
+    depends_on: "prep-deps-with-prod-files"
+    commands:
+      - "BUILD_TARGET=prep-build-storybook ./.buildkite/scripts/docker-build"
 
-  - key: "test-prep"
-    label: ":parcel: unit prep"
+  - key: "shellcheck"
+    label: ":heavy_check_mark: shellcheck"
     branches: "buildkite"
     depends_on: "prep-deps-with-files"
-    command: "BUILD_TARGET=test-prep ./.buildkite/scripts/docker-build"
+    command: "BUILD_TARGET=shellcheck ./.buildkite/scripts/docker-build"
+
+  - key: "test-lint"
+    label: ":eslint: lint"
+    branches: "buildkite"
+    depends_on: "prep-deps-with-files"
+    command: "BUILD_TARGET=test-lint ./.buildkite/scripts/docker-build"
+
+  # L5
+  - key: "prep-build-test"
+    label: ":parcel: build test"
+    branches: "buildkite"
+    depends_on: "prep-deps-browser"
+    command: "BUILD_TARGET=prep-build-test ./.buildkite/scripts/docker-build"
+
+  - key: "prep-test-flat"
+    label: ":parcel: build test flat"
+    branches: "buildkite"
+    depends_on: "prep-deps-browser"
+    command: "BUILD_TARGET=prep-test-flat ./.buildkite/scripts/docker-build"
 
   - key: "test-unit"
     label: ":mocha: unit test"
     branches: "buildkite"
-    depends_on: "test-prep"
+    depends_on: "prep-test"
     command: "BUILD_TARGET=test-unit ./.buildkite/scripts/docker-build"
     # artifact_paths:
     #   - ".nyc_output"
@@ -89,35 +102,16 @@ steps:
   - key: "test-unit-global"
     label: ":mocha: unit test global"
     branches: "buildkite"
-    depends_on: "test-prep"
+    depends_on: "prep-test"
     command: "BUILD_TARGET=test-unit-global ./.buildkite/scripts/docker-build"
 
-  - key: "test-lint"
-    label: ":eslint: lint"
+  - key: "test-mozilla-lint"
+    label: ":firefox: mozilla lint"
     branches: "buildkite"
-    depends_on: "prep-deps-with-files"
-    command: "BUILD_TARGET=test-lint ./.buildkite/scripts/docker-build"
+    depends_on: "prep-build"
+    command: "BUILD_TARGET=test-mozilla-lint ./.buildkite/scripts/docker-build"
 
-  - key: "prep-scss"
-    label: ":scsslint: build scss"
-    branches: "buildkite"
-    depends_on: "prep-deps-browser"
-    command: "BUILD_TARGET=prep-scss ./.buildkite/scripts/docker-build"
-
-  - key: "prep-test-flat"
-    label: ":parcel: build test flat"
-    branches: "buildkite"
-    depends_on: "prep-scss"
-    command: "BUILD_TARGET=prep-test-flat ./.buildkite/scripts/docker-build"
-
-  - key: "prep-build-test"
-    label: ":parcel: build test"
-    branches: "buildkite"
-    depends_on: "prep-deps-browser-with-files"
-    command: "BUILD_TARGET=prep-build-test ./.buildkite/scripts/docker-build"
-  # - wait
-
-  ### Level 3
+  # L6
   - key: "test-flat-chrome"
     label: ":chrome: chrome integration test"
     branches: "buildkite"
@@ -135,7 +129,7 @@ steps:
     branches: "buildkite"
     depends_on: "prep-build-test"
     commands:
-      - "docker run $(./.buildkite/scripts/target2image prep-build-test) yarn test:e2e:chrome:parallel"
+      - "BUILD_TARGET=e2e-chrome ./.buildkite/scripts/docker-build"
     parallelism: 9
     # artifact_paths:
     #   - "test-artifacts"
@@ -145,7 +139,7 @@ steps:
     branches: "buildkite"
     depends_on: "prep-build-test"
     commands:
-      - "docker run $(./.buildkite/scripts/target2image prep-build-test) yarn test:e2e:firefox:parallel"
+      - "BUILD_TARGET=e2e-firefox ./.buildkite/scripts/docker-build"
     parallelism: 9
     # artifact_paths:
     #   - "test-artifacts"
@@ -154,12 +148,6 @@ steps:
     label: ":chrome: benchmark"
     branches: "buildkite"
     depends_on: "prep-build-test"
-    command: "docker run $(./.buildkite/scripts/target2image prep-build-test) yarn benchmark:chrome --out test-artifacts/chrome/benchmark/pageload.json"
+    command: "BUILD_TARGET=benchmark ./.buildkite/scripts/docker-build"
     # artifact_paths:
     #   - "test-artifacts"
-
-  - key: "test-mozilla-lint"
-    label: ":firefox: mozilla lint"
-    branches: "buildkite"
-    depends_on: "prep-build"
-    command: "docker run --env NODE_OPTIONS=--max_old_space_size=3072 $(./.buildkite/scripts/target2image prep-build) yarn mozilla-lint"
