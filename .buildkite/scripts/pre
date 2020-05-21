@@ -1,0 +1,69 @@
+#!/bin/bash
+
+# The `pre-command` hook will run just before your build command runs
+
+set -x
+set -e
+set -o pipefail
+
+function docker_login {
+  echo $REGISTRY_PWD | docker login --password-stdin --username ConfluxTech http://$REGISTRY
+}
+
+
+# target to docker image
+function target2image {
+  echo "$REGISTRY/$1-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT"
+}
+function target2imagelatest {
+  echo "$REGISTRY/$1-$BUILDKITE_BRANCH:latest"
+}
+
+function maybe_docker_push {
+  # $1 is docker build target
+  if [[ "$DOCKER_PUSH" = "true" ]]; then
+    docker push $1
+  fi
+}
+
+function maybe_docker_pull {
+  target=${BUILD_TARGET:-$BUILDKITE_STEP_KEY}
+  docker pull $(target2imagelatest $target) || true
+  [ -z "$DOCKER_PULL_DEPENDS_TARGET" ] || docker pull $(target2imagelatest $DOCKER_PULL_DEPENDS_TARGET)
+}
+
+function docker-build-no-arg {
+  export DOCKER_BUILDKIT=1
+  target=${BUILD_TARGET:-$BUILDKITE_STEP_KEY}
+  maybe_docker_pull
+  docker build \
+       --progress=plain \
+       --target=$target \
+       $@ \
+       -t $(target2image $target) \
+       .
+  docker tag $image $(target2imagelatest $target)
+  maybe_docker_push $(target2imagelatest $target)
+}
+
+function docker-build {
+  export DOCKER_BUILDKIT=1
+  target=${BUILD_TARGET:-$BUILDKITE_STEP_KEY}
+  image=$(target2image $target)
+  maybe_docker_pull
+  docker build \
+       --progress=plain \
+       --target=$target \
+       --build-arg BUILDKITE="$BUILDKITE" \
+       --build-arg BUILDKITE_BRANCH="$BUILDKITE_BRANCH" \
+       --build-arg BUILDKITE_ORGANIZATION_SLUG="$BUILDKITE_ORGANIZATION_SLUG" \
+       --build-arg BUILDKITE_PARALLEL_JOB="$BUILDKITE_PARALLEL_JOB" \
+       --build-arg BUILDKITE_PARALLEL_JOB_COUNT="$BUILDKITE_PARALLEL_JOB_COUNT" \
+       --build-arg BUILDKITE_REPO="$BUILDKITE_REPO" \
+       --build-arg CI="$CI" \
+       $@ \
+       -t $image \
+       .
+  docker tag $image $(target2imagelatest $target)
+  maybe_docker_push $(target2imagelatest $target)
+}
