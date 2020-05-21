@@ -1,244 +1,249 @@
 steps:
   # L1
-  - key: "base"
+  - key: 'base'
     env:
-      "DOCKER_PUSH": "true"
-    label: ":docker: build base image"
-    branches: "buildkite"
+      'DOCKER_PUSH': 'true'
+    label: ':docker: build base image'
     commands:
-      - "source .buildkite/scripts/pre"
-      - "docker-build"
+      - 'source .buildkite/scripts/pre'
+      - 'docker-build'
 
   # L2
-  - key: "audit-deps"
-    label: ":nsp: yarn audit"
+  - key: 'audit-deps'
+    label: ':nsp: yarn audit'
     env:
-      "DOCKER_PULL_DEPENDS_TARGET": "base"
-    branches: "buildkite"
-    depends_on: "base"
+      'DOCKER_PULL_DEPENDS_TARGET': 'base'
+    depends_on: 'base'
     commands:
-      - "source .buildkite/scripts/pre"
-      - "docker-build"
+      - 'source .buildkite/scripts/pre'
+      - 'docker-build'
 
-  - key: "prep-deps"
-    label: ":parcel: yarn install"
+  - key: 'prep-deps'
+    label: ':parcel: yarn install'
     env:
-      "DOCKER_PUSH": "true"
-      "DOCKER_PULL_DEPENDS_TARGET": "base"
-    branches: "buildkite"
-    depends_on: "base"
+      'DOCKER_PUSH': 'true'
+      'DOCKER_PULL_DEPENDS_TARGET': 'base'
+    depends_on: 'base'
     commands:
-      - "source .buildkite/scripts/pre"
-      - "docker-build"
+      - 'source .buildkite/scripts/pre'
+      - 'docker-build'
 
   # L3
-  - key: "prep-deps-with-files"
-    label: ":parcel: install deps with all files"
+  - key: 'prep-deps-with-files'
+    label: ':parcel: install deps with all files'
     env:
-      "DOCKER_PUSH": "true"
-      "DOCKER_PULL_DEPENDS_TARGET": "prep-deps"
-    branches: "buildkite"
-    depends_on: "prep-deps"
+      'DOCKER_PUSH': 'true'
+      'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps'
+    depends_on: 'prep-deps'
     commands:
-      - "source .buildkite/scripts/pre"
-      - "docker-build"
+      - 'source .buildkite/scripts/pre'
+      - 'docker-build'
 
-  - key: "prep-deps-with-prod-files"
-    label: ":parcel: install deps with prod files"
+  - key: 'prep-deps-with-prod-files'
+    label: ':parcel: install deps with prod files'
     env:
-      "DOCKER_PUSH": "true"
-      "DOCKER_PULL_DEPENDS_TARGET": "prep-deps"
-    branches: "buildkite"
-    depends_on: "prep-deps"
+      'DOCKER_PUSH': 'true'
+      'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps'
+    depends_on: 'prep-deps'
     commands:
-      - "source .buildkite/scripts/pre"
-      - "docker-build"
+      - 'source .buildkite/scripts/pre'
+      - 'docker-build'
 
-  - key: "test-lint-lockfile"
-    label: ":nsp: lint lockfile"
+  - key: 'test-lint-lockfile'
+    label: ':nsp: lint lockfile'
     env:
-      "DOCKER_PULL_DEPENDS_TARGET": "prep-deps"
-    branches: "buildkite"
-    depends_on: "prep-deps"
+      'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps'
+    depends_on: 'prep-deps'
     commands:
-      - "source .buildkite/scripts/pre"
-      - "docker-build"
+      - 'source .buildkite/scripts/pre'
+      - 'docker-build'
 
   # L4
-  - key: "prep-deps-browser"
-    label: ":parcel: install deps with browsers"
+  - key: 'prep-deps-browser'
+    label: ':parcel: install deps with browsers'
     env:
-      "DOCKER_PUSH": "true"
-      "DOCKER_PULL_DEPENDS_TARGET": "prep-deps-with-files"
-    branches: "buildkite"
-    depends_on: "prep-deps-with-files"
+      'DOCKER_PUSH': 'true'
+      'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps-with-files'
+    depends_on: 'prep-deps-with-files'
     commands:
-      - "source .buildkite/scripts/pre"
-      - "docker-build"
+      - 'source .buildkite/scripts/pre'
+      - 'docker-build'
 
-  - key: "prep-test"
-    label: ":parcel: unit prep"
+  - key: 'prep-test'
+    label: ':parcel: unit prep'
     env:
-      "DOCKER_PUSH": "true"
-      "DOCKER_PULL_DEPENDS_TARGET": "prep-deps-with-prod-files"
-    branches: "buildkite"
-    depends_on: "prep-deps-with-prod-files"
+      'DOCKER_PUSH': 'true'
+      'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps-with-prod-files'
+    depends_on: 'prep-deps-with-prod-files'
     commands:
-      - "source .buildkite/scripts/pre"
-      - "docker-build"
+      - 'source .buildkite/scripts/pre'
+      - 'docker-build'
 
-  - key: "prep-build"
-    label: ":parcel: yarn dist"
+  - key: 'prep-build'
+    label: ':parcel: yarn dist'
     env:
-      "DOCKER_PUSH": "true"
-      "DOCKER_PULL_DEPENDS_TARGET": "prep-deps-with-prod-files"
-    branches: "buildkite"
-    depends_on: "prep-deps-with-prod-files"
+      'DOCKER_PUSH': 'true'
+      'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps-with-prod-files'
+    depends_on: 'prep-deps-with-prod-files'
     commands:
-      - "source .buildkite/scripts/pre"
-      - "docker-build"
-    # artifact_paths:
-    #   - "builds"
+      - 'source .buildkite/scripts/pre'
+      - 'docker-build'
 
-  - key: "prep-build-storybook"
-    label: ":storybook: build storybook"
+  - key: 'prep-build-storybook'
+    label: ':storybook: build storybook'
     env:
-      "DOCKER_PULL_DEPENDS_TARGET": "prep-deps-with-prod-files"
-    branches: "buildkite"
-    depends_on: "prep-deps-with-prod-files"
+      'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps-with-prod-files'
+    depends_on: 'prep-deps-with-prod-files'
     commands:
-      - "source .buildkite/scripts/pre"
-      - "docker-build"
+      - 'source .buildkite/scripts/pre'
+      - 'docker-build'
 
-  - key: "shellcheck"
-    label: ":heavy_check_mark: shellcheck"
-    branches: "buildkite"
-    depends_on: "prep-deps-with-files"
+  - key: 'shellcheck'
+    label: ':heavy_check_mark: shellcheck'
+    depends_on: 'prep-deps-with-files'
     commands:
-      - "source .buildkite/scripts/pre"
-      - "docker-build"
+      - 'source .buildkite/scripts/pre'
+      - 'docker-build'
 
-  - key: "test-lint"
-    label: ":eslint: lint"
+  - key: 'test-lint'
+    label: ':eslint: lint'
     env:
-      "DOCKER_PULL_DEPENDS_TARGET": "prep-deps-with-files"
-    branches: "buildkite"
-    depends_on: "prep-deps-with-files"
+      'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps-with-files'
+    depends_on: 'prep-deps-with-files'
     commands:
-      - "source .buildkite/scripts/pre"
-      - "docker-build"
+      - 'source .buildkite/scripts/pre'
+      - 'docker-build'
 
   # L5
-  - key: "prep-build-test"
-    label: ":parcel: build test"
+  - key: 'prep-build-test'
+    label: ':parcel: build test'
     env:
-      "DOCKER_PUSH": "true"
-      "DOCKER_PULL_DEPENDS_TARGET": "prep-deps-browser"
-    branches: "buildkite"
-    depends_on: "prep-deps-browser"
+      'DOCKER_PUSH': 'true'
+      'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps-browser'
+    depends_on: 'prep-deps-browser'
     commands:
-      - "source .buildkite/scripts/pre"
-      - "docker-build"
+      - 'source .buildkite/scripts/pre'
+      - 'docker-build'
 
-  - key: "prep-test-flat"
-    label: ":parcel: build test flat"
+  - key: 'prep-test-flat'
+    label: ':parcel: build test flat'
     env:
-      "DOCKER_PUSH": "true"
-      "DOCKER_PULL_DEPENDS_TARGET": "prep-deps-browser"
-    branches: "buildkite"
-    depends_on: "prep-deps-browser"
+      'DOCKER_PUSH': 'true'
+      'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps-browser'
+    depends_on: 'prep-deps-browser'
     commands:
-      - "source .buildkite/scripts/pre"
-      - "docker-build"
+      - 'source .buildkite/scripts/pre'
+      - 'docker-build'
 
-  - key: "test-unit"
-    label: ":mocha: unit test"
+  - key: 'test-unit'
+    label: ':mocha: unit test'
     env:
-      "DOCKER_PULL_DEPENDS_TARGET": "prep-test"
-    branches: "buildkite"
-    depends_on: "prep-test"
+      'DOCKER_PULL_DEPENDS_TARGET': 'prep-test'
+    depends_on: 'prep-test'
     commands:
-      - "source .buildkite/scripts/pre"
-      - "docker-build"
+      - 'source .buildkite/scripts/pre'
+      - 'docker-build'
+      - 'cpout .nyc_output'
+      - 'cpout coverage .nyc_output'
+
     # artifact_paths:
-    #   - ".nyc_output"
-    #   - "coverage"
-
-  - key: "test-unit-global"
-    label: ":mocha: unit test global"
+    #   - ".nyc_output/**/*"
+    #   - "coverage/**/*"
+  - key: 'test-unit-global'
+    label: ':mocha: unit test global'
     env:
-      "DOCKER_PULL_DEPENDS_TARGET": "prep-test"
-    branches: "buildkite"
-    depends_on: "prep-test"
+      'DOCKER_PULL_DEPENDS_TARGET': 'prep-test'
+    depends_on: 'prep-test'
     commands:
-      - "source .buildkite/scripts/pre"
-      - "docker-build"
+      - 'source .buildkite/scripts/pre'
+      - 'docker-build'
 
-  - key: "test-mozilla-lint"
-    label: ":firefox: mozilla lint"
+  - key: 'test-mozilla-lint'
+    label: ':firefox: mozilla lint'
     env:
-      "DOCKER_PULL_DEPENDS_TARGET": "prep-build"
-    branches: "buildkite"
-    depends_on: "prep-build"
+      'DOCKER_PULL_DEPENDS_TARGET': 'prep-build'
+    depends_on: 'prep-build'
     commands:
-      - "source .buildkite/scripts/pre"
-      - "docker-build"
+      - 'source .buildkite/scripts/pre'
+      - 'docker-build'
 
   # L6
-  - key: "test-flat-chrome"
-    label: ":chrome: chrome integration test"
+  - key: 'test-flat-chrome'
+    label: ':chrome: chrome integration test'
     env:
-      "DOCKER_PULL_DEPENDS_TARGET": "prep-test-flat"
-    branches: "buildkite"
-    depends_on: "prep-test-flat"
+      'DOCKER_PULL_DEPENDS_TARGET': 'prep-test-flat'
+    depends_on: 'prep-test-flat'
     commands:
-      - "source .buildkite/scripts/pre"
-      - "BUILD_TARGET=test-flat docker-build --build-arg browsers='[\"Chrome\"]'"
+      - 'source .buildkite/scripts/pre'
+      - 'BUILD_TARGET=test-flat docker-build --build-arg browsers=''["Chrome"]'''
 
-  - key: "test-flat-firefox"
-    label: ":firefox: firefox integration test"
+  - key: 'test-flat-firefox'
+    label: ':firefox: firefox integration test'
     env:
-      "DOCKER_PULL_DEPENDS_TARGET": "prep-test-flat"
-    branches: "buildkite"
-    depends_on: "prep-test-flat"
+      'DOCKER_PULL_DEPENDS_TARGET': 'prep-test-flat'
+    depends_on: 'prep-test-flat'
     commands:
-      - "source .buildkite/scripts/pre"
-      - "BUILD_TARGET=test-flat docker-build --build-arg browsers='[\"FireFox\"]'"
+      - 'source .buildkite/scripts/pre'
+      - 'BUILD_TARGET=test-flat docker-build --build-arg browsers=''["FireFox"]'''
 
-  - key: "e2e-chrome"
-    label: ":chrome: chrome e2e test %n"
+  - key: 'e2e-chrome'
+    label: ':chrome: chrome e2e test %n'
     env:
-      "DOCKER_PULL_DEPENDS_TARGET": "prep-build-test"
-    branches: "buildkite"
-    depends_on: "prep-build-test"
+      'DOCKER_PULL_DEPENDS_TARGET': 'prep-build-test'
+    depends_on: 'prep-build-test'
     commands:
-      - "source .buildkite/scripts/pre"
-      - "docker-build"
+      - 'source .buildkite/scripts/pre'
+      - 'docker-build'
+      - 'cpout test-artifacts || true'
     parallelism: 9
-    # artifact_paths:
-    #   - "test-artifacts"
+    artifact_paths:
+      - 'test-artifacts/**/*'
 
-  - key: "e2e-firefox"
-    label: ":firefox: firefox e2e test %n"
+  - key: 'e2e-firefox'
+    label: ':firefox: firefox e2e test %n'
     env:
-      "DOCKER_PULL_DEPENDS_TARGET": "prep-build-test"
-    branches: "buildkite"
-    depends_on: "prep-build-test"
+      'DOCKER_PULL_DEPENDS_TARGET': 'prep-build-test'
+    depends_on: 'prep-build-test'
     commands:
-      - "source .buildkite/scripts/pre"
-      - "docker-build"
+      - 'source .buildkite/scripts/pre'
+      - 'docker-build'
+      - 'cpout test-artifacts || true'
     parallelism: 9
-    # artifact_paths:
-    #   - "test-artifacts"
+    artifact_paths:
+      - 'test-artifacts/**/*'
 
-  - key: "benchmark"
-    label: ":chrome: benchmark"
+  - key: 'benchmark'
+    label: ':chrome: benchmark'
     env:
-      "DOCKER_PULL_DEPENDS_TARGET": "prep-build-test"
-    branches: "buildkite"
-    depends_on: "prep-build-test"
+      'DOCKER_PULL_DEPENDS_TARGET': 'prep-build-test'
+    depends_on: 'prep-build-test'
     commands:
-      - "source .buildkite/scripts/pre"
-      - "docker-build"
-    # artifact_paths:
-    #   - "test-artifacts"
+      - 'source .buildkite/scripts/pre'
+      - 'docker-build'
+      - 'cpout test-artifacts || true'
+    artifact_paths:
+      - 'test-artifacts/**/*'
+
+  - wait
+
+  - key: 'all-test-pass'
+    label: ':white_check_mark:    all test pass'
+    command: "echo 'all test pass'"
+
+  - key: 'prerelease'
+    label: ':arrow_upper_right:    prerelease'
+    env:
+      'DOCKER_PULL_DEPENDS_TARGET': 'prep-build'
+    depends_on: 'prep-build'
+    commands:
+      - 'source .buildkite/scripts/pre'
+      - 'docker-build'
+      - 'cpout build-artifacts'
+      - 'cpout test-artifacts || true'
+      - 'cpout builds'
+      - 'cpout dist'
+    artifact_paths:
+      - 'build-artifacts/**/*'
+      - 'builds/**/*'
+      - 'test-artifacts/**/*'
+      - 'dist/sourcemaps/*'

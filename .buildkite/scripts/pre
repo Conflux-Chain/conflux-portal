@@ -67,3 +67,10 @@ function docker-build {
   docker tag $image $(target2imagelatest $target)
   maybe_docker_push $(target2imagelatest $target)
 }
+
+function cpout {
+  image=$(target2image $target)
+  container_id=$(docker create $image)
+  docker cp --follow-link $container_id:/home/circleci/portal/$1 ${2:-.}
+  docker rm -v $container_id
+}
