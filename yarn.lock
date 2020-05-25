@@ -10030,13 +10030,6 @@ eth-phishing-detect@^1.1.13:
   dependencies:
     fast-levenshtein "^2.0.6"
 
-eth-phishing-detect@^1.1.4:
-  version "1.1.12"
-  resolved "https://registry.yarnpkg.com/eth-phishing-detect/-/eth-phishing-detect-1.1.12.tgz#3db7e88c754510c94e6736db85108b90e227fe41"
-  integrity sha512-wzEqAB4mUY0gkrn+ZOlzyxHmsouKT6rrzYIxy/FFalqoZVvX/9McPdFwWkHCYrv4KzTKgJJh8tKzvMnTae8Naw==
-  dependencies:
-    fast-levenshtein "^2.0.6"
-
 eth-query@^2.0.2, eth-query@^2.1.0, eth-query@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/eth-query/-/eth-query-2.1.2.tgz#d6741d9000106b51510c72db92d6365456a6da5e"
