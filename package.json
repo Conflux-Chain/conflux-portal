@@ -134,7 +134,7 @@
     "js-conflux-sdk": "^0.9.1",
     "json-rpc-engine": "^5.1.6",
     "json-rpc-middleware-stream": "^2.1.1",
-    "jsonschema": "^1.2.4",
+    "jsonschema": "^1.2.5",
     "lodash": "^4.17.15",
     "loglevel": "^1.4.1",
     "luxon": "^1.8.2",
