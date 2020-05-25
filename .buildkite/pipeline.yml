@@ -230,20 +230,20 @@ steps:
     label: ':white_check_mark:    all test pass'
     command: "echo 'all test pass'"
 
-  - key: 'prerelease'
-    label: ':arrow_upper_right:    prerelease'
-    env:
-      'DOCKER_PULL_DEPENDS_TARGET': 'prep-build'
-    depends_on: 'prep-build'
-    commands:
-      - 'source .buildkite/scripts/pre'
-      - 'docker-build'
-      - 'cpout build-artifacts'
-      - 'cpout test-artifacts || true'
-      - 'cpout builds'
-      - 'cpout dist'
-    artifact_paths:
-      - 'build-artifacts/**/*'
-      - 'builds/**/*'
-      - 'test-artifacts/**/*'
-      - 'dist/sourcemaps/*'
+  # - key: 'prerelease'
+  #   label: ':arrow_upper_right:    prerelease'
+  #   env:
+  #     'DOCKER_PULL_DEPENDS_TARGET': 'prep-build'
+  #   depends_on: 'prep-build'
+  #   commands:
+  #     - 'source .buildkite/scripts/pre'
+  #     - 'docker-build'
+  #     - 'cpout build-artifacts'
+  #     - 'cpout test-artifacts || true'
+  #     - 'cpout builds'
+  #     - 'cpout dist'
+  #   artifact_paths:
+  #     - 'build-artifacts/**/*'
+  #     - 'builds/**/*'
+  #     - 'test-artifacts/**/*'
+  #     - 'dist/sourcemaps/*'
