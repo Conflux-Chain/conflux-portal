@@ -13,14 +13,14 @@ function docker_login {
 
 # target to docker image
 function target2image {
-  if ! [ -z "$BUILDKITE_PARALLEL_JOB_COUNT" ]; then
+  if [[ $1 == "e2e-"* ]]; then
     echo "$REGISTRY/$1-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT-$BUILDKITE_PARALLEL_JOB"
   else
     echo "$REGISTRY/$1-$BUILDKITE_BRANCH-$BUILDKITE_BUILD_NUMBER-$BUILDKITE_COMMIT"
   fi
 }
 function target2imagelatest {
-  if ! [ -z "$BUILDKITE_PARALLEL_JOB_COUNT" ]; then
+  if [[ $1 == "e2e-"* ]]; then
     echo "$REGISTRY/$1-$BUILDKITE_BRANCH-$BUILDKITE_PARALLEL_JOB:latest"
   else
     echo "$REGISTRY/$1-$BUILDKITE_BRANCH:latest"
@@ -66,6 +66,21 @@ function docker-build {
   eval $docker_build
   docker tag $image $latest_image
   time maybe_docker_push $latest_image
+}
+
+function docker-run {
+  [ -z "$DOCKER_PULL_DEPENDS_TARGET" ] || docker pull $(target2imagelatest $DOCKER_PULL_DEPENDS_TARGET) || true
+  [ -z "$DOCKER_PULL_DEPENDS_TARGET" ] || \
+    docker run --rm \
+           --env BUILDKITE="$BUILDKITE" \
+           --env BUILDKITE_BRANCH="$BUILDKITE_BRANCH" \
+           --env BUILDKITE_ORGANIZATION_SLUG="$BUILDKITE_ORGANIZATION_SLUG" \
+           --env BUILDKITE_PARALLEL_JOB="$BUILDKITE_PARALLEL_JOB" \
+           --env BUILDKITE_PARALLEL_JOB_COUNT="$BUILDKITE_PARALLEL_JOB_COUNT" \
+           --env BUILDKITE_REPO="$BUILDKITE_REPO" \
+           --env CI="$CI" \
+           $(target2imagelatest $DOCKER_PULL_DEPENDS_TARGET) \
+           $@
 }
 
 function cpout {

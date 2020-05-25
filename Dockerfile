@@ -83,15 +83,8 @@ RUN printf '#!/bin/sh\nsudo Xvfb :99 -screen 0 1280x1024x24 &\nexec "$@"\n' > /t
   && chmod +x /tmp/entrypoint \
   && sudo mv /tmp/entrypoint /docker-entrypoint.sh
 
-ARG BUILDKITE
-ARG BUILDKITE_BRANCH
-ARG BUILDKITE_ORGANIZATION_SLUG
-ARG BUILDKITE_REPO
-ENV BUILDKITE ${BUILDKITE}
-ENV BUILDKITE_BRANCH ${BUILDKITE_BRANCH}
-ENV BUILDKITE_ORGANIZATION_SLUG ${BUILDKITE_ORGANIZATION_SLUG}
-ENV BUILDKITE_REPO ${BUILDKITE_REPO}
 RUN sudo apt update && sudo apt install lsof -y && sudo rm -rf /var/lib/apt/lists/*
+
 WORKDIR /home/circleci/portal
 
 # install firefox
@@ -116,6 +109,15 @@ RUN CHROME_VERSION="$(google-chrome --version)" \
   && sudo mv chromedriver /usr/local/bin/chromedriver \
   && sudo chmod +x /usr/local/bin/chromedriver \
   && chromedriver --version
+
+ARG BUILDKITE
+ARG BUILDKITE_BRANCH
+ARG BUILDKITE_ORGANIZATION_SLUG
+ARG BUILDKITE_REPO
+ENV BUILDKITE ${BUILDKITE}
+ENV BUILDKITE_BRANCH ${BUILDKITE_BRANCH}
+ENV BUILDKITE_ORGANIZATION_SLUG ${BUILDKITE_ORGANIZATION_SLUG}
+ENV BUILDKITE_REPO ${BUILDKITE_REPO}
 
 COPY --chown=circleci:circleci --from=prep-deps-with-files /home/circleci/portal/ .
 
@@ -159,6 +161,8 @@ RUN yarn test:unit:global
 # prep-build-test
 FROM prep-deps-browser AS prep-build-test
 RUN yarn build:test
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["/bin/sh"]
 
 # test-integration-flat
 FROM prep-deps-browser AS prep-test-flat
@@ -179,25 +183,25 @@ ARG BROWSERS='["Chrome"]'
 ENV BROWSERS ${BROWSERS}
 RUN sudo Xvfb :99 -screen 0 1280x1024x24 & yarn run karma start test/flat.conf.js
 
-# test-e2e-chrome
-FROM prep-build-test AS e2e-chrome
-ARG BUILDKITE_PARALLEL_JOB
-ARG BUILDKITE_PARALLEL_JOB_COUNT
-ENV BUILDKITE_PARALLEL_JOB ${BUILDKITE_PARALLEL_JOB}
-ENV BUILDKITE_PARALLEL_JOB_COUNT ${BUILDKITE_PARALLEL_JOB_COUNT}
-RUN sudo Xvfb :99 -screen 0 1280x1024x24 & yarn test:e2e:chrome:parallel
+# # test-e2e-chrome
+# FROM prep-build-test AS e2e-chrome
+# ARG BUILDKITE_PARALLEL_JOB
+# ARG BUILDKITE_PARALLEL_JOB_COUNT
+# ENV BUILDKITE_PARALLEL_JOB ${BUILDKITE_PARALLEL_JOB}
+# ENV BUILDKITE_PARALLEL_JOB_COUNT ${BUILDKITE_PARALLEL_JOB_COUNT}
+# RUN sudo Xvfb :99 -screen 0 1280x1024x24 & yarn test:e2e:chrome:parallel
 
-# test-e2e-firefox
-FROM prep-build-test AS e2e-firefox
-ARG BUILDKITE_PARALLEL_JOB
-ARG BUILDKITE_PARALLEL_JOB_COUNT
-ENV BUILDKITE_PARALLEL_JOB ${BUILDKITE_PARALLEL_JOB}
-ENV BUILDKITE_PARALLEL_JOB_COUNT ${BUILDKITE_PARALLEL_JOB_COUNT}
-RUN sudo Xvfb :99 -screen 0 1280x1024x24 & yarn test:e2e:firefox:parallel
+# # test-e2e-firefox
+# FROM prep-build-test AS e2e-firefox
+# ARG BUILDKITE_PARALLEL_JOB
+# ARG BUILDKITE_PARALLEL_JOB_COUNT
+# ENV BUILDKITE_PARALLEL_JOB ${BUILDKITE_PARALLEL_JOB}
+# ENV BUILDKITE_PARALLEL_JOB_COUNT ${BUILDKITE_PARALLEL_JOB_COUNT}
+# RUN sudo Xvfb :99 -screen 0 1280x1024x24 & yarn test:e2e:firefox:parallel
 
-# benchmark
-FROM prep-build-test AS benchmark
-RUN sudo Xvfb :99 -screen 0 1280x1024x24 & yarn benchmark:chrome --out test-artifacts/chrome/benchmark/pageload.json
+# # benchmark
+# FROM prep-build-test AS benchmark
+# RUN sudo Xvfb :99 -screen 0 1280x1024x24 & yarn benchmark:chrome --out test-artifacts/chrome/benchmark/pageload.json
 
 # job-publish-prerelease
 FROM prep-build AS prerelease

@@ -6,7 +6,7 @@ const chrome = require('selenium-webdriver/chrome')
  */
 class ChromeDriver {
   static async build ({ extensionPath, responsive, port }) {
-    const args = [`load-extension=${extensionPath}`]
+    const args = [`load-extension=${extensionPath}`, '--remote-debugging-port=9222']
     if (responsive) {
       args.push('--auto-open-devtools-for-tabs')
     }
