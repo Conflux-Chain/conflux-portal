@@ -1,9 +1,10 @@
 steps:
   # L1
   - key: 'base'
-    env:
-      'DOCKER_PUSH': 'true'
     label: ':docker: build base image'
+    retry:
+      automatic:
+        limit: 2
     commands:
       - 'source .buildkite/scripts/pre'
       - 'docker-build'
@@ -14,6 +15,9 @@ steps:
     env:
       'DOCKER_PULL_DEPENDS_TARGET': 'base'
     depends_on: 'base'
+    retry:
+      automatic:
+        limit: 2
     commands:
       - 'source .buildkite/scripts/pre'
       - 'docker-build'
@@ -21,9 +25,11 @@ steps:
   - key: 'prep-deps'
     label: ':parcel: yarn install'
     env:
-      'DOCKER_PUSH': 'true'
       'DOCKER_PULL_DEPENDS_TARGET': 'base'
     depends_on: 'base'
+    retry:
+      automatic:
+        limit: 2
     commands:
       - 'source .buildkite/scripts/pre'
       - 'docker-build'
@@ -32,9 +38,11 @@ steps:
   - key: 'prep-deps-with-files'
     label: ':parcel: install deps with all files'
     env:
-      'DOCKER_PUSH': 'true'
       'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps'
     depends_on: 'prep-deps'
+    retry:
+      automatic:
+        limit: 2
     commands:
       - 'source .buildkite/scripts/pre'
       - 'docker-build'
@@ -42,9 +50,11 @@ steps:
   - key: 'prep-deps-with-prod-files'
     label: ':parcel: install deps with prod files'
     env:
-      'DOCKER_PUSH': 'true'
       'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps'
     depends_on: 'prep-deps'
+    retry:
+      automatic:
+        limit: 2
     commands:
       - 'source .buildkite/scripts/pre'
       - 'docker-build'
@@ -54,6 +64,9 @@ steps:
     env:
       'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps'
     depends_on: 'prep-deps'
+    retry:
+      automatic:
+        limit: 2
     commands:
       - 'source .buildkite/scripts/pre'
       - 'docker-build'
@@ -62,9 +75,11 @@ steps:
   - key: 'prep-deps-browser'
     label: ':parcel: install deps with browsers'
     env:
-      'DOCKER_PUSH': 'true'
       'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps-with-files'
     depends_on: 'prep-deps-with-files'
+    retry:
+      automatic:
+        limit: 2
     commands:
       - 'source .buildkite/scripts/pre'
       - 'docker-build'
@@ -72,9 +87,11 @@ steps:
   - key: 'prep-test'
     label: ':parcel: unit prep'
     env:
-      'DOCKER_PUSH': 'true'
       'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps-with-prod-files'
     depends_on: 'prep-deps-with-prod-files'
+    retry:
+      automatic:
+        limit: 2
     commands:
       - 'source .buildkite/scripts/pre'
       - 'docker-build'
@@ -82,9 +99,11 @@ steps:
   - key: 'prep-build'
     label: ':parcel: yarn dist'
     env:
-      'DOCKER_PUSH': 'true'
       'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps-with-prod-files'
     depends_on: 'prep-deps-with-prod-files'
+    retry:
+      automatic:
+        limit: 2
     commands:
       - 'source .buildkite/scripts/pre'
       - 'docker-build'
@@ -94,13 +113,21 @@ steps:
     env:
       'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps-with-prod-files'
     depends_on: 'prep-deps-with-prod-files'
+    retry:
+      automatic:
+        limit: 2
     commands:
       - 'source .buildkite/scripts/pre'
       - 'docker-build'
 
   - key: 'shellcheck'
     label: ':heavy_check_mark: shellcheck'
+    env:
+      'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps-with-files'
     depends_on: 'prep-deps-with-files'
+    retry:
+      automatic:
+        limit: 2
     commands:
       - 'source .buildkite/scripts/pre'
       - 'docker-build'
@@ -110,6 +137,9 @@ steps:
     env:
       'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps-with-files'
     depends_on: 'prep-deps-with-files'
+    retry:
+      automatic:
+        limit: 2
     commands:
       - 'source .buildkite/scripts/pre'
       - 'docker-build'
@@ -118,9 +148,11 @@ steps:
   - key: 'prep-build-test'
     label: ':parcel: build test'
     env:
-      'DOCKER_PUSH': 'true'
       'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps-browser'
     depends_on: 'prep-deps-browser'
+    retry:
+      automatic:
+        limit: 2
     commands:
       - 'source .buildkite/scripts/pre'
       - 'docker-build'
@@ -128,9 +160,11 @@ steps:
   - key: 'prep-test-flat'
     label: ':parcel: build test flat'
     env:
-      'DOCKER_PUSH': 'true'
       'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps-browser'
     depends_on: 'prep-deps-browser'
+    retry:
+      automatic:
+        limit: 2
     commands:
       - 'source .buildkite/scripts/pre'
       - 'docker-build'
@@ -140,6 +174,9 @@ steps:
     env:
       'DOCKER_PULL_DEPENDS_TARGET': 'prep-test'
     depends_on: 'prep-test'
+    retry:
+      automatic:
+        limit: 2
     commands:
       - 'source .buildkite/scripts/pre'
       - 'docker-build'
@@ -154,6 +191,9 @@ steps:
     env:
       'DOCKER_PULL_DEPENDS_TARGET': 'prep-test'
     depends_on: 'prep-test'
+    retry:
+      automatic:
+        limit: 2
     commands:
       - 'source .buildkite/scripts/pre'
       - 'docker-build'
@@ -163,6 +203,9 @@ steps:
     env:
       'DOCKER_PULL_DEPENDS_TARGET': 'prep-build'
     depends_on: 'prep-build'
+    retry:
+      automatic:
+        limit: 2
     commands:
       - 'source .buildkite/scripts/pre'
       - 'docker-build'
@@ -173,6 +216,9 @@ steps:
     env:
       'DOCKER_PULL_DEPENDS_TARGET': 'prep-test-flat'
     depends_on: 'prep-test-flat'
+    retry:
+      automatic:
+        limit: 2
     commands:
       - 'source .buildkite/scripts/pre'
       - 'BUILD_TARGET=test-flat docker-build --build-arg browsers=''["Chrome"]'''
@@ -182,6 +228,9 @@ steps:
     env:
       'DOCKER_PULL_DEPENDS_TARGET': 'prep-test-flat'
     depends_on: 'prep-test-flat'
+    retry:
+      automatic:
+        limit: 2
     commands:
       - 'source .buildkite/scripts/pre'
       - 'BUILD_TARGET=test-flat docker-build --build-arg browsers=''["FireFox"]'''
@@ -191,6 +240,9 @@ steps:
     env:
       'DOCKER_PULL_DEPENDS_TARGET': 'prep-build-test'
     depends_on: 'prep-build-test'
+    retry:
+      automatic:
+        limit: 2
     commands:
       - 'source .buildkite/scripts/pre'
       - 'docker-build'
@@ -204,6 +256,9 @@ steps:
     env:
       'DOCKER_PULL_DEPENDS_TARGET': 'prep-build-test'
     depends_on: 'prep-build-test'
+    retry:
+      automatic:
+        limit: 2
     commands:
       - 'source .buildkite/scripts/pre'
       - 'docker-build'
@@ -217,6 +272,9 @@ steps:
     env:
       'DOCKER_PULL_DEPENDS_TARGET': 'prep-build-test'
     depends_on: 'prep-build-test'
+    retry:
+      automatic:
+        limit: 2
     commands:
       - 'source .buildkite/scripts/pre'
       - 'docker-build'
@@ -235,6 +293,9 @@ steps:
   #   env:
   #     'DOCKER_PULL_DEPENDS_TARGET': 'prep-build'
   #   depends_on: 'prep-build'
+  #   retry:
+  #     automatic:
+  #       limit: 2
   #   commands:
   #     - 'source .buildkite/scripts/pre'
   #     - 'docker-build'

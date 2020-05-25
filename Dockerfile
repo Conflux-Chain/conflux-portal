@@ -30,7 +30,7 @@
 ############################################################################# Level 1
 # base
 FROM circleci/node:10.16.3 AS base
-RUN sudo apt update && sudo apt install lsof -y
+RUN sudo apt update && sudo apt install lsof -y && sudo rm -rf /var/lib/apt/lists/*
 WORKDIR /home/circleci/portal
 COPY --chown=circleci:circleci yarn.lock package.json .
 
@@ -91,7 +91,7 @@ ENV BUILDKITE ${BUILDKITE}
 ENV BUILDKITE_BRANCH ${BUILDKITE_BRANCH}
 ENV BUILDKITE_ORGANIZATION_SLUG ${BUILDKITE_ORGANIZATION_SLUG}
 ENV BUILDKITE_REPO ${BUILDKITE_REPO}
-RUN sudo apt update && sudo apt install lsof -y
+RUN sudo apt update && sudo apt install lsof -y && sudo rm -rf /var/lib/apt/lists/*
 WORKDIR /home/circleci/portal
 
 # install firefox
@@ -134,7 +134,7 @@ RUN yarn storybook:build
 
 # test-lint-shellcheck
 FROM prep-deps-with-files AS shellcheck
-RUN sudo apt update && sudo apt install jq shellcheck -y
+RUN sudo apt update && sudo apt install jq shellcheck -y && sudo rm -rf /var/lib/apt/lists/*
 RUN yarn lint:shellcheck
 
 # test-lint

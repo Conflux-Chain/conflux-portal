@@ -21,6 +21,7 @@ async function measurePage (pageName) {
     await driver.delay(1000)
     metrics = await driver.collectMetrics()
   })
+  await new Promise((resolve) => setTimeout(resolve, 2000))
   return metrics
 }
 

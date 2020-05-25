@@ -25,8 +25,6 @@
     "test:integration:build": "gulp build:scss",
     "test:e2e:chrome": "SELENIUM_BROWSER=chrome test/e2e/run-all.sh",
     "test:e2e:chrome:parallel": "SELENIUM_BROWSER=chrome test/e2e/run-all-parallel.sh",
-    "test:web3:chrome": "SELENIUM_BROWSER=chrome test/e2e/run-web3.sh",
-    "test:web3:firefox": "SELENIUM_BROWSER=firefox test/e2e/run-web3.sh",
     "test:e2e:firefox": "SELENIUM_BROWSER=firefox test/e2e/run-all.sh",
     "test:e2e:firefox:parallel": "SELENIUM_BROWSER=firefox test/e2e/run-all-parallel.sh",
     "test:coverage": "nyc --reporter=text --reporter=html yarn test:unit",
