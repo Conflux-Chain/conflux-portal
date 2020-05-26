@@ -76,7 +76,7 @@ COPY --chown=circleci:circleci ./test/helper.js ./test/helper.js
 COPY --chown=circleci:circleci ./test/setup.js ./test/setup.js
 
 # prep-deps with browser
-FROM circleci/node:10.16.3-browsers AS prep-deps-browser
+FROM circleci/node@sha256:e16740707de2ebed45c05d507f33ef204902349c7356d720610b5ec6a35d3d88 AS prep-deps-browser
 # start xvfb automatically to avoid needing to express in circle.yml
 ENV DISPLAY :99
 RUN printf '#!/bin/sh\nsudo Xvfb :99 -screen 0 1280x1024x24 &\nexec "$@"\n' > /tmp/entrypoint \
@@ -91,13 +91,13 @@ WORKDIR /home/circleci/portal
 COPY --chown=circleci:circleci ./.circleci/scripts/firefox-install ./.circleci/scripts/firefox.cfg ./.circleci/scripts/
 RUN ./.circleci/scripts/firefox-install
 
-# install chrome
-RUN curl --silent --show-error --location --fail --retry 3 --output /tmp/google-chrome-stable_current_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-  && (sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb || sudo apt-get -fy install)  \
-  && rm -rf /tmp/google-chrome-stable_current_amd64.deb \
-  && sudo sed -i 's|HERE/chrome"|HERE/chrome" --disable-setuid-sandbox --no-sandbox|g' \
-  "/opt/google/chrome/google-chrome" \
-  && google-chrome --version
+# # install chrome
+# RUN curl --silent --show-error --location --fail --retry 3 --output /tmp/google-chrome-stable_current_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+#   && (sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb || sudo apt-get -fy install)  \
+#   && rm -rf /tmp/google-chrome-stable_current_amd64.deb \
+#   && sudo sed -i 's|HERE/chrome"|HERE/chrome" --disable-setuid-sandbox --no-sandbox|g' \
+#   "/opt/google/chrome/google-chrome" \
+#   && google-chrome --version
 
 RUN CHROME_VERSION="$(google-chrome --version)" \
   && export CHROMEDRIVER_RELEASE="$(echo $CHROME_VERSION | sed 's/^Google Chrome //')" && export CHROMEDRIVER_RELEASE=${CHROMEDRIVER_RELEASE%%.*} \

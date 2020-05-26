@@ -298,9 +298,9 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - run:
-          name: Install Chrome
-          command: ./.circleci/scripts/chrome-install
+      # - run:
+      #     name: Install Chrome
+      #     command: ./.circleci/scripts/chrome-install
       - run:
           name: Move test build to dist
           command: mv ./dist-test ./dist
