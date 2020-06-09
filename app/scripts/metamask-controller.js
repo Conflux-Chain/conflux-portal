@@ -2116,7 +2116,8 @@ export default class MetamaskController extends EventEmitter {
       amount = '5'
     }
     const network = this.networkController.getNetworkState()
-    const url = getBuyEthUrl({ network, address, amount })
+    const { type } = this.networkController.getProviderConfig()
+    const url = getBuyEthUrl({ network, address, amount, type })
     if (url) {
       this.platform.openWindow({ url })
     }
