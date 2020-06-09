@@ -22,6 +22,8 @@ import {
   MAINNET,
   LOCALHOST,
 } from './enums'
+
+import { getStatus } from './util'
 // const INFURA_PROVIDER_TYPES = [ROPSTEN, RINKEBY, KOVAN, MAINNET, GOERLI]
 // TODO: add main net endpoint
 const CONFLUX_MAINNET = 'http://wallet-mainnet-jsonrpc.conflux-chain.org:12537'
@@ -41,6 +43,7 @@ if (process.env.IN_TEST === 'true') {
 } else {
   defaultProviderConfigType = MAINNET
 }
+defaultProviderConfigType = LOCALHOST
 
 const defaultProviderConfig = {
   type: defaultProviderConfigType,
@@ -250,19 +253,6 @@ export default class NetworkController extends EventEmitter {
     }
   }
 
-  // _configureInfuraProvider ({ type }) {
-  //   log.info('NetworkController - configureInfuraProvider', type)
-  //   const networkClient = createInfuraClient({
-  //     network: type,
-  //   })
-  //   this._setNetworkClient(networkClient)
-  //   // setup networkConfig
-  //   const settings = {
-  //     ticker: 'ETH',
-  //   }
-  //   this.networkConfig.putState(settings)
-  // }
-
   _configureLocalhostProvider () {
     log.info('NetworkController - configureLocalhostProvider')
     const networkClient = createLocalhostClient()
@@ -274,7 +264,6 @@ export default class NetworkController extends EventEmitter {
     const networkClient = createJsonRpcClient({ rpcUrl })
     // hack to add a 'rpc' network with chainId
     networks.networkList[type || 'rpc'] = {
-      chainId: chainId,
       rpcUrl,
       ticker: ticker || 'CFX',
       nickname,
@@ -284,9 +273,27 @@ export default class NetworkController extends EventEmitter {
     let settings = {
       network: chainId,
     }
-    settings = Object.assign(settings, networks.networkList['rpc'])
+    settings = Object.assign(settings, networks.networkList[type || 'rpc'])
     this.networkConfig.putState(settings)
     this._setNetworkClient(networkClient)
+    this._configureStandardProviderPostFetchRealChainId({ rpcUrl, ticker, nickname, type })
+  }
+
+  _configureStandardProviderPostFetchRealChainId ({ rpcUrl, ticker, nickname, type }) {
+    getStatus(rpcUrl).then(({ chainId }) => {
+      networks.networkList[type || 'rpc'] = {
+        chainId: parseInt(chainId, 16),
+        rpcUrl,
+        ticker: ticker || 'CFX',
+        nickname,
+      }
+      // setup networkConfig
+      let settings = {
+        network: chainId,
+      }
+      settings = Object.assign(settings, networks.networkList[type || 'rpc'])
+      this.networkConfig.putState(settings)
+    })
   }
 
   _setNetworkClient ({ networkMiddleware, blockTracker, rpcUrl }) {

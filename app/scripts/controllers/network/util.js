@@ -56,3 +56,38 @@ export function formatTxMetaForRpcResult (txMeta) {
     s: txMeta.s,
   }
 }
+
+export function getStatus (rpcUrl) {
+  const body = JSON.stringify({
+    id: 1,
+    jsonrpc: '2.0',
+    method: 'cfx_getStatus',
+    params: [],
+  })
+
+  return fetch(rpcUrl, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body,
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json()
+      }
+      throw new Error('request error, fallback to 0x0 chainId')
+    })
+    .then((json) => {
+      if (!json.result) {
+        return { chainId: '0x0' }
+      }
+      return json.result
+    })
+    .catch(() => {
+      return {
+        chaindId: '0x0',
+      }
+    })
+}

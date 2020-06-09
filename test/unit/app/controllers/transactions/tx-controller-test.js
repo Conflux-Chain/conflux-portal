@@ -605,7 +605,7 @@ describe('Transaction Controller', function () {
   describe('#getChainId', function () {
     it('returns 0 when the chainId is NaN', function () {
       txController.networkStore = new ObservableStore(NaN)
-      assert.equal(txController.getChainId(), 0)
+      assert.equal(txController.getChainId(), '0x0')
     })
   })
 

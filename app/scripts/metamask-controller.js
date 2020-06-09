@@ -69,6 +69,7 @@ import {
 } from 'gaba'
 
 import backEndMetaMetricsEvent from './lib/backend-metametrics'
+import { getStatus } from './controllers/network/util'
 
 export default class MetamaskController extends EventEmitter {
   /**
@@ -2125,7 +2126,8 @@ export default class MetamaskController extends EventEmitter {
   /**
    * A method for selecting a custom URL for an ethereum RPC provider and updating it
    * @param {string} rpcUrl - A URL for a valid Ethereum RPC API.
-   * @param {number} chainId - The chainId of the selected network.
+   * @param {number} chainId - The decimal chainId of the selected network or
+   empty string.
    * @param {string} ticker - The ticker symbol of the selected network.
    * @param {string} nickname - Optional nickname of the selected network.
    * @returns {Promise<String>} - The RPC Target URL confirmed.
@@ -2138,6 +2140,8 @@ export default class MetamaskController extends EventEmitter {
     nickname,
     rpcPrefs
   ) {
+    const networkStatus = await getStatus(rpcUrl)
+    chainId = parseInt(networkStatus.chainId, 16).toString(10)
     await this.preferencesController.updateRpc({
       rpcUrl,
       chainId,
