@@ -24,7 +24,7 @@ import createOnboardingMiddleware from './lib/createOnboardingMiddleware'
 import providerAsMiddleware from '@yqrashawn/cfx-json-rpc-middleware/providerAsMiddleware'
 import { setupMultiplex } from './lib/stream-utils.js'
 import KeyringController from 'cfx-keyring-controller'
-import EnsController from './controllers/ens'
+// import EnsController from './controllers/ens'
 import NetworkController from './controllers/network'
 import PreferencesController from './controllers/preferences'
 import AppStateController from './controllers/app-state'
@@ -146,10 +146,10 @@ export default class MetamaskController extends EventEmitter {
     //   preferences: this.preferencesController.store,
     // })
 
-    this.ensController = new EnsController({
-      provider: this.provider,
-      networkStore: this.networkController.networkStore,
-    })
+    // this.ensController = new EnsController({
+    //   provider: this.provider,
+    //   networkStore: this.networkController.networkStore,
+    // })
 
     this.incomingTransactionsController = new IncomingTransactionsController({
       blockTracker: this.blockTracker,
@@ -362,7 +362,7 @@ export default class MetamaskController extends EventEmitter {
       // ThreeBoxController: this.threeBoxController.store,
       ABTestController: this.abTestController.store,
       // ENS Controller
-      EnsController: this.ensController.store,
+      // EnsController: this.ensController.store,
     })
     this.memStore.subscribe(this.sendUpdate.bind(this))
   }
@@ -592,11 +592,11 @@ export default class MetamaskController extends EventEmitter {
         this.appStateController
       ),
 
-      // EnsController
-      tryReverseResolveAddress: nodeify(
-        this.ensController.reverseResolveAddress,
-        this.ensController
-      ),
+      // // EnsController
+      // tryReverseResolveAddress: nodeify(
+      //   this.ensController.reverseResolveAddress,
+      //   this.ensController
+      // ),
 
       // KeyringController
       setLocked: nodeify(this.setLocked, this),
