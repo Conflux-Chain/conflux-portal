@@ -57,7 +57,7 @@ export function formatTxMetaForRpcResult (txMeta) {
   }
 }
 
-export function getStatus (rpcUrl) {
+export async function getStatus (rpcUrl) {
   const body = JSON.stringify({
     id: 1,
     jsonrpc: '2.0',
@@ -65,29 +65,21 @@ export function getStatus (rpcUrl) {
     params: [],
   })
 
-  return fetch(rpcUrl, {
+  let networkStatus = await fetch(rpcUrl, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body,
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json()
-      }
-      throw new Error('request error, fallback to 0x0 chainId')
-    })
-    .then((json) => {
-      if (!json.result) {
-        return { chainId: '0x0' }
-      }
-      return json.result
-    })
-    .catch(() => {
-      return {
-        chaindId: '0x0',
-      }
-    })
+  }).catch(() => {})
+  networkStatus = await networkStatus.json().catch(() => {})
+
+  if (!networkStatus) {
+    throw new Error('ConfluxPortal - cfx_getStatus - network error')
+  } else if (!networkStatus.result || !networkStatus.result.chainId) {
+    return { chainId: '0x0' }
+  } else {
+    return networkStatus.result
+  }
 }
