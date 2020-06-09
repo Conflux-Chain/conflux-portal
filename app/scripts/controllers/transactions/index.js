@@ -498,6 +498,7 @@ class TransactionController extends EventEmitter {
       const txMeta = this.txStateManager.getTx(txId)
       txMeta.txParams.epochHeight = await this.blockTracker.getLatestBlock()
       const fromAddress = txMeta.txParams.from
+      txMeta.txParams.chainId = `0x${parseInt(this.getChainId(), 10).toString(16)}`
       // wait for a nonce
       let { customNonceValue = null } = txMeta
       customNonceValue = Number(customNonceValue)

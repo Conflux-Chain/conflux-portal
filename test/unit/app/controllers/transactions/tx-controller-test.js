@@ -21,7 +21,7 @@ import {
 } from '../../../../stub/provider'
 
 const noop = () => true
-const currentNetworkId = 42
+const currentNetworkId = 2999
 
 describe('Transaction Controller', function () {
   let txController, provider, providerResultStub, fromAccount
@@ -590,6 +590,7 @@ describe('Transaction Controller', function () {
           storageLimit: '0x0',
           epochHeight: '0xabce',
           nonce: '0x4c',
+          chainId: '0xbb7',
         },
         metamaskNetworkId: currentNetworkId,
       }
