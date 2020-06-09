@@ -73,7 +73,10 @@ export async function getStatus (rpcUrl) {
     },
     body,
   }).catch(() => {})
-  networkStatus = await networkStatus.json().catch(() => {})
+
+  if (networkStatus) {
+    networkStatus = await networkStatus.json().catch(() => {})
+  }
 
   if (!networkStatus) {
     throw new Error('ConfluxPortal - cfx_getStatus - network error')
