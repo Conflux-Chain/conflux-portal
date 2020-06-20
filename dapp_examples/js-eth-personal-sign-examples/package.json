@@ -1,0 +1,30 @@
+{
+  "name": "js-eth-personal-sign-examples",
+  "version": "1.0.0",
+  "description": "Simplest possible signature examples, for use with [MetaMask](https://metamask.io).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify -t brfs index.js -o bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flyswatter/js-eth-personal-sign-examples.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flyswatter/js-eth-personal-sign-examples/issues"
+  },
+  "homepage": "https://github.com/flyswatter/js-eth-personal-sign-examples#readme",
+  "dependencies": {
+    "eth-sig-util": "^2.3.0",
+    "ethereumjs-util": "^5.1.1",
+    "ethjs": "^0.3.0"
+  },
+  "devDependencies": {
+    "babel-runtime": "^6.26.0",
+    "brfs": "^1.4.3",
+    "browserify": "^16.2.3"
+  }
+}
