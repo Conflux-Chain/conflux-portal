@@ -1,5 +1,3 @@
 # JS Ethereum Signature Example
 
-Simplest possible signature examples, for use with [MetaMask](https://metamask.io).
-
-[Live Demo Here](https://danfinlay.github.io/js-eth-personal-sign-examples/)
+Simplest possible signature examples, for use with [Conflux Portal](https://portal.conflux-chain.org/).
