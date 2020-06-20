@@ -21,6 +21,9 @@ function connect () {
     //.catch(console.error)
   }else{
 	  console.log('We do not find Portal')
+	  if(confirm('检测到您的浏览器中并未安装conflux钱包插件，点击确定前往下载。\n\n 注：如果没有跳转看下是不是被浏览器拦截了')){
+			        window.open("https://github.com/Conflux-Chain/conflux-portal/releases")
+			    }
   }
 }
 
