@@ -6330,6 +6330,18 @@ cfx-sig-util@^0.0.1-a:
     tweetnacl "^1.0.0"
     tweetnacl-util "^0.15.0"
 
+cfx-sig-util@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/cfx-sig-util/-/cfx-sig-util-0.0.2.tgz#fad1443f7036a020fb3f3fc0a7dc6b7d7ae17015"
+  integrity sha512-fUrBk7BUG4eaqfTSwJpxDdEou5SyBr5dbUjUPawAxJRf7ixxrAaRqRoOc+mwVsH5AUNZaXiJ+yqlA4oJqNYQzQ==
+  dependencies:
+    buffer "^5.2.1"
+    cfx-util "^0.0.1-b"
+    elliptic "^6.4.0"
+    ethereumjs-abi "0.6.5"
+    tweetnacl "^1.0.0"
+    tweetnacl-util "^0.15.0"
+
 cfx-simple-keyring@^0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/cfx-simple-keyring/-/cfx-simple-keyring-0.0.2.tgz#a5c4950a4b5356056510cbaf1b0d3ddc42dcea49"
@@ -6376,6 +6388,20 @@ cfx-wallet@^0.0.1-c:
     aes-js "^3.1.1"
     bs58check "^2.1.2"
     cfx-util "^0.0.1-c"
+    hdkey "^1.1.1"
+    randombytes "^2.0.6"
+    scrypt.js "^0.3.0"
+    utf8 "^3.0.0"
+    uuid "^3.3.2"
+
+cfx-wallet@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/cfx-wallet/-/cfx-wallet-0.0.2.tgz#888a7b3d9b591f6528437f19c64166ce9d863b99"
+  integrity sha512-Tn3DFzKghLDcrhl1mGuvnBQk7HVeNQSZyXPACII9HSOj6gKsebApoU5xkiLfWBsmCZLYbwxGCoGgohFCu72n4A==
+  dependencies:
+    aes-js "^3.1.1"
+    bs58check "^2.1.2"
+    cfx-util "^0.0.2"
     hdkey "^1.1.1"
     randombytes "^2.0.6"
     scrypt.js "^0.3.0"
