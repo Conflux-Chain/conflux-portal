@@ -101,6 +101,7 @@ jobs:
       - run:
           name: Create GitHub Pull Request for version
           command: |
+            yarn update-changelog
             .circleci/scripts/release-bump-changelog-version
             .circleci/scripts/release-bump-manifest-version
             .circleci/scripts/release-create-release-pr
