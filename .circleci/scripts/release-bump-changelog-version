@@ -16,6 +16,7 @@ then
     exit 1
 fi
 
+yarn update-changelog
 version="${CIRCLE_BRANCH/Version-v/}"
 
 if ! grep --quiet --fixed-strings "$version" CHANGELOG.md
