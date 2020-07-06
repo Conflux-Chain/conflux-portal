@@ -19,13 +19,15 @@ fi
 printf '%s\n' 'Updating the manifest version if needed'
 
 version="${CIRCLE_BRANCH/Version-v/}"
-updated_manifest="$(jq ".version = \"$version\"" app/manifest.json)"
-printf '%s\n' "$updated_manifest" > app/manifest.json
+current_version="$(jq ".version" app/manifest.json)"
 
-if [[ -z $(git status --porcelain) ]]
+if [[ $version == $current_version ]]
 then
     printf '%s\n' 'App manifest version already set'
     exit 0
+else
+  updated_manifest="$(jq ".version = \"$version\"" app/manifest.json)"
+  printf '%s\n' "$updated_manifest" > app/manifest.json
 fi
 
 git \
