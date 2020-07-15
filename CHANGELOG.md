@@ -2,6 +2,15 @@
 
 ## Current Develop Branch
 
+## 0.3.0 Wed Jul 15 2020
+- feat(sign): support cfx_signTypedData_v4, change cfx_sign logic back
+- feat(jssdk): use js-conflux-sdk@0.11.0
+- docs(changelog): update changelog
+- Version v0.2.4
+- ci(changelog): automatically update changelog at pre release
+- fix: sentry sourcemap upload
+- feat: update for new version of fullnode
+
 ## 0.2.4 Fri Jul 03 2020
 - feat(sign): support cfx_signTypedData_v4, change cfx_sign logic back (#176)
 - feat(jssdk): use js-conflux-sdk@0.11.0 (#177)
