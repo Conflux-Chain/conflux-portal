@@ -1,6 +1,10 @@
 # Changelog
 
 ## Current Develop Branch
+- ci(changelog): automatically update changelog at pre release
+- fix: sentry sourcemap upload
+- feat: update for new version of fullnode
+- Version v0.3.0
 
 ## 0.3.0 Wed Jul 15 2020
 - ci(changelog): automatically update changelog at pre release
