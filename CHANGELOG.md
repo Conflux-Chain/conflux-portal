@@ -2,6 +2,8 @@
 
 ## Current Develop Branch
 
+## 0.4.1 Fri Oct 23 2020
+
 ## 0.4.0 Fri Oct 09 2020
 
 - feat: add simple gas feature back
