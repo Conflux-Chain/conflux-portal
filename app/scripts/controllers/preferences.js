@@ -54,7 +54,7 @@ class PreferencesController {
         lostIdentities: {},
         forgottenPassword: false,
         preferences: {
-          useNativeCurrencyAsPrimaryCurrency: false,
+          useNativeCurrencyAsPrimaryCurrency: true,
         },
         trustedTokenMap: {},
         completedOnboarding: false,
