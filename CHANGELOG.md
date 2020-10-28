@@ -2,6 +2,10 @@
 
 ## Current Develop Branch
 
+- fix: wrong CFX balance
+
+## 0.5.2 Wed Oct 28 2020
+
 - fix: set useNativeCurrencyAsPrimaryCurrency to false (#271)
 
 ## 0.5.1 Wed Oct 28 2020
