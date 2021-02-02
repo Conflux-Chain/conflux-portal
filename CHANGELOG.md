@@ -2,6 +2,8 @@
 
 ## Current Develop Branch
 
+- fix: token balance not showing automatically (#301)
+
 ## 0.5.10 Tue Feb 02 2021
 
 - chore: format
