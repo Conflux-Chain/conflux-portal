@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import c from 'classnames'
-import {
-  // isValidDomainName,
-  isValidAddress,
-  // isValidAddressHead,
-} from '../../../../helpers/utils/util'
+// import {
+//   isValidDomainName,
+//   isValidAddress,
+//   isValidAddressHead,
+// } from '../../../../helpers/utils/util'
 import { isSmartContractAddress } from '../../../../helpers/utils/transactions.util'
 import { isValidBase32Address } from '../../../../../../app/scripts/cip37'
 
@@ -118,13 +118,13 @@ export default class EnsInput extends Component {
     const { network } = this.props
     event.clipboardData.items[0].getAsString(text => {
       if (
-        isValidAddress(text, 'account') ||
+        // isValidAddress(text, 'account') ||
         isValidBase32Address(text, network, 'user') ||
         isValidBase32Address(text, network, 'null')
       ) {
         this.props.onPaste(text)
       } else if (
-        isValidAddress(text, 'contract') ||
+        // isValidAddress(text, 'contract') ||
         isValidBase32Address(text, network, 'contract')
       ) {
         isSmartContractAddress(text, network).then(
@@ -149,14 +149,14 @@ export default class EnsInput extends Component {
 
     if (
       onValidAddressTyped &&
+      // isValidAddress(input, 'account') ||
       (isValidBase32Address(input, network, 'user') ||
-        isValidBase32Address(input, network, 'null') ||
-        isValidAddress(input, 'account'))
+        isValidBase32Address(input, network, 'null'))
     ) {
       onValidAddressTyped(input)
     } else if (
-      isValidBase32Address(input, network, 'contract') ||
-      isValidAddress(input, 'contract')
+      // isValidAddress(input, 'contract') ||
+      isValidBase32Address(input, network, 'contract')
     ) {
       isSmartContractAddress(input, network).then(
         rst => rst && onValidAddressTyped(input)

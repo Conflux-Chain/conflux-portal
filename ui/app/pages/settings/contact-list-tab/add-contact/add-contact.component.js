@@ -70,11 +70,10 @@ export default class AddContact extends PureComponent {
         ethAddress: hexAddress,
         errorIsWarning: false,
       })
-    } else if (validHex) {
-      this.setState({
-        error: this.context.t('confluxNewAddressWarning'),
-        errorIsWarning: true,
-      })
+      // } else if (validHex) {
+      //   this.setState({
+      //     error: this.context.t('confluxNewAddressWarning'),
+      //   })
     } else {
       this.setState({
         error: this.context.t('invalidAddress'),

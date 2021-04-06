@@ -5,14 +5,14 @@ import { toChecksumAddress } from 'cfx-util'
 import {
   REQUIRED_ERROR,
   INVALID_RECIPIENT_ADDRESS_ERROR,
-  INVALID_RECIPIENT_0X_ERROR,
+  // INVALID_RECIPIENT_0X_ERROR,
   INVALID_RECIPIENT_CHECKSUM_ERROR,
-  INVALID_RECIPIENT_CONTRACT_ERROR,
+  // INVALID_RECIPIENT_CONTRACT_ERROR,
   KNOWN_RECIPIENT_ADDRESS_ERROR,
 } from '../../../send.constants'
 
 const stubs = {
-  isSmartContractAddress: (to) => {
+  isSmartContractAddress: to => {
     if (to === '0x8888888888888888888888888888888888888881') {
       return true
     }
@@ -27,21 +27,21 @@ const toRowUtils = proxyquire('../add-recipient.js', {
 })
 const { getToErrorObject, getToWarningObject } = toRowUtils
 
-describe('add-recipient utils', function () {
-  describe('getToErrorObject()', function () {
-    it('should return a required error if to is falsy', async function () {
+describe('add-recipient utils', function() {
+  describe('getToErrorObject()', function() {
+    it('should return a required error if to is falsy', async function() {
       assert.deepEqual(await getToErrorObject(null), {
         to: REQUIRED_ERROR,
       })
     })
 
-    it('should return null if to is falsy and hexData is truthy', async function () {
+    it('should return null if to is falsy and hexData is truthy', async function() {
       assert.deepEqual(await getToErrorObject(null, undefined, true), {
         to: null,
       })
     })
 
-    it('should return an invalid recipient error if to is truthy but invalid', async function () {
+    it('should return an invalid recipient error if to is truthy but invalid', async function() {
       assert.deepEqual(await getToErrorObject('mockInvalidTo'), {
         to: INVALID_RECIPIENT_ADDRESS_ERROR,
       })
@@ -50,43 +50,43 @@ describe('add-recipient utils', function () {
       })
     })
 
-    it('should return null if to is valid', async function () {
+    it('should return null if to is valid', async function() {
       assert.deepEqual(
         await getToErrorObject('0x1111111111111111111111111111111111111111'),
         {
-          to: null,
+          to: INVALID_RECIPIENT_ADDRESS_ERROR,
         }
       )
     })
 
-    it('should smart contract error if to is not a smart contract', async function () {
+    it('should smart contract error if to is not a smart contract', async function() {
       assert.deepEqual(
         await getToErrorObject('0x8888888888888888888888888888888888888888'),
         {
-          to: INVALID_RECIPIENT_CONTRACT_ERROR,
+          to: INVALID_RECIPIENT_ADDRESS_ERROR,
         }
       )
     })
 
-    it('should no error if to is a smart contract', async function () {
+    it('should error if to is a hex smart contract', async function() {
       assert.deepEqual(
         await getToErrorObject('0x8888888888888888888888888888888888888881'),
         {
-          to: null,
+          to: INVALID_RECIPIENT_ADDRESS_ERROR,
         }
       )
     })
 
-    it('should return 0x error', async function () {
+    it('should return invalid addr error', async function() {
       assert.deepEqual(
         await getToErrorObject('0x2222222222222222222222222222222222222222'),
         {
-          to: INVALID_RECIPIENT_0X_ERROR,
+          to: INVALID_RECIPIENT_ADDRESS_ERROR,
         }
       )
     })
 
-    it('should return checksum error if to checksum invalid', async function () {
+    it.skip('should return checksum error if to checksum invalid', async function() {
       assert.deepEqual(
         await getToErrorObject('0x1Fa2889e80619495738B0262C6B17471F29d9Dc1'),
         {
@@ -95,16 +95,16 @@ describe('add-recipient utils', function () {
       )
     })
 
-    it('should return no error if to a valid checksumed address', async function () {
+    it('should error if to a valid checksumed address', async function() {
       assert.deepEqual(
         await getToErrorObject('0x1Fa2889e80619495738B0262C6B17471F29d9Dc5'),
         {
-          to: null,
+          to: INVALID_RECIPIENT_ADDRESS_ERROR,
         }
       )
     })
 
-    it('should return the passed error if to is truthy but invalid if to is truthy and valid', async function () {
+    it('should return the passed error if to is truthy but invalid if to is truthy and valid', async function() {
       assert.deepEqual(
         await getToErrorObject('invalid #$ 345878', 'someExplicitError'),
         {
@@ -114,8 +114,8 @@ describe('add-recipient utils', function () {
     })
   })
 
-  describe('getToWarningObject()', function () {
-    it('should return a known address recipient if to is truthy but part of state tokens', function () {
+  describe('getToWarningObject()', function() {
+    it('should return a known address recipient if to is truthy but part of state tokens', function() {
       assert.deepEqual(
         getToWarningObject(
           '0x8888888888888888888888888888888888888888',
@@ -131,7 +131,7 @@ describe('add-recipient utils', function () {
       )
     })
 
-    it('should null if to is truthy part of tokens but selectedToken falsy', function () {
+    it('should null if to is truthy part of tokens but selectedToken falsy', function() {
       assert.deepEqual(
         getToWarningObject(
           '0x8888888888888888888888888888888888888888',
@@ -144,7 +144,7 @@ describe('add-recipient utils', function () {
       )
     })
 
-    it('should return a known address recipient if to is truthy but part of contract metadata', function () {
+    it('should return a known address recipient if to is truthy but part of contract metadata', function() {
       assert.deepEqual(
         getToWarningObject(
           '0x8888888888888888888888888888888888888888',
@@ -163,7 +163,7 @@ describe('add-recipient utils', function () {
       )
     })
 
-    it('should null if to is truthy part of contract metadata but selectedToken falsy', function () {
+    it('should null if to is truthy part of contract metadata but selectedToken falsy', function() {
       assert.deepEqual(
         getToWarningObject(
           '0x8888888888888888888888888888888888888888',

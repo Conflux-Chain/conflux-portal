@@ -17,7 +17,7 @@ describe('NetworkController', function() {
         .post('/metamask')
         .reply(200)
 
-      nock('http://portal-main.confluxrpc.org')
+      nock('http://portal-main.confluxrpc.com')
         .persist()
         .post('/', req => req.method === 'cfx_getStatus')
         .reply(200, { result: { chainId: '0x0' } })

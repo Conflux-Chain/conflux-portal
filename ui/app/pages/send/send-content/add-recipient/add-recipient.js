@@ -36,6 +36,8 @@ export async function getToErrorObject(
     if (!hasHexData) {
       toError = REQUIRED_ERROR
     }
+  } else if (!isValidBase32Address(to) && !toError) {
+    toError = INVALID_RECIPIENT_ADDRESS_ERROR
   } else if (
     isValidBase32Address(to) &&
     !isValidBase32Address(to, network) &&
