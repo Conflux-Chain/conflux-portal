@@ -89,7 +89,8 @@
     "3box/ipfs/ipld-zcash/zcash-bitcore-lib/lodash": "^4.17.19",
     "3box/ipfs/ipld-zcash/zcash-bitcore-lib/elliptic": "^6.5.3",
     "ganache-core/lodash": "^4.17.19",
-    "pubnub/superagent-proxy": "^2.0.0"
+    "pubnub/superagent-proxy": "^2.0.0",
+    "netmask": "^2.0.1"
   },
   "dependencies": {
     "@babel/runtime": "^7.5.5",
