@@ -6171,13 +6171,6 @@ cfx-keyring-controller@>=5.7.3:
     loglevel "^1.5.0"
     obs-store "^4.0.3"
 
-cfx-phishing-detect@>=0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/cfx-phishing-detect/-/cfx-phishing-detect-0.0.1.tgz#436bda952c4f02333a76f2f2a0fbb48fe854dc62"
-  integrity sha512-3Vl0eZXKCukb3o2RJuDGjKLOyKy0ihccQQ+GSTy/RomwrqynFCOqgcwPAxhvw8htoNd+DTyZniQCzm0BdGfGfw==
-  dependencies:
-    fast-levenshtein "^2.0.6"
-
 cfx-sig-util@>=2.1.2, cfx-sig-util@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/cfx-sig-util/-/cfx-sig-util-2.1.2.tgz#845538621781b7d66672f8ba6ed421e5b904606c"
@@ -9830,10 +9823,10 @@ eth-method-registry@1.1.0:
   dependencies:
     ethjs "^0.3.0"
 
-eth-phishing-detect@^1.1.13:
-  version "1.1.13"
-  resolved "https://registry.yarnpkg.com/eth-phishing-detect/-/eth-phishing-detect-1.1.13.tgz#ed718b933c8a69fef0cefa6604538824b472dbea"
-  integrity sha512-1KQcKvAQIjJgFMVwxaw2+BlzM9Momzl0e+/torPdMjg7WGq6LmCIS7ddg84diH5zIQp9quGyRVIEawCCuErgVQ==
+eth-phishing-detect@^1.1.13, eth-phishing-detect@^1.1.14:
+  version "1.1.14"
+  resolved "https://registry.yarnpkg.com/eth-phishing-detect/-/eth-phishing-detect-1.1.14.tgz#64dcd35dd3a7a95266d875cbc5280842cda133d7"
+  integrity sha512-nMQmzrgYabZ52YpuKZ38lStJy9Lozww2WBhyFbu/oepjsZzPvnl2KwJ6TJ78kk14USdl8Htt+eEMk2WAdAjlWg==
   dependencies:
     fast-levenshtein "^2.0.6"
 
