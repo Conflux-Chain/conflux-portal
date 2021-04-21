@@ -2,6 +2,8 @@
 
 ## Current Develop Branch
 
+- fix: use new version of eth-phishing-detect (#325)
+
 ## 0.6.2 Wed Apr 07 2021
 
 - feat: use new rpc endpoint (#319)
