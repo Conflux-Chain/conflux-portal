@@ -118,17 +118,17 @@ steps:
       - 'source .buildkite/scripts/pre'
       - 'docker-build'
 
-  - key: 'prep-build-storybook'
-    label: ':storybook: build storybook'
-    env:
-      'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps-with-prod-files'
-    depends_on: 'prep-deps-with-prod-files'
-    retry:
-      automatic:
-        limit: 2
-    commands:
-      - 'source .buildkite/scripts/pre'
-      - 'docker-build'
+  # - key: 'prep-build-storybook'
+  #   label: ':storybook: build storybook'
+  #   env:
+  #     'DOCKER_PULL_DEPENDS_TARGET': 'prep-deps-with-prod-files'
+  #   depends_on: 'prep-deps-with-prod-files'
+  #   retry:
+  #     automatic:
+  #       limit: 2
+  #   commands:
+  #     - 'source .buildkite/scripts/pre'
+  #     - 'docker-build'
 
   - key: 'test-lint'
     label: ':eslint: lint'

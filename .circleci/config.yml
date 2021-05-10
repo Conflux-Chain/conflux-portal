@@ -16,9 +16,9 @@ workflows:
       - prep-build-test:
           requires:
             - prep-deps
-      - prep-build-storybook:
-          requires:
-            - prep-deps
+      # - prep-build-storybook:
+      #     requires:
+      #       - prep-deps
       # - prep-scss:
       #     requires:
       #       - prep-deps
@@ -82,12 +82,12 @@ workflows:
             - prep-deps
             - prep-build
             # - all-tests-pass
-      - job-publish-storybook:
-          filters:
-            branches:
-              only: develop
-          requires:
-            - prep-build-storybook
+      # - job-publish-storybook:
+      #     filters:
+      #       branches:
+      #         only: develop
+      #     requires:
+      #       - prep-build-storybook
       # - coveralls-upload:
       #     requires:
       #       - test-unit

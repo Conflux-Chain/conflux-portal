@@ -155,9 +155,9 @@ RUN yarn dist
 RUN find dist/ -type f -exec md5sum {} \; | sort -k 2
 
 # **** prep-build-storybook
-FROM prep-deps-with-prod-files AS prep-build-storybook
-COPY --chown=circleci:circleci .storybook .
-RUN yarn storybook:build
+# FROM prep-deps-with-prod-files AS prep-build-storybook
+# COPY --chown=circleci:circleci .storybook .
+# RUN yarn storybook:build
 
 # **** test-lint
 FROM prep-deps-with-files AS test-lint
