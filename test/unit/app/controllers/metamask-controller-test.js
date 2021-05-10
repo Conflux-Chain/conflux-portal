@@ -92,6 +92,17 @@ describe('MetaMaskController', function() {
       .get(/.*/)
       .reply(200, '{"JPY":12415.9}')
 
+    nock('https://cdn.jsdelivr.net')
+      .persist()
+      .get('/gh/MetaMask/eth-phishing-detect@master/src/config.json')
+      .reply(200, {
+        version: 2,
+        tolerance: 2,
+        fuzzylist: [],
+        whitelist: [],
+        blacklist: [],
+      })
+
     metamaskController = new MetaMaskController({
       showUnapprovedTx: noop,
       showUnconfirmedMessage: noop,
@@ -917,7 +928,7 @@ describe('MetaMaskController', function() {
         url: 'http://myethereumwalletntw.com',
         tab: {},
       }
-      await metamaskController.phishingController.updatePhishingLists()
+      // await metamaskController.phishingController.updatePhishingLists()
 
       const { promise, resolve } = deferredPromise()
       const streamTest = createThoughStream((chunk, _, cb) => {

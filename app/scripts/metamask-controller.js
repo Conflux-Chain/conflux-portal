@@ -65,8 +65,10 @@ import nanoid from 'nanoid'
 import {
   CurrencyRateController,
   ShapeShiftController,
-  PhishingController,
+  // PhishingController,
 } from 'gaba'
+import PhishingController from './controllers/PhishingController.js'
+
 import { AddressBookControllerWithBase32Address } from './addressbook-cip37'
 
 import backEndMetaMetricsEvent from './lib/backend-metametrics'
