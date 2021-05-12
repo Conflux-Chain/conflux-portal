@@ -817,6 +817,20 @@ class TransactionController extends EventEmitter {
   */
   async _determineTransactionCategory(txParams) {
     const { data, to } = txParams
+
+    // detect internal contracts
+    if (
+      [
+        '0x0888000000000000000000000000000000000000',
+        '0x0888000000000000000000000000000000000001',
+        '0x0888000000000000000000000000000000000002',
+      ].includes(to?.toLowerCase())
+    ) {
+      return {
+        transactionCategory: CONTRACT_INTERACTION_KEY,
+        getCodeResponse: to,
+      }
+    }
     const { name } = (data && abiDecoder.decodeMethod(data)) || {}
     const tokenMethodName = [
       TOKEN_METHOD_APPROVE,
