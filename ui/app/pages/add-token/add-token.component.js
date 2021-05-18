@@ -159,6 +159,11 @@ class AddToken extends Component {
 
   async attemptToAutoFillTokenParams(address) {
     const { symbol = '', decimals = 0 } = await this.tokenInfoGetter(address)
+    if (decimals === 'FAILED') {
+ return this.setState({
+        customDecimalsError: this.context.t('decimalMethodNotFound'),
+      })
+}
 
     const autoFilled = Boolean(symbol && decimals)
     this.setState({ autoFilled })

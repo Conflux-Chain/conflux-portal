@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js'
 const DEFAULT_SYMBOL = ''
 const DEFAULT_DECIMALS = '0'
 
-async function getSymbolFromContract (tokenAddress) {
+async function getSymbolFromContract(tokenAddress) {
   const token = util.getContractAtAddress(tokenAddress)
 
   try {
@@ -19,7 +19,7 @@ async function getSymbolFromContract (tokenAddress) {
   }
 }
 
-async function getDecimalsFromContract (tokenAddress) {
+async function getDecimalsFromContract(tokenAddress) {
   const token = util.getContractAtAddress(tokenAddress)
 
   try {
@@ -34,11 +34,11 @@ async function getDecimalsFromContract (tokenAddress) {
   }
 }
 
-function getContractMetadata (tokenAddress, casedContractMap) {
+function getContractMetadata(tokenAddress, casedContractMap) {
   return tokenAddress && casedContractMap[tokenAddress.toLowerCase()]
 }
 
-async function getSymbol (tokenAddress, contractMap) {
+async function getSymbol(tokenAddress, contractMap) {
   let symbol = await getSymbolFromContract(tokenAddress)
 
   if (!symbol) {
@@ -52,7 +52,7 @@ async function getSymbol (tokenAddress, contractMap) {
   return symbol
 }
 
-async function getDecimals (tokenAddress, contractMap) {
+async function getDecimals(tokenAddress, contractMap) {
   let decimals = await getDecimalsFromContract(tokenAddress)
 
   if (!decimals || decimals === '0') {
@@ -66,7 +66,7 @@ async function getDecimals (tokenAddress, contractMap) {
   return decimals
 }
 
-export async function fetchSymbolAndDecimals (tokenAddress, contractMap) {
+export async function fetchSymbolAndDecimals(tokenAddress, contractMap) {
   let symbol, decimals
 
   try {
@@ -85,7 +85,11 @@ export async function fetchSymbolAndDecimals (tokenAddress, contractMap) {
   }
 }
 
-export async function getSymbolAndDecimals (tokenAddress, contractMap, existingTokens = []) {
+export async function getSymbolAndDecimals(
+  tokenAddress,
+  contractMap,
+  existingTokens = []
+) {
   const existingToken = existingTokens.find(
     ({ address }) => tokenAddress === address
   )
@@ -101,10 +105,21 @@ export async function getSymbolAndDecimals (tokenAddress, contractMap, existingT
 
   try {
     symbol = await getSymbol(tokenAddress, contractMap)
-    decimals = await getDecimals(tokenAddress, contractMap)
   } catch (error) {
     log.warn(
-      `symbol() and decimal() calls for token at address ${tokenAddress} resulted in error:`,
+      `symbol() calls for token at address ${tokenAddress} resulted in error:`,
+      error
+    )
+  }
+
+  try {
+    decimals = await getDecimals(tokenAddress, contractMap)
+    if (decimals === undefined) {
+ decimals = 'FAILED'
+}
+  } catch (error) {
+    log.warn(
+      `decimal() calls for token at address ${tokenAddress} resulted in error:`,
       error
     )
   }
@@ -115,10 +130,10 @@ export async function getSymbolAndDecimals (tokenAddress, contractMap, existingT
   }
 }
 
-export function tokenInfoGetter (contractMap) {
+export function tokenInfoGetter(contractMap) {
   const tokens = {}
 
-  return async (address) => {
+  return async address => {
     if (tokens[address]) {
       return tokens[address]
     }
@@ -129,22 +144,22 @@ export function tokenInfoGetter (contractMap) {
   }
 }
 
-export function calcTokenAmount (value, decimals) {
+export function calcTokenAmount(value, decimals) {
   const multiplier = Math.pow(10, Number(decimals || 0))
   return new BigNumber(String(value)).div(multiplier)
 }
 
-export function calcTokenValue (value, decimals) {
+export function calcTokenValue(value, decimals) {
   const multiplier = Math.pow(10, Number(decimals || 0))
   return new BigNumber(String(value)).times(multiplier)
 }
 
-export function getTokenValue (tokenParams = []) {
-  const valueData = tokenParams.find((param) => param.name === '_value')
+export function getTokenValue(tokenParams = []) {
+  const valueData = tokenParams.find(param => param.name === '_value')
   return valueData && valueData.value
 }
 
-export function getTokenToAddress (tokenParams = []) {
-  const toAddressData = tokenParams.find((param) => param.name === '_to')
+export function getTokenToAddress(tokenParams = []) {
+  const toAddressData = tokenParams.find(param => param.name === '_to')
   return toAddressData ? toAddressData.value : tokenParams[0].value
 }

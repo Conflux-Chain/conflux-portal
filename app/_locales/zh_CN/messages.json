@@ -350,6 +350,9 @@
   "data": {
     "message": "数据"
   },
+  "decimalMethodNotFound": {
+    "message": " 钱包目前不支持没有 decimal() 方法的代币"
+  },
   "decimalsMustZerotoTen": {
     "message": "小数位最小为0并且不超过36位."
   },
