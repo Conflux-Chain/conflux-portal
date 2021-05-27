@@ -363,7 +363,7 @@
     "message": "Se vorrai fare nuovamente un backup della frase, la puoi trovare in Impostazioni -> Sicurezza & Privacy."
   },
   "endOfFlowMessage7": {
-    "message": "Se hai delle domande o vedi delle attività sospette, manda una mail a portal@conflux-chain.org."
+    "message": "Se hai delle domande o vedi delle attività sospette, manda una mail a portal@confluxnetwork.org."
   },
   "endOfFlowMessage8": {
     "message": "ConfluxPortal non può recuperare la tua frase seed. Impara di più."
@@ -704,7 +704,7 @@
     "message": "Stai attento con la tua frase seed - ci sono stati report di siti web che hanno tentato di imitare ConfluxPortal. ConfluxPortal non ti chiederà mai la tua frase seed!"
   },
   "protectYourKeysMessage2": {
-    "message": "Tieni la tua frase al sicuro. Se vedi qualcosa di sospetto, o non sei sicuro di un sito web, manda una mail a portal@conflux-chain.org"
+    "message": "Tieni la tua frase al sicuro. Se vedi qualcosa di sospetto, o non sei sicuro di un sito web, manda una mail a portal@confluxnetwork.org"
   },
   "rpcUrl": {
     "message": "Nuovo URL RPC"

@@ -384,7 +384,7 @@
     "message": "Če morate ponovno varnostno kopirati vaše geslo seed phrase, ga najdete v Nastavitve -> Varnost."
   },
   "endOfFlowMessage7": {
-    "message": "Če imate kakršna koli vprašanja ali opazite kaj sumljivega, nam pišite na portal@conflux-chain.org."
+    "message": "Če imate kakršna koli vprašanja ali opazite kaj sumljivega, nam pišite na portal@confluxnetwork.org."
   },
   "endOfFlowMessage8": {
     "message": "ConfluxPortal ne more obnoviti vašega gesla seed phrase. Več informacij."
@@ -723,7 +723,7 @@
     "message": "Bodite previdni  in svoj seed phrase skrbno varujte - obstajajo poročila o spletnih mestih, ki poskušajo posnemati ConfluxPortal. ConfluxPortal nikoli ne bo zahteval vašega gesla seed phrase!"
   },
   "protectYourKeysMessage2": {
-    "message": "Hranite svoj seed phrase. Če opazite sumljivo delovanje ali niste prepričani ali je določeno spletno mesto varno, nam pišite na portal@conflux-chain.org"
+    "message": "Hranite svoj seed phrase. Če opazite sumljivo delovanje ali niste prepričani ali je določeno spletno mesto varno, nam pišite na portal@confluxnetwork.org"
   },
   "rpcUrl": {
     "message": "Nov URL RPC"

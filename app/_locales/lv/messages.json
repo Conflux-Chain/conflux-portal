@@ -384,7 +384,7 @@
     "message": "Ja nepieciešams atkārtoti dublēt atkopšanas frāzi, varat to atrast, dodoties uz Iestatījumi -> Drošība."
   },
   "endOfFlowMessage7": {
-    "message": "Ja jums rodas kādi jautājumi vai pamanāt ko aizdomīgu, rakstiet uz portal@conflux-chain.org."
+    "message": "Ja jums rodas kādi jautājumi vai pamanāt ko aizdomīgu, rakstiet uz portal@confluxnetwork.org."
   },
   "endOfFlowMessage8": {
     "message": "ConfluxPortal nevar atjaunot jūsu atkopšanas frāzi. Uzzināt vairāk."
@@ -734,7 +734,7 @@
     "message": "Rīkojieties uzmanīgi ar sēklas frāzi — saņemti ziņojumi par tīmekļa vietnēm, kas mēģina imitēt ConfluxPortal. ConfluxPortal nekad nelūgs norādīt sēklas frāzi."
   },
   "protectYourKeysMessage2": {
-    "message": "Glabājiet frāzi drošībā. Ja kaut kas šķiet aizdomīgs vai neesat pārliecināti par tīmekļa vietni, rakstiet e-pastu uz portal@conflux-chain.org"
+    "message": "Glabājiet frāzi drošībā. Ja kaut kas šķiet aizdomīgs vai neesat pārliecināti par tīmekļa vietni, rakstiet e-pastu uz portal@confluxnetwork.org"
   },
   "rpcUrl": {
     "message": "Jauns RPC URL"

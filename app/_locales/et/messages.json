@@ -384,7 +384,7 @@
     "message": "Kui peate oma seemnefraasi uuesti varundama, leiate selle valikust Settings (Seaded) -> Security (Turvalisus)."
   },
   "endOfFlowMessage7": {
-    "message": "Kui teil on küsimusi või näete midagi kahtlast, kirjutage meile portal@conflux-chain.org."
+    "message": "Kui teil on küsimusi või näete midagi kahtlast, kirjutage meile portal@confluxnetwork.org."
   },
   "endOfFlowMessage8": {
     "message": "ConfluxPortal ei saa teie seemnefraasi taastada. Lisateave."
@@ -728,7 +728,7 @@
     "message": "Kaitske oma seemnefraasi. Meid on teavitatud veebilehtedest, mis püüavad ConfluxPortali jäljendada. ConfluxPortal ei küsi teilt kunagi teie seemnefraasi!"
   },
   "protectYourKeysMessage2": {
-    "message": "Kaitske oma seemnefraasi. Kui näete midagi kahtlast või pole veebilehe ehtsuses kindel, saatke e-kiri aadressile portal@conflux-chain.org"
+    "message": "Kaitske oma seemnefraasi. Kui näete midagi kahtlast või pole veebilehe ehtsuses kindel, saatke e-kiri aadressile portal@confluxnetwork.org"
   },
   "rpcUrl": {
     "message": "Uus RPC URL"

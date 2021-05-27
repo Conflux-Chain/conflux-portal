@@ -378,7 +378,7 @@
     "message": "Om du behöver säkerhetskopiera din nyckelfras igen, kan du hitta den i Inställningar -> Säkerhet"
   },
   "endOfFlowMessage7": {
-    "message": "Om du har frågor eller ser något misstänksamt, skicka ett e-postmeddelande till portal@conflux-chain.org."
+    "message": "Om du har frågor eller ser något misstänksamt, skicka ett e-postmeddelande till portal@confluxnetwork.org."
   },
   "endOfFlowMessage8": {
     "message": "ConfluxPortal kan inte återställa din seedphrase. Läs mer."
@@ -722,7 +722,7 @@
     "message": "Var försiktig med din seedfras — det har rapporterats om hemsidor som försöker imitera ConfluxPortal. ConfluxPortal kommer aldrig fråga efter din seedfras!"
   },
   "protectYourKeysMessage2": {
-    "message": "Håll din fras i säkert förvar. Om du ser något misstänksamt eller om du är osäker på en hemsida, skicka ett e-postmeddelande till portal@conflux-chain.org."
+    "message": "Håll din fras i säkert förvar. Om du ser något misstänksamt eller om du är osäker på en hemsida, skicka ett e-postmeddelande till portal@confluxnetwork.org."
   },
   "rpcUrl": {
     "message": "Ny RPC-URL"

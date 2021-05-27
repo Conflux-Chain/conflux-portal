@@ -381,7 +381,7 @@
     "message": "Si necesitas otra copia de seguridad de tu frase de inicialización, puedes encontrarla en Configuración -> Seguridad."
   },
   "endOfFlowMessage7": {
-    "message": "Si tienes preguntas o ves algo sospechoso, envía un correo electrónico a portal@conflux-chain.org."
+    "message": "Si tienes preguntas o ves algo sospechoso, envía un correo electrónico a portal@confluxnetwork.org."
   },
   "endOfFlowMessage8": {
     "message": "ConfluxPortal no puede recuperar tu frase de inicialización. Obtén más información."
@@ -723,7 +723,7 @@
     "message": "Ten cuidado con tu frase de inicialización: hay informes sobre sitios web que intentan hacerse pasar por ConfluxPortal. ¡ConfluxPortal no te pedirá nunca tu frase de inicialización!"
   },
   "protectYourKeysMessage2": {
-    "message": "Mantén tu frase segura. Si notas algo raro o si no está seguro sobre si usar algún sitio web en específico, envíanos un correo electrónico a portal@conflux-chain.org"
+    "message": "Mantén tu frase segura. Si notas algo raro o si no está seguro sobre si usar algún sitio web en específico, envíanos un correo electrónico a portal@confluxnetwork.org"
   },
   "rpcUrl": {
     "message": "Nueva URL de RPC"

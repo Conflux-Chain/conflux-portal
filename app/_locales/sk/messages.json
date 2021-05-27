@@ -375,7 +375,7 @@
     "message": "Ak potrebujete backup frázu znova zálohovať, nájdete ju v časti Nastavenia -> Zabezpečenie."
   },
   "endOfFlowMessage7": {
-    "message": "Ak budete mať nejaké otázky alebo niečo zaujímavé, pošlite email na portal@conflux-chain.org."
+    "message": "Ak budete mať nejaké otázky alebo niečo zaujímavé, pošlite email na portal@confluxnetwork.org."
   },
   "endOfFlowMessage8": {
     "message": "ConfluxPortal nemôže obnoviť vašu seed frázu. Zistiť viac."
@@ -704,7 +704,7 @@
     "message": "Pri seed fráze buďte opatrní – vyskytli sa správy o webových stránkach, ktoré sa snažia napodobniť ConfluxPortal. ConfluxPortal nikdy nebude žiadať vašu seed frázu!"
   },
   "protectYourKeysMessage2": {
-    "message": "Držte svoju frázu v bezpečí. Ak zbadáte niečo podozrivé alebo si nie ste istí webom, pošlite email na adresu portal@conflux-chain.org"
+    "message": "Držte svoju frázu v bezpečí. Ak zbadáte niečo podozrivé alebo si nie ste istí webom, pošlite email na adresu portal@confluxnetwork.org"
   },
   "rpcUrl": {
     "message": "Nová RPC URL"

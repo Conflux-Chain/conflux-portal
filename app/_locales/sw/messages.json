@@ -378,7 +378,7 @@
     "message": "Ikiwa unataka kuhifadhi tena kwa njia mbadla kirai chako kianzio, unaweza kukipata kwenye Mipangilio -> Usalama."
   },
   "endOfFlowMessage7": {
-    "message": "Ikiwa una maswali au umeona kitu ambacho ni cha ulaghai, tuma barua pepe portal@conflux-chain.org."
+    "message": "Ikiwa una maswali au umeona kitu ambacho ni cha ulaghai, tuma barua pepe portal@confluxnetwork.org."
   },
   "endOfFlowMessage8": {
     "message": "ConfluxPortal haiwezi kurejesha kirai chako kianzio. Pata maelezo ziadi."
@@ -716,7 +716,7 @@
     "message": "Kuwa mwangalifu na kirai kianzio chako - kumekuwa na taarifa za tovuti ambazo zinajaribu kuiga ConfluxPortal. ConfluxPortal kamwe haitakuomba kirai kianzio chako!"
   },
   "protectYourKeysMessage2": {
-    "message": "Weka salama kirai kianzio chako. Ikiwa unaona kitu cha kilaghai, au huna uhakika na tovuti fulani, tuma barua pepe kwenda portal@conflux-chain.org"
+    "message": "Weka salama kirai kianzio chako. Ikiwa unaona kitu cha kilaghai, au huna uhakika na tovuti fulani, tuma barua pepe kwenda portal@confluxnetwork.org"
   },
   "rpcUrl": {
     "message": "RPC URL mpya"

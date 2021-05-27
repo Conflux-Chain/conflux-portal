@@ -384,7 +384,7 @@
     "message": "Jeigu reikia dar kartą padaryti jūsų atkūrimo frazės kopiją, ją galite rasti pasirinkę Nuostatos -> Sauga."
   },
   "endOfFlowMessage7": {
-    "message": "Jeigu turite klausimų arba pastebite ką nors įtartino, rašykite el. paštu portal@conflux-chain.org."
+    "message": "Jeigu turite klausimų arba pastebite ką nors įtartino, rašykite el. paštu portal@confluxnetwork.org."
   },
   "endOfFlowMessage8": {
     "message": "„ConfluxPortal“ negali atkurti jūsų atkūrimo frazės. Sužinokite daugiau."
@@ -738,7 +738,7 @@
     "message": "Saugokite savo atkūrimo frazę – gavome pranešimų apie interneto svetaines, kuriomis bandoma imituoti „ConfluxPortal“. „ConfluxPortal“ niekada neprašys jūsų pateikti savo atkūrimo frazę!"
   },
   "protectYourKeysMessage2": {
-    "message": "Saugokite savo frazę. Jei pastebėjote kažką įtartino arba nesate tikri dėl svetainės, rašykite mums adresu portal@conflux-chain.org"
+    "message": "Saugokite savo frazę. Jei pastebėjote kažką įtartino arba nesate tikri dėl svetainės, rašykite mums adresu portal@confluxnetwork.org"
   },
   "rpcUrl": {
     "message": "Naujas RPC URL"

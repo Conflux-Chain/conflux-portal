@@ -384,7 +384,7 @@
     "message": "Dacă trebuie să vă salvați din nou fraza seed, puteți să o găsiți în Setări -> Securitate."
   },
   "endOfFlowMessage7": {
-    "message": "Dacă aveți întrebări sau vedeți ceva suspect, trimiteți un e-mail la portal@conflux-chain.org."
+    "message": "Dacă aveți întrebări sau vedeți ceva suspect, trimiteți un e-mail la portal@confluxnetwork.org."
   },
   "endOfFlowMessage8": {
     "message": "ConfluxPortal nu vă poate recupera expresia sursă. Aflați mai multe."
@@ -725,7 +725,7 @@
     "message": "Aveți grijă cu expresia dvs. sursă – au existat raportări despre site-uri web care încearcă să imite ConfluxPortal. ConfluxPortal nu vă va cere niciodată expresia sursă!"
   },
   "protectYourKeysMessage2": {
-    "message": "Aveți grijă de fraza dvs. Dacă vedeți ceva care este în neregulă sau aveți dubii cu privire la un site, trimiteți un mesaj la portal@conflux-chain.org"
+    "message": "Aveți grijă de fraza dvs. Dacă vedeți ceva care este în neregulă sau aveți dubii cu privire la un site, trimiteți un mesaj la portal@confluxnetwork.org"
   },
   "rpcUrl": {
     "message": "URL RPC nou"

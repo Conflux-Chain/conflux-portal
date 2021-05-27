@@ -381,7 +381,7 @@
     "message": "Hvis du trenger å sikkerhetskopiere seed-frasen din igjen kan du finne den i Innstillinger -> Sikkerhet."
   },
   "endOfFlowMessage7": {
-    "message": "Hvis du noen gang har spørsmål eller ser noe mistenksomt, send e-post til portal@conflux-chain.org"
+    "message": "Hvis du noen gang har spørsmål eller ser noe mistenksomt, send e-post til portal@confluxnetwork.org"
   },
   "endOfFlowMessage8": {
     "message": "ConfluxPortal klarer ikke å gjenopprette den mnemoniske gjenopprettingsfrasen din. Finn ut mer. "
@@ -728,7 +728,7 @@
     "message": "Vær forsiktig med den mnemoniske gjenopprettingsfrasen din - det rapporteres om nettsteder som prøver å etterligne ConfluxPortal. ConfluxPortal vil aldri be om den mnemoniske gjenopprettingsfrasen din!"
   },
   "protectYourKeysMessage2": {
-    "message": "Oppbevar setningen din trygt. Hvis du ser noe mistenksomt, eller du er usikker på et nettsted, kan du sende en e-post til portal@conflux-chain.org"
+    "message": "Oppbevar setningen din trygt. Hvis du ser noe mistenksomt, eller du er usikker på et nettsted, kan du sende en e-post til portal@confluxnetwork.org"
   },
   "rpcUrl": {
     "message": "NY RPC-URL "

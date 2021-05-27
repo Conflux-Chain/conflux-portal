@@ -357,7 +357,7 @@
     "message": "Kung kailangan mong i-back up ulit ang iyong seed phrase, makikita mo ito sa Mga Setting -> Seguridad."
   },
   "endOfFlowMessage7": {
-    "message": "Kung may mga tanong ka o nakakita ka ng kahina-hinalang bagay, i-email ang portal@conflux-chain.org."
+    "message": "Kung may mga tanong ka o nakakita ka ng kahina-hinalang bagay, i-email ang portal@confluxnetwork.org."
   },
   "endOfFlowMessage8": {
     "message": "Hindi ma-recover ng ConfluxPortal ang iyong seedphrase. Alamin pa."
@@ -669,7 +669,7 @@
     "message": "Mag-ingat sa iyong seed phrase — may mga ulat na may mga website na nagpapanggap bilang ConfluxPortal. Hindi kailanman hihilingin ng ConfluxPortal ang iyong seed phrase!"
   },
   "protectYourKeysMessage2": {
-    "message": "Panatilihing ligtas ang iyong parirala. Kung may makikita kang kahina-hinala, o hindi ka sigurado tungkol sa isang website, mag-email sa portal@conflux-chain.org"
+    "message": "Panatilihing ligtas ang iyong parirala. Kung may makikita kang kahina-hinala, o hindi ka sigurado tungkol sa isang website, mag-email sa portal@confluxnetwork.org"
   },
   "rpcUrl": {
     "message": "Bagong RPC URL"

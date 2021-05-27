@@ -384,7 +384,7 @@
     "message": "Ako trebate ponovno sigurnosno kopirati svoju početnu rečenicu, možete je pronaći unutar stavke Postavke --> Sigurnost."
   },
   "endOfFlowMessage7": {
-    "message": "Ako imate bilo kakvo pitanje ili vidite nešto što vam se čini sumnjivim, pošaljite nam elektroničku poruku na portal@conflux-chain.org."
+    "message": "Ako imate bilo kakvo pitanje ili vidite nešto što vam se čini sumnjivim, pošaljite nam elektroničku poruku na portal@confluxnetwork.org."
   },
   "endOfFlowMessage8": {
     "message": "Osoblje ConfluxPortal ne može obnoviti vašu početnu rečenicu. Saznajte više."
@@ -731,7 +731,7 @@
     "message": "Pazite na svoju početnu rečenicu jer smo zaprimili prijave o postojanju mrežnih mjesta koja oponašaju mrežno mjesto usluge ConfluxPortal. Na mrežnom se mjestu ConfluxPortal nikada ne traži vaša početna rečenica!"
   },
   "protectYourKeysMessage2": {
-    "message": "Zaštite svoju rečenicu. Ako vam se nešto čini sumnjivim ili nemate povjerenja u mrežno mjesto, pošaljite nam elektroničku poruku na portal@conflux-chain.org"
+    "message": "Zaštite svoju rečenicu. Ako vam se nešto čini sumnjivim ili nemate povjerenja u mrežno mjesto, pošaljite nam elektroničku poruku na portal@confluxnetwork.org"
   },
   "rpcUrl": {
     "message": "Novi URL RPC-a"

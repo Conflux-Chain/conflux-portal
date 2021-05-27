@@ -378,7 +378,7 @@
     "message": "Se precisar fazer backup de sua frase-semente de novo, acesse Configurações -> Segurança."
   },
   "endOfFlowMessage7": {
-    "message": "Caso você tenha alguma dúvida ou veja algo suspeito, envie um e-mail para portal@conflux-chain.org."
+    "message": "Caso você tenha alguma dúvida ou veja algo suspeito, envie um e-mail para portal@confluxnetwork.org."
   },
   "endOfFlowMessage8": {
     "message": "O ConfluxPortal não pode recuperar sua frase semente. Saiba mais."
@@ -723,7 +723,7 @@
     "message": "Tome cuidado com sua frase semente — houve relatos de sites que tentam imitar o ConfluxPortal. O ConfluxPortal nunca pedirá sua frase semente!"
   },
   "protectYourKeysMessage2": {
-    "message": "Mantenha a sua frase segura. Se você vir algo esquisito ou está inseguro quanto a um site, envie um e-mail para portal@conflux-chain.org"
+    "message": "Mantenha a sua frase segura. Se você vir algo esquisito ou está inseguro quanto a um site, envie um e-mail para portal@confluxnetwork.org"
   },
   "rpcUrl": {
     "message": "Nova URL RPC"
