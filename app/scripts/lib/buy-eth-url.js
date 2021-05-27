@@ -12,7 +12,7 @@ export default getBuyEthUrl
  * network does not match any of the specified cases, or if no network is given, returns undefined.
  *
  */
-function getBuyEthUrl ({ network, /* amount, */ address, service, type }) {
+function getBuyEthUrl({ network, /* amount, */ address, service, type }) {
   // default service by network if not specified
   if (type && !service) {
     service = getDefaultServiceForType(type)
@@ -26,13 +26,13 @@ function getBuyEthUrl ({ network, /* amount, */ address, service, type }) {
     case 'conflux-main-faucet':
       return `https://confluxscan.io/sponsor`
     case 'conflux-test-faucet':
-      return `http://test-faucet.conflux-chain.org:18088/dev/ask?address=${address}`
+      return `http://test-faucet.confluxnetwork.org:18088/dev/ask?address=${address}`
     default:
       throw new Error(`Unknown cryptocurrency exchange or faucet: "${service}"`)
   }
 }
 
-function getDefaultServiceForNetwork (network) {
+function getDefaultServiceForNetwork(network) {
   switch (network) {
     case '1029':
       return 'conflux-main-faucet'
@@ -43,7 +43,7 @@ function getDefaultServiceForNetwork (network) {
   }
 }
 
-function getDefaultServiceForType (type) {
+function getDefaultServiceForType(type) {
   switch (type) {
     case 'mainnet':
       return 'conflux-main-faucet'
